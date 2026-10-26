@@ -35,3 +35,4 @@ et [les limites d'intégration](./docs/INTEGRATION_NFCWEBSITE.md).
 - `npm test`
 - `npm run build`
 # nfcmanager
+# nfcmanager
