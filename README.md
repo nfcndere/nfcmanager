@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# NFC Admin
 
-## Getting Started
+Interface d'administration en français pour le Ngaoundéré FC. L'application
+est autonome et transmet les demandes de données à l'API du site public
+nfcwebsite; elle ne se connecte pas directement à sa base de données.
 
-First, run the development server:
+## Démarrage
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Installer les dépendances du projet.
+2. (Facultatif) Copier `.env.example` vers `.env.local` pour configurer
+   `NFCWEBSITE_API_URL`. Sans cette variable, l'application utilise le domaine
+   officiel `https://ngaounderefc.cm`.
+3. Lancer `npm run dev`, puis ouvrir `http://localhost:3000`.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+En production, `NFCWEBSITE_API_URL` doit utiliser HTTPS. La connexion réutilise
+le compte du site public; seuls les rôles `ADMIN` et `EDITOR` sont acceptés.
+Le jeton d'accès est conservé dans un cookie `httpOnly` et expire après
+15 minutes, après quoi une nouvelle connexion est nécessaire.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Modules
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Connexion et déconnexion.
+- Tableau de bord, matchs, effectif, actualités et classement NFC.
+- PWA installable, avec page de secours hors connexion.
 
-## Learn More
+Les fonctions sont limitées aux endpoints actuellement exposés par le site.
+Les actualités brouillons ne peuvent pas être listées et le classement est en
+lecture seule. Voir [l'inventaire des endpoints](./docs/INVENTAIRE_NFCWEBSITE.md)
+et [les limites d'intégration](./docs/INTEGRATION_NFCWEBSITE.md).
 
-To learn more about Next.js, take a look at the following resources:
+## Vérifications
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `npm run lint`
+- `npm run typecheck`
+- `npm test`
+- `npm run build`
+# nfcmanager
