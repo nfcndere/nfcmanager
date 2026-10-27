@@ -1,26 +1,65 @@
 @import "tailwindcss";
 
 @theme {
-  --color-nfc-green: #008751;
-  --color-nfc-dark: #063b29;
-  --color-nfc-ink: #17231d;
-  --color-nfc-mist: #f3f7f4;
+  --color-nfc-green: #1f5f3d;
+  --color-nfc-green-dark: #173f2d;
+  --color-nfc-yellow: #8cea5a;
+  --color-nfc-dark: #0b0d0e;
+  --color-nfc-surface: #131618;
+  --color-nfc-ink: #111827;
+  --color-nfc-mist: #f8f9fa;
 }
 
 :root {
   color-scheme: light;
-  font-family: Arial, Helvetica, sans-serif;
-  color: #17231d;
-  background: #f3f7f4;
+  --nfc-green: #1f5f3d;
+  --nfc-green-dark: #184c30;
+  --nfc-yellow: #8cea5a;
+  --nfc-dark: #0b0d0e;
+  --nfc-surface: #131618;
+
+  /* Palette inspirée de Medusa UI (surfaces neutres, bordures fines, contrastes posés) */
+  --nfc-bg: #f8f9fa;
+  --nfc-card: #ffffff;
+  --nfc-surface-subtle: #f3f4f6;
+  --nfc-text: #111827;
+  --nfc-muted: #6b7280;
+  --nfc-border: #e5e7eb;
+  --nfc-input-bg: #ffffff;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --nfc-bg: #0b0d0e;
+  --nfc-card: #131618;
+  --nfc-surface-subtle: #1b1f22;
+  --nfc-text: #f3f4f6;
+  --nfc-muted: #9ca3af;
+  --nfc-border: #262b2f;
+  --nfc-input-bg: #161a1d;
 }
 
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
+html,
 body {
   margin: 0;
-  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--nfc-bg);
+  color: var(--nfc-text);
+  font-family: var(--font-source-sans), -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+/* Typographie posée type Medusa UI : sans-serif lisible, pas de majuscules agressives */
+.font-heading,
+.font-display {
+  font-family: var(--font-source-sans), -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+  letter-spacing: -0.015em;
+  text-transform: none;
 }
 
 button,
@@ -33,4 +72,12 @@ textarea {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+/* Zone de sécurité PWA (encoches iOS / barre gestuelle Android) */
+.safe-top {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+.safe-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
 }

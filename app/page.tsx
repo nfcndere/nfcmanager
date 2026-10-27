@@ -1,15 +1,15 @@
 import { redirect } from 'next/navigation';
-import { getSession } from '@/lib/auth';
+import { getSessionState } from '@/lib/auth';
 
 export const dynamic = 'force-dynamic';
 
 export default async function HomePage() {
-  let session;
-  try {
-    session = await getSession();
-  } catch (error) {
-    console.error('Impossible de vérifier la session nfcwebsite:', error);
+  const session = await getSessionState();
+  if (session.status === 'authenticated') {
+    redirect('/dashboard');
+  }
+  if (session.status === 'api_unavailable') {
     redirect('/connexion?api=unavailable');
   }
-  redirect(session ? '/dashboard' : '/connexion');
+  redirect('/connexion');
 }

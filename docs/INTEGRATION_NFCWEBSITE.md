@@ -1,73 +1,40 @@
-# Intégration NFC Admin / nfcwebsite
+# Intégration NFC Manager / nfcwebsite
 
-## Règle d'intégration actuelle
+## Architecture & Principe
 
-NFC Admin consomme les endpoints du dépôt `../nfcwebsite` via
-`NFCWEBSITE_API_URL`. Il n'utilise pas la base PostgreSQL directement, n'a pas
-de schéma Prisma propre et ne contient aucune migration. Le token d'accès créé
-par `POST /api/auth/login` est stocké dans un cookie `httpOnly`, puis transmis
-à nfcwebsite en `Authorization: Bearer …` pour chaque requête protégée.
+**nfcmanager** consomme exclusivement l’API de `nfcwebsite` via la variable d’environnement `NFCWEBSITE_API_URL` (par défaut `https://www.ngaounderefc.cm`).
+- **Aucun accès direct à PostgreSQL** ni schéma Prisma local dans `nfcmanager`.
+- **Proxy serveur sécurisé** ([`app/api/site/[...path]/route.ts`](../app/api/site/%5B...path%5D/route.ts)) avec liste blanche stricte ([`lib/proxy-routes.ts`](../lib/proxy-routes.ts)), contrôle d’origine CSRF ([`proxy.ts`](../proxy.ts)) compatible reverse proxy (`X-Forwarded-Host`, `X-Forwarded-Proto`) et PWA (`Sec-Fetch-Site: same-origin`), et jetons en cookies `httpOnly` (`nfc_site_token` 15 min + `nfc_site_refresh` 7 jours).
+- **Rotation transparente du jeton** : lorsque `nfc_site_token` expire ou qu’un appel API renvoie `401`, le proxy et le client tentent automatiquement `POST /api/auth/refresh` sur `nfcwebsite` avant de rejouer la requête.
 
-La configuration demandée `https://ngaounderefc.cm` est normalisée vers
-`https://www.ngaounderefc.cm`, l'hôte canonique du site, afin d'éviter que la
-redirection permanente du domaine nu fasse échouer les requêtes authentifiées.
-Cette URL canonique est également la valeur par défaut si
-`NFCWEBSITE_API_URL` n'est pas définie dans l'environnement de déploiement.
+---
 
-Les routes disponibles et les formats validés se trouvent dans
-[INVENTAIRE_NFCWEBSITE.md](./INVENTAIRE_NFCWEBSITE.md). Les endpoints qui
-n'existent pas dans le site ne sont pas simulés ici.
+## Endpoints `nfcwebsite` consommés par module
 
-## Routes effectivement utilisées
+| Module NFC Manager | Endpoint `nfcwebsite` | Méthodes | Rôle requis | Notes |
+|---|---|---|---|---|
+| Diagnostic & Santé | `/api/health` | `GET` | Public | Vérifie la base et la présence des secrets (`JWT_SECRET`, `JWT_REFRESH_SECRET`, `DATABASE_URL`). |
+| Authentification | `/api/auth/login` | `POST` | Public | Envoie `{ email, password, scope: 'admin' }`. Refuse `USER` (403). |
+| Rafraîchissement | `/api/auth/refresh` | `POST` | Public (Refresh token) | Rotation du couple `{ token, refreshToken }`. |
+| Profil session | `/api/auth/me` | `GET` | Authentifié | Mis en cache mémoire 60s côté serveur (`lib/auth.ts`). |
+| Mot de passe | `/api/auth/password`, `/api/auth/forgot`, `/api/auth/reset` | `POST` | Authentifié / Public | Changement connecté et réinitialisation par e-mail Resend. |
+| Tableau de bord | `/api/matches`, `/api/players`, `/api/articles?status=all`, `/api/forms?processed=false`, `/api/standings` | `GET` | `EDITOR` / `ADMIN` | Supporte le mode hors ligne et l’état `partial` via `DataState`. |
+| Matchs & Direct | `/api/matches`, `/api/matches/[id]` | `GET`, `POST`, `PATCH`, `DELETE` | `EDITOR` / `ADMIN` | Suppression logique (`deletedAt`) annulable pendant 5s via `PATCH { restore: true }`. File hors ligne pour les scores en direct. |
+| Effectif | `/api/players`, `/api/players/[id]` | `GET`, `POST`, `PATCH`, `DELETE` | `EDITOR` / `ADMIN` | Inclut `bio`, `birthDate`, `height`, `weight`, `joinedYear`, `isCaptain`, `photoId` et `stats` JSON. |
+| Actualités | `/api/articles?status=all`, `/api/articles/[id]` | `GET`, `POST`, `PATCH`, `DELETE` | `EDITOR` / `ADMIN` | Inclut les brouillons (`status=all`), `coverId`, `videoUrl` et aperçu fidèle au site public. |
+| Médias & Upload | `/api/galerie`, `/api/galerie/[id]`, `/api/uploads/sign`, `/api/uploads` | `GET`, `POST`, `PATCH`, `DELETE` | `EDITOR` / `ADMIN` | Envoi direct signé vers Cloudinary (sans exposer `CLOUDINARY_API_SECRET`) après compression locale ≤ 2000 px, ou relais `/api/uploads` (≤ 4 Mo). |
+| Classement & Saisons | `/api/standings`, `/api/standings/history`, `/api/seasons`, `/api/seasons/[id]` | `GET`, `PUT`, `POST`, `PATCH` | `EDITOR` / `ADMIN` | Calcul automatique de `played = won + drawn + lost`, `points = 3*won + drawn` et `goalDifference = goalsFor - goalsAgainst`. |
+| Sponsors | `/api/partners?all=1`, `/api/partners/[id]` | `GET`, `POST`, `PATCH`, `DELETE` | `EDITOR` / `ADMIN` | Réordonnancement par priorité et activation/désactivation (`active`). |
+| Académie, Contact, Billetterie | `/api/forms`, `/api/forms/[id]` | `GET`, `PATCH`, `DELETE` | `EDITOR` / `ADMIN` | Suivi `followUpStatus` (`NOUVEAU`, `CONTACTE`, `CONVOQUE`, `ADMIS`, `REFUSE`), `adminNotes` (file hors ligne), appel/WhatsApp en 1 geste, export CSV. |
+| Newsletter & E-mails | `/api/newsletter`, `/api/emails` | `GET`, `POST` | `EDITOR` / `ADMIN` | Liste des abonnés actifs, journal des e-mails et envoi/renvoi via Resend. |
+| Paramètres & Push | `/api/settings`, `/api/push/subscribe` | `GET`, `PUT`, `POST`, `DELETE` | `ADMIN` (`EDITOR` pour Push) | Gère les 7 clés `ClubSetting` publiques et l’abonnement Web Push VAPID. |
+| Utilisateurs & Audit | `/api/users`, `/api/users/[id]`, `/api/audit` | `GET`, `POST`, `PATCH`, `DELETE` | `ADMIN` | Création avec mot de passe temporaire affiché une fois, changement de rôle, désactivation et journal d’audit paginé. |
 
-| Fonction NFC Admin | Endpoint nfcwebsite | Restriction constatée |
-|---|---|---|
-| Connexion | `POST /api/auth/login` | Renvoie un access token (15 min), un refresh token et le profil. NFC Admin n'accepte que `ADMIN` et `EDITOR`. |
-| Vérification de session | `GET /api/auth/me` | Bearer token; renvoie 401 si session invalide. |
-| Tableau de bord | `GET /api/matches`, `GET /api/players`, `GET /api/articles`, `GET /api/forms`, `GET /api/standings`, `GET /api/club-overview` | `GET /api/forms` exige `requireEditor`; les autres GET sont publics. L'API articles ne retourne que les articles publiés. |
-| Matchs | `GET/POST /api/matches`, `GET/PATCH/DELETE /api/matches/[id]` | Les écritures exigent `requireEditor`; `DELETE` supprime définitivement. |
-| Joueurs | `GET/POST /api/players`, `GET/PATCH/DELETE /api/players/[id]` | Les écritures exigent `requireEditor`; `DELETE` supprime définitivement. |
-| Actualités | `GET/POST /api/articles`, `GET/PATCH/DELETE /api/articles/[id]` | POST/PATCH/DELETE exigent `requireEditor`; GET ne liste que `published: true`; DELETE est définitif. |
-| Classement du NFC | `GET /api/standings` | Lecture seule. La route calcule les points et la différence de buts à partir de `ClubStanding`. |
+---
 
-## Limites qui restent côté site public
+## Gestion des services tiers optionnels sur `nfcwebsite`
 
-- `POST /api/auth/login` renvoie access et refresh tokens dans le JSON mais
-  aucune route de renouvellement de jeton n'a été trouvée. Le cookie NFC Admin
-  reprend le token d'accès; il expire après 15 minutes et l'utilisateur doit
-  se reconnecter.
-- Le login du site accepte aussi un compte `USER`; NFC Admin refuse ce rôle
-  après authentification. Il faut que le site refuse lui-même `USER` si la
-  politique doit être partagée entre toutes les interfaces.
-- `GET /api/articles` renvoie uniquement les articles publiés. Il n'existe pas
-  d'endpoint de liste admin pour les brouillons et les articles planifiés.
-- `GET /api/standings` est en lecture seule. Aucune route ne modifie ou
-  n'historise `ClubStanding`.
-- Pas d'endpoint trouvé pour changement/réinitialisation de mot de passe,
-  gestion d'utilisateurs, audit, réglages du club, médias/Cloudinary dans
-  l'application admin, ou campagnes Resend.
-- Les DELETE de `articles`, `matches` et `players` font un `prisma.*.delete`
-  définitif. Aucun `deletedAt` n'est exposé dans les modèles actuels.
-- `requireEditor` du site répond actuellement 401 si l'utilisateur est absent
-  ou non autorisé; il ne distingue pas l'utilisateur connecté sans rôle
-  suffisant (403).
-- Vérification de disponibilité du 26 octobre 2026 : `GET /api/matches`,
-  `/api/players` et `/api/articles` répondent correctement (listes vides).
-  `/api/standings` et `/api/club-overview` répondent HTTP 500 depuis le site
-  public. Ces erreurs serveur empêchent temporairement le chargement de ces
-  données dans l'administration; elles doivent être corrigées dans nfcwebsite.
-
-Si ces opérations sont nécessaires, ajouter et tester les endpoints dans
-nfcwebsite d'abord. Ne pas les remplacer par des appels directs à la base ou
-par des handlers locaux d'administration.
-
-## Variables
-
-`.env.example` de NFC Admin ne contient que `NFCWEBSITE_API_URL`. En production,
-utiliser HTTPS. Aucun secret ou identifiant
-Cloudinary/Resend n'est copié depuis le site.
-
-Le schéma public audité et son `.env.example` indiquent PostgreSQL; l'écart
-MySQL/PostgreSQL mentionné dans le brief n'a pas été observé dans la copie
-actuelle. Les clés Cloudinary historiques signalées par le brief doivent être
-régénérées par les responsables du site.
+Si certaines variables d’environnement optionnelles ne sont pas encore renseignées sur l’hébergement Vercel de `nfcwebsite` :
+- **`RESEND_API_KEY` absent** : l’envoi d’e-mails (`/api/emails`, `/api/auth/forgot`) renvoie `503` ou journalise l’absence de clé sans faire planter l’application ; l’interface affiche un message explicite.
+- **`VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` absents** : `GET /api/push/subscribe` renvoie `{ enabled: false, publicKey: null }` et l’écran Paramètres indique que le Web Push est en attente de configuration VAPID.
+- **Route non déployée (404 / 405)** : le client API (`lib/api/client.ts`) classe la réponse en `unavailable_feature` et le composant `DataState` affiche un bandeau non technique « Fonction pas encore disponible côté site ».

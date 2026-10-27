@@ -1,31 +1,76 @@
 import { redirect } from 'next/navigation';
 import { LoginForm } from '@/components/LoginForm';
-import { getSession } from '@/lib/auth';
+import { getSessionState } from '@/lib/auth';
+import { AlertTriangle, Clock } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
-export default async function LoginPage({ searchParams }: { searchParams: Promise<{ api?: string | string[] }> }) {
+export default async function LoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{
+    api?: string | string[];
+    expired?: string | string[];
+    next?: string | string[];
+    diag?: string | string[];
+  }>;
+}) {
   const params = await searchParams;
-  let user = null;
-  let apiUnavailable = false;
-  try {
-    user = await getSession();
-  } catch (error) {
-    console.error('API nfcwebsite indisponible pendant la vérification de session:', error);
-    apiUnavailable = true;
+  const session = await getSessionState();
+
+  const nextPath = typeof params.next === 'string' && params.next.startsWith('/') ? params.next : '/dashboard';
+  if (session.status === 'ok' || session.status === 'authenticated') {
+    redirect(nextPath);
   }
-  if (user) redirect('/dashboard');
+
+  const apiUnavailable =
+    session.status === 'unavailable' ||
+    session.status === 'api_unavailable' ||
+    params.api === 'unavailable';
+  const sessionExpired = params.expired === '1';
+  const showDiag = params.diag === '1' || apiUnavailable;
 
   return (
-    <main className="flex min-h-screen items-center justify-center px-4 py-10">
-      <section className="w-full max-w-md rounded-2xl bg-white p-7 shadow-sm sm:p-10">
-        <div className="mb-8">
-          <p className="text-sm font-bold uppercase tracking-[0.16em] text-nfc-green">Ngaoundéré FC</p>
-          <h1 className="mt-3 text-3xl font-bold">Administration</h1>
-          <p className="mt-2 text-gray-600">Connectez-vous avec votre compte interne.</p>
-          {(apiUnavailable || params.api === 'unavailable') && <p className="mt-4 rounded-lg bg-amber-50 p-3 text-sm text-amber-900" role="status">L’API nfcwebsite est indisponible. La connexion sera possible lorsque le service répondra.</p>}
+    <main className="flex min-h-dvh items-center justify-center bg-[var(--nfc-bg)] px-4 py-10">
+      <section className="w-full max-w-md rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-6 shadow-sm sm:p-8">
+        <div className="mb-6 flex flex-col items-center text-center">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/logo.png"
+            alt="Logo officiel Ngaoundéré FC"
+            className="h-16 w-16 rounded-full object-contain shadow-xs"
+          />
+          <h1 className="mt-3 text-lg font-semibold tracking-tight text-[var(--nfc-text)]">
+            Administration Ngaoundéré FC
+          </h1>
+          <p className="mt-1 text-[13px] text-[var(--nfc-muted)]">
+            Connectez-vous pour gérer le site officiel du club
+          </p>
         </div>
-        <LoginForm />
+
+        {sessionExpired && (
+          <div
+            className="mb-5 flex items-start gap-2.5 rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-xs text-amber-900 dark:text-amber-200"
+            role="status"
+          >
+            <Clock className="mt-0.5 h-4 w-4 shrink-0" />
+            <span>Votre session a expiré. Reconnectez-vous pour reprendre votre travail.</span>
+          </div>
+        )}
+
+        {apiUnavailable && (
+          <div
+            className="mb-5 flex items-start gap-2.5 rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-xs text-amber-900 dark:text-amber-200"
+            role="status"
+          >
+            <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
+            <span>
+              Le serveur du site officiel ne répond pas ou attend une migration de base de données.
+            </span>
+          </div>
+        )}
+
+        <LoginForm nextPath={nextPath} showDiagInitially={showDiag} />
       </section>
     </main>
   );
