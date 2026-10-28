@@ -10,12 +10,6 @@ import {
 } from 'react';
 import { Loader2, Minus, Plus, X } from 'lucide-react';
 
-// ===================================
-// Composants alignés sur la charte du site nfcwebsite :
-// angles droits, Oswald en majuscules pour les actions et titres,
-// vert du club, surfaces blanches sans bordure, ombres douces.
-// ===================================
-
 export function Button({
   variant = 'primary',
   size = 'md',
@@ -30,24 +24,26 @@ export function Button({
   loading?: boolean;
 }) {
   const variants = {
-    primary: 'bg-[var(--nfc-green)] text-white hover:bg-[var(--nfc-green-dark)] hover:shadow-[var(--nfc-shadow-hover)]',
-    accent: 'bg-[var(--nfc-yellow)] text-[var(--nfc-dark)] hover:bg-[var(--nfc-yellow-hover)] hover:shadow-[var(--nfc-shadow-hover)]',
-    dark: 'bg-[var(--nfc-dark)] text-white hover:bg-[var(--nfc-surface-2)]',
-    secondary: 'bg-[var(--nfc-surface-subtle)] text-[var(--nfc-text)] hover:bg-[var(--nfc-green)]/10 hover:text-[var(--nfc-green)]',
-    outline: 'bg-[var(--nfc-surface-subtle)] text-[var(--nfc-text)] hover:bg-[var(--nfc-green)]/10 hover:text-[var(--nfc-green)]',
+    primary: 'bg-[var(--nfc-green)] text-white hover:bg-[var(--nfc-green-dark)] shadow-sm active:scale-[0.99]',
+    accent: 'bg-[var(--nfc-yellow)] text-[#0c130e] hover:bg-[var(--nfc-yellow-hover)] font-semibold shadow-sm active:scale-[0.99]',
+    dark: 'bg-[var(--nfc-dark)] text-white hover:bg-[var(--nfc-surface-2)] shadow-sm active:scale-[0.99]',
+    secondary: 'bg-[var(--nfc-surface-subtle)] text-[var(--nfc-text)] hover:bg-[var(--nfc-divider)] active:scale-[0.99]',
+    outline: 'bg-transparent text-[var(--nfc-text)] border border-[var(--nfc-divider)] hover:bg-[var(--nfc-surface-subtle)]',
     ghost: 'bg-transparent text-[var(--nfc-muted)] hover:bg-[var(--nfc-surface-subtle)] hover:text-[var(--nfc-text)]',
-    danger: 'bg-red-600 text-white hover:bg-red-700',
+    danger: 'bg-red-600 text-white hover:bg-red-700 shadow-sm active:scale-[0.99]',
   };
+
   const sizes = {
-    sm: 'min-h-8 px-3 py-1 text-[11px]',
-    md: 'min-h-10 px-5 py-2 text-xs',
-    lg: 'min-h-12 px-6 py-3 text-sm',
+    sm: 'h-8 px-3 text-xs rounded-md',
+    md: 'h-9 px-4 text-xs font-medium rounded-lg',
+    lg: 'h-11 px-5 text-sm font-medium rounded-lg',
   };
+
   return (
     <button
       {...props}
       disabled={disabled || loading}
-      className={`inline-flex items-center justify-center gap-1.5 whitespace-nowrap font-display font-bold uppercase tracking-[0.06em] transition-all duration-200 hover:-translate-y-px active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 ${variants[variant]} ${sizes[size]} ${className}`}
+      className={`inline-flex items-center justify-center gap-2 whitespace-nowrap transition-all duration-150 disabled:cursor-not-allowed disabled:opacity-50 ${variants[variant]} ${sizes[size]} ${className}`}
     >
       {loading && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
       {children}
@@ -67,14 +63,13 @@ export function IconButton({
       aria-label={label}
       title={label}
       {...props}
-      className={`inline-flex h-9 w-9 items-center justify-center bg-transparent text-[var(--nfc-muted)] transition hover:bg-[var(--nfc-surface-subtle)] hover:text-[var(--nfc-green)] disabled:opacity-50 ${className}`}
+      className={`inline-flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--nfc-surface-subtle)] text-[var(--nfc-muted)] transition hover:text-[var(--nfc-text)] hover:bg-[var(--nfc-divider)] disabled:opacity-50 ${className}`}
     >
       {children}
     </button>
   );
 }
 
-/** Titre de section du site : libellé Oswald + barre verte */
 export function SectionTitle({
   children,
   tag,
@@ -88,15 +83,13 @@ export function SectionTitle({
     <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
       <div>
         {tag && <span className="section-tag mb-1">{tag}</span>}
-        <h2 className="text-lg font-bold text-[var(--nfc-text)] sm:text-xl">{children}</h2>
-        <div className="mt-2 h-1 w-12 bg-[var(--nfc-green)]" />
+        <h2 className="text-lg font-semibold tracking-tight text-[var(--nfc-text)] sm:text-xl">{children}</h2>
       </div>
       {action}
     </div>
   );
 }
 
-/** Carte du site : fond blanc, sans bordure, ombre douce */
 export function Card({
   children,
   className = '',
@@ -110,7 +103,7 @@ export function Card({
 }) {
   return (
     <div
-      className={`nfc-card ${hover ? 'nfc-card-hover' : ''} ${accent ? 'border-t-4 border-[var(--nfc-green)]' : ''} ${className}`}
+      className={`nfc-card ${hover ? 'nfc-card-hover' : ''} ${accent ? 'border-t-2 border-[var(--nfc-green)]' : ''} ${className}`}
     >
       {children}
     </div>
@@ -131,8 +124,8 @@ export function Field({
   children: ReactNode;
 }) {
   return (
-    <label className="block space-y-1.5 text-[13px]">
-      <span className="flex items-center gap-1 font-display text-[11px] font-bold uppercase tracking-wider text-[var(--nfc-muted)]">
+    <label className="block space-y-1.5 text-xs">
+      <span className="flex items-center gap-1 font-medium text-[var(--nfc-text)]">
         {label}
         {required && (
           <span className="text-red-500" aria-hidden="true">
@@ -141,9 +134,9 @@ export function Field({
         )}
       </span>
       {children}
-      {hint && !error && <span className="block text-xs text-[var(--nfc-muted)]">{hint}</span>}
+      {hint && !error && <span className="block text-[11px] text-[var(--nfc-muted)]">{hint}</span>}
       {error && (
-        <span role="alert" className="block text-xs font-semibold text-red-600 dark:text-red-400">
+        <span role="alert" className="block text-[11px] font-medium text-red-600 dark:text-red-400">
           {error}
         </span>
       )}
@@ -152,17 +145,17 @@ export function Field({
 }
 
 const inputBase =
-  'w-full bg-[var(--nfc-input-bg)] px-3.5 text-sm text-[var(--nfc-text)] outline-none transition placeholder:text-[var(--nfc-muted)]/70 focus:bg-[var(--nfc-card)] focus:shadow-[inset_0_-2px_0_var(--nfc-green),var(--nfc-shadow)] disabled:opacity-60';
+  'w-full rounded-lg bg-[var(--nfc-input-bg)] px-3 text-xs text-[var(--nfc-text)] outline-none transition placeholder:text-[var(--nfc-muted)]/70 focus:bg-[var(--nfc-card)] focus:ring-2 focus:ring-[var(--nfc-green)]/20 disabled:opacity-60 border border-[var(--nfc-divider)]';
 
 export function Input({ className = '', ...props }: InputHTMLAttributes<HTMLInputElement>) {
-  return <input {...props} className={`min-h-10 py-2 ${inputBase} ${className}`} />;
+  return <input {...props} className={`h-9 ${inputBase} ${className}`} />;
 }
 
 export function Textarea({
   className = '',
   ...props
 }: TextareaHTMLAttributes<HTMLTextAreaElement>) {
-  return <textarea {...props} className={`py-2.5 ${inputBase} ${className}`} />;
+  return <textarea {...props} className={`py-2 ${inputBase} ${className}`} />;
 }
 
 export function Select({
@@ -171,7 +164,7 @@ export function Select({
   ...props
 }: SelectHTMLAttributes<HTMLSelectElement>) {
   return (
-    <select {...props} className={`min-h-10 py-2 ${inputBase} ${className}`}>
+    <select {...props} className={`h-9 ${inputBase} ${className}`}>
       {children}
     </select>
   );
@@ -197,11 +190,11 @@ export function Switch({
       aria-checked={checked}
       disabled={disabled}
       onClick={() => onChange(!checked)}
-      className="flex w-full items-center justify-between gap-3 bg-[var(--nfc-surface-subtle)] px-4 py-3 text-left text-[13px] transition hover:bg-[var(--nfc-green)]/5 disabled:opacity-50"
+      className="flex w-full items-center justify-between gap-3 rounded-xl bg-[var(--nfc-surface-subtle)] px-3.5 py-2.5 text-left text-xs transition hover:bg-[var(--nfc-divider)] disabled:opacity-50"
     >
       <div>
-        <p className="font-semibold text-[var(--nfc-text)]">{label}</p>
-        {description && <p className="mt-0.5 text-xs text-[var(--nfc-muted)]">{description}</p>}
+        <p className="font-medium text-[var(--nfc-text)]">{label}</p>
+        {description && <p className="mt-0.5 text-[11px] text-[var(--nfc-muted)]">{description}</p>}
       </div>
       <span
         className={`relative inline-flex h-5 w-9 shrink-0 items-center rounded-full transition ${
@@ -209,7 +202,7 @@ export function Switch({
         }`}
       >
         <span
-          className={`inline-block h-3.5 w-3.5 rounded-full bg-white shadow transition-transform ${
+          className={`inline-block h-3.5 w-3.5 rounded-full bg-white shadow-sm transition-transform ${
             checked ? 'translate-x-4.5' : 'translate-x-0.5'
           }`}
         />
@@ -233,14 +226,15 @@ export function NumberStepper({
   label?: string;
   size?: 'md' | 'xl';
 }) {
-  const btnClass = size === 'xl' ? 'min-h-14 min-w-14 text-xl' : 'min-h-11 min-w-11 text-sm';
+  const btnClass = size === 'xl' ? 'h-11 w-11 text-base' : 'h-8 w-8 text-xs';
   const valClass =
     size === 'xl'
-      ? 'min-w-16 font-display text-4xl font-bold tabular-nums'
-      : 'min-w-12 font-display text-2xl font-bold tabular-nums';
+      ? 'min-w-12 text-2xl font-semibold tabular-nums'
+      : 'min-w-10 text-base font-semibold tabular-nums';
+
   return (
     <div
-      className="inline-flex items-center bg-[var(--nfc-surface-subtle)] text-[var(--nfc-text)]"
+      className="inline-flex items-center rounded-lg bg-[var(--nfc-surface-subtle)] p-0.5 text-[var(--nfc-text)] border border-[var(--nfc-divider)]"
       aria-label={label}
     >
       <button
@@ -248,19 +242,19 @@ export function NumberStepper({
         aria-label={label ? `Diminuer ${label}` : 'Diminuer'}
         disabled={value <= min}
         onClick={() => onChange(Math.max(min, value - 1))}
-        className={`inline-flex items-center justify-center bg-[var(--nfc-dark)] text-white transition hover:bg-[var(--nfc-green)] disabled:opacity-30 ${btnClass}`}
+        className={`inline-flex items-center justify-center rounded-md bg-[var(--nfc-card)] text-[var(--nfc-muted)] shadow-xs transition hover:text-[var(--nfc-text)] disabled:opacity-30 ${btnClass}`}
       >
-        <Minus className="h-4 w-4" />
+        <Minus className="h-3.5 w-3.5" />
       </button>
-      <span className={`px-3 text-center ${valClass}`}>{value}</span>
+      <span className={`px-2 text-center ${valClass}`}>{value}</span>
       <button
         type="button"
         aria-label={label ? `Augmenter ${label}` : 'Augmenter'}
         disabled={value >= max}
         onClick={() => onChange(Math.min(max, value + 1))}
-        className={`inline-flex items-center justify-center bg-[var(--nfc-green)] text-white transition hover:bg-[var(--nfc-green-dark)] disabled:opacity-30 ${btnClass}`}
+        className={`inline-flex items-center justify-center rounded-md bg-[var(--nfc-card)] text-[var(--nfc-muted)] shadow-xs transition hover:text-[var(--nfc-text)] disabled:opacity-30 ${btnClass}`}
       >
-        <Plus className="h-4 w-4" />
+        <Plus className="h-3.5 w-3.5" />
       </button>
     </div>
   );
@@ -279,7 +273,6 @@ export type BadgeTone =
   | 'brand'
   | 'dark';
 
-/** Badge du site : pavé plein, Oswald, majuscules, sans bordure */
 export function StatusBadge({
   tone = 'neutral',
   children,
@@ -288,28 +281,28 @@ export function StatusBadge({
   children: ReactNode;
 }) {
   const styles: Record<BadgeTone, string> = {
-    green: 'bg-[var(--nfc-green)] text-white',
-    success: 'bg-[var(--nfc-green)] text-white',
+    green: 'bg-emerald-50 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300',
+    success: 'bg-emerald-50 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300',
     brand: 'bg-[var(--nfc-green)] text-white',
-    yellow: 'bg-[var(--nfc-yellow)] text-[var(--nfc-dark)]',
-    red: 'bg-red-600 text-white',
-    danger: 'bg-red-600 text-white',
-    amber: 'bg-amber-400 text-[var(--nfc-dark)]',
-    warning: 'bg-amber-400 text-[var(--nfc-dark)]',
-    info: 'bg-sky-600 text-white',
+    yellow: 'bg-lime-100 text-lime-900 dark:bg-lime-950/60 dark:text-lime-300',
+    red: 'bg-red-50 text-red-700 dark:bg-red-950/60 dark:text-red-300',
+    danger: 'bg-red-50 text-red-700 dark:bg-red-950/60 dark:text-red-300',
+    amber: 'bg-amber-50 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300',
+    warning: 'bg-amber-50 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300',
+    info: 'bg-sky-50 text-sky-800 dark:bg-sky-950/60 dark:text-sky-300',
     dark: 'bg-[var(--nfc-dark)] text-gray-200',
     neutral: 'bg-[var(--nfc-surface-subtle)] text-[var(--nfc-muted)]',
   };
+
   return (
     <span
-      className={`inline-flex items-center gap-1.5 whitespace-nowrap px-2.5 py-0.5 font-display text-[10px] font-bold uppercase tracking-[0.06em] ${styles[tone]}`}
+      className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-md px-2 py-0.5 text-[11px] font-medium ${styles[tone]}`}
     >
       {children}
     </span>
   );
 }
 
-/** Onglets façon navigation du site : libellés Oswald, soulignement vert sur l'onglet actif */
 export function SegmentedControl<T extends string>({
   options,
   value,
@@ -322,7 +315,7 @@ export function SegmentedControl<T extends string>({
   ariaLabel?: string;
 }) {
   return (
-    <div role="tablist" aria-label={ariaLabel} className="flex flex-wrap gap-1">
+    <div role="tablist" aria-label={ariaLabel} className="inline-flex gap-1 rounded-lg bg-[var(--nfc-surface-subtle)] p-1">
       {options.map((opt) => {
         const active = opt.value === value;
         return (
@@ -332,15 +325,15 @@ export function SegmentedControl<T extends string>({
             role="tab"
             aria-selected={active}
             onClick={() => onChange(opt.value)}
-            className={`min-h-9 px-3.5 py-1.5 font-display text-xs font-semibold uppercase tracking-wide transition ${
+            className={`h-7 px-3 text-xs font-medium rounded-md transition ${
               active
-                ? 'bg-[var(--nfc-green)] text-white'
-                : 'bg-[var(--nfc-card)] text-[var(--nfc-muted)] shadow-[var(--nfc-shadow)] hover:text-[var(--nfc-green)]'
+                ? 'bg-[var(--nfc-card)] text-[var(--nfc-text)] shadow-xs'
+                : 'text-[var(--nfc-muted)] hover:text-[var(--nfc-text)]'
             }`}
           >
             {opt.label}
             {typeof opt.count === 'number' && (
-              <span className={`ml-1.5 text-[11px] ${active ? 'text-white/70' : 'text-[var(--nfc-muted)]'}`}>
+              <span className={`ml-1.5 text-[10px] ${active ? 'text-[var(--nfc-muted)]' : 'text-[var(--nfc-muted)]/70'}`}>
                 {opt.count}
               </span>
             )}
@@ -388,34 +381,33 @@ export function SheetDialog({
       role="dialog"
       aria-modal="true"
       aria-label={title}
-      className="fixed inset-0 z-50 flex items-end justify-center bg-black/55 sm:items-center sm:p-4"
+      className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 backdrop-blur-xs sm:items-center sm:p-4"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
     >
       <div
-        className={`animate-slide-up flex max-h-[92dvh] w-full flex-col bg-[var(--nfc-card)] shadow-2xl sm:max-h-[86vh] ${
-          wide ? 'sm:max-w-3xl' : 'sm:max-w-xl'
+        className={`animate-slide-up flex max-h-[90dvh] w-full flex-col rounded-t-2xl sm:rounded-2xl bg-[var(--nfc-card)] shadow-2xl sm:max-h-[85vh] ${
+          wide ? 'sm:max-w-2xl' : 'sm:max-w-lg'
         }`}
       >
-        <header className="flex items-center justify-between gap-3 bg-[var(--nfc-dark)] px-5 py-4 text-white">
+        <header className="flex items-center justify-between gap-3 px-5 py-4 border-b border-[var(--nfc-divider)]">
           <div className="min-w-0">
-            <h2 className="truncate text-base font-bold text-white">{title}</h2>
-            {sub && <p className="mt-0.5 truncate text-xs text-gray-400">{sub}</p>}
+            <h2 className="text-base font-semibold text-[var(--nfc-text)]">{title}</h2>
+            {sub && <p className="mt-0.5 text-xs text-[var(--nfc-muted)] truncate">{sub}</p>}
           </div>
           <button
             type="button"
             aria-label="Fermer"
             onClick={onClose}
-            className="inline-flex h-9 w-9 shrink-0 items-center justify-center text-gray-400 transition hover:bg-white/10 hover:text-white"
+            className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-[var(--nfc-muted)] hover:bg-[var(--nfc-surface-subtle)] hover:text-[var(--nfc-text)] transition"
           >
             <X className="h-4 w-4" />
           </button>
         </header>
-        <div className="h-1 bg-[var(--nfc-green)]" />
-        <div className="flex-1 overflow-y-auto px-5 py-5">{children}</div>
+        <div className="flex-1 overflow-y-auto px-5 py-4">{children}</div>
         {footer && (
-          <footer className="safe-bottom flex flex-wrap items-center justify-end gap-2 bg-[var(--nfc-surface-subtle)] px-5 py-3">
+          <footer className="safe-bottom flex flex-wrap items-center justify-end gap-2 px-5 py-3 border-t border-[var(--nfc-divider)] bg-[var(--nfc-surface-subtle)]/50 rounded-b-2xl">
             {footer}
           </footer>
         )}
@@ -473,7 +465,7 @@ export function ConfirmDialog({
         </>
       }
     >
-      <p className="text-sm leading-relaxed text-[var(--nfc-muted)]">{description}</p>
+      <p className="text-xs leading-relaxed text-[var(--nfc-muted)]">{description}</p>
     </SheetDialog>
   );
 }

@@ -1,58 +1,61 @@
 @import "tailwindcss";
 
 /* ========================================
-   NFC Design System — aligné sur nfcwebsite
-   (src/app/globals.css du site public : mêmes couleurs, polices, angles droits)
+   Design System NFC Manager — Calme, Moderne & Lisible
+   Police unique sans-serif propre (Inter / System)
+   Couleurs officielles NFC, contrastes soignés, proportions équilibrées
    ======================================== */
 @theme {
   --color-nfc-green: #1f5f3d;
   --color-nfc-green-dark: #173f2d;
-  --color-nfc-green-light: #7ccf97;
+  --color-nfc-green-light: #2e8b59;
   --color-nfc-yellow: #8cea5a;
-  --color-nfc-dark: #0c130e;
-  --color-nfc-surface: #141f17;
-  --color-nfc-surface-2: #1c2b20;
-  --font-display: var(--font-oswald), "Oswald", system-ui, sans-serif;
-  --font-sans: var(--font-source-sans), "Source Sans 3", system-ui, sans-serif;
+  --color-nfc-dark: #0f1412;
+  --color-nfc-surface: #161e1a;
+  --color-nfc-surface-2: #1e2823;
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 :root {
   color-scheme: light;
   --nfc-green: #1f5f3d;
   --nfc-green-dark: #173f2d;
-  --nfc-green-light: #7ccf97;
+  --nfc-green-light: #2e8b59;
   --nfc-yellow: #8cea5a;
   --nfc-yellow-hover: #78d04a;
-  --nfc-dark: #0c130e;
-  --nfc-surface: #141f17;
-  --nfc-surface-2: #1c2b20;
+  --nfc-dark: #0f1412;
+  --nfc-surface: #161e1a;
+  --nfc-surface-2: #1e2823;
 
-  --nfc-bg: #f7f8f7;
+  /* Surfaces & Fonds clairs */
+  --nfc-bg: #f8faf8;
   --nfc-card: #ffffff;
-  --nfc-surface-subtle: #f1f3f1;
-  --nfc-text: #1f2937;
-  --nfc-muted: #6b7280;
-  /* Les bordures décoratives sont supprimées : séparateur discret réservé aux lignes de liste */
-  --nfc-border: #eef0ee;
-  --nfc-divider: #eef0ee;
-  --nfc-input-bg: #f3f5f3;
-  --nfc-shadow: 0 1px 2px rgba(12, 19, 14, 0.04), 0 4px 14px rgba(12, 19, 14, 0.05);
-  --nfc-shadow-hover: 0 6px 18px rgba(0, 0, 0, 0.12);
-  --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --nfc-surface-subtle: #f0f3f0;
+  --nfc-text: #19211d;
+  --nfc-muted: #5f6b64;
+  --nfc-divider: #e4e8e5;
+  --nfc-input-bg: #f4f6f4;
+
+  /* Ombres douces sans bordures dures */
+  --nfc-shadow-sm: 0 1px 3px rgba(15, 20, 18, 0.05);
+  --nfc-shadow: 0 2px 8px -1px rgba(15, 20, 18, 0.06), 0 1px 3px rgba(15, 20, 18, 0.04);
+  --nfc-shadow-hover: 0 8px 20px -2px rgba(15, 20, 18, 0.1);
+  --transition-smooth: all 0.2s ease-in-out;
 }
 
 [data-theme="dark"] {
   color-scheme: dark;
-  --nfc-bg: #0c130e;
-  --nfc-card: #141f17;
-  --nfc-surface-subtle: #1c2b20;
-  --nfc-text: #f3f4f6;
-  --nfc-muted: #9ca3af;
-  --nfc-border: #1f2e23;
-  --nfc-divider: #1f2e23;
-  --nfc-input-bg: #1c2b20;
-  --nfc-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-  --nfc-shadow-hover: 0 6px 18px rgba(0, 0, 0, 0.4);
+  --nfc-bg: #0d1210;
+  --nfc-card: #141b17;
+  --nfc-surface-subtle: #1a231f;
+  --nfc-text: #f0f4f1;
+  --nfc-muted: #8e9b93;
+  --nfc-divider: #24302a;
+  --nfc-input-bg: #18211c;
+  --nfc-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.25);
+  --nfc-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.35);
+  --nfc-shadow-hover: 0 8px 24px -2px rgba(0, 0, 0, 0.5);
 }
 
 *,
@@ -63,12 +66,12 @@
 }
 
 html {
-  font-size: 15px;
+  font-size: 14.5px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-@media (min-width: 1024px) {
-  html { font-size: 16px; }
+@media (min-width: 768px) {
+  html { font-size: 15px; }
 }
 
 html,
@@ -77,43 +80,29 @@ body {
   min-height: 100dvh;
   background-color: var(--nfc-bg);
   color: var(--nfc-text);
-  font-family: var(--font-source-sans), "Source Sans 3", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  line-height: 1.55;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
 }
 
-/* Titres : Oswald, majuscules, comme le site */
-h1, h2, h3, h4,
+/* Typographie standard : fin des majuscules obligatoires ou polices condensées */
+h1, h2, h3, h4, h5, h6 {
+  font-family: inherit;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--nfc-text);
+  line-height: 1.25;
+}
+
+/* Polices adaptables */
 .font-display,
 .font-heading {
-  font-family: var(--font-oswald), "Oswald", system-ui, sans-serif;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  line-height: 1.15;
+  font-family: inherit;
+  letter-spacing: -0.015em;
+  text-transform: none;
 }
 
-/* Angles droits partout (normalisation identique au site) — sauf pastilles rondes */
-.rounded,
-.rounded-sm,
-.rounded-md,
-.rounded-lg,
-.rounded-xl,
-.rounded-2xl,
-.rounded-3xl,
-.rounded-none {
-  border-radius: 0 !important;
-}
-button,
-input,
-textarea,
-select,
-img:not(.rounded-full),
-[role="button"],
-section,
-article,
-form {
-  border-radius: 0;
-}
-
+/* Formes agréables avec un léger arrondi harmonieux */
 button,
 input,
 select,
@@ -124,54 +113,48 @@ textarea {
 a {
   color: inherit;
   text-decoration: none;
-  transition: color 0.2s ease, opacity 0.2s ease;
+  transition: color 0.15s ease;
 }
 
-/* Barre de défilement aux couleurs du club */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: var(--nfc-bg); }
-::-webkit-scrollbar-thumb { background: var(--nfc-green); }
-::-webkit-scrollbar-thumb:hover { background: var(--nfc-green-light); }
+/* Barre de défilement propre */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(31, 95, 61, 0.25); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--nfc-green); }
 
-/* Carte standard du site : fond blanc, pas de bordure, ombre au survol */
+/* Cartes sans bordures agressives */
 .nfc-card {
   background: var(--nfc-card);
   box-shadow: var(--nfc-shadow);
+  border-radius: 12px;
   transition: var(--transition-smooth);
 }
 .nfc-card-hover:hover {
   box-shadow: var(--nfc-shadow-hover);
-  transform: translateY(-2px);
+  transform: translateY(-1px);
 }
 
-/* Étiquette de section (petit libellé vert au-dessus d'un titre) */
+/* Étiquette de section sobre */
 .section-tag {
-  display: inline-block;
-  font-family: var(--font-oswald), "Oswald", sans-serif;
-  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
+  font-weight: 600;
   color: var(--nfc-green);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 [data-theme="dark"] .section-tag { color: var(--nfc-yellow); }
 
-/* Animations du site */
-@keyframes pageEnter {
-  from { opacity: 0; transform: translateY(12px); }
+/* Animations simples et rapides */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.animate-page-enter { animation: pageEnter 0.4s cubic-bezier(0.4, 0, 0.2, 1) both; }
-.animate-slide-up { animation: slideUp 0.28s cubic-bezier(0.32, 0.72, 0, 1) both; }
+.animate-fade-in { animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-slide-up { animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) both; }
 
-/* Zone de sécurité PWA (encoches iOS / barre gestuelle Android) */
-.safe-top {
-  padding-top: env(safe-area-inset-top, 0px);
-}
-.safe-bottom {
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-}
+/* Safe area mobiles */
+.safe-top { padding-top: env(safe-area-inset-top, 0px); }
+.safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }

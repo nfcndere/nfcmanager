@@ -172,28 +172,28 @@ export function AppShell({
 
   return (
     <div className="min-h-dvh bg-[var(--nfc-bg)] pb-16 text-[var(--nfc-text)] lg:flex lg:pb-0">
-      {/* Barre latérale — Style site NFC (fond sombre, vert, typographie Oswald) */}
-      <aside className="hidden lg:flex lg:w-64 lg:shrink-0 lg:flex-col lg:bg-[var(--nfc-dark)] lg:text-white shadow-xl">
-        <div className="flex h-16 items-center gap-3 bg-[var(--nfc-dark)] px-5 border-b-2 border-[var(--nfc-green)]">
+      {/* Barre latérale — Épurée et sobre */}
+      <aside className="hidden lg:flex lg:w-60 lg:shrink-0 lg:flex-col lg:bg-[var(--nfc-card)] shadow-sm border-r border-[var(--nfc-divider)]">
+        <div className="flex h-14 items-center gap-3 px-4 border-b border-[var(--nfc-divider)]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/logo.png"
             alt="Logo Ngaoundéré FC"
-            className="h-10 w-10 shrink-0 object-contain"
+            className="h-7 w-7 shrink-0 object-contain"
           />
           <div className="min-w-0">
-            <Link href="/dashboard" className="block truncate font-display text-sm font-bold tracking-wider text-white">
-              NGAOUNDÉRÉ FC
+            <Link href="/dashboard" className="block truncate text-xs font-semibold text-[var(--nfc-text)]">
+              Ngaoundéré FC
             </Link>
-            <span className="block truncate font-display text-[10px] uppercase tracking-widest text-[var(--nfc-yellow)]">
+            <span className="block truncate text-[10px] text-[var(--nfc-muted)]">
               Administration
             </span>
           </div>
         </div>
 
-        <nav aria-label="Navigation principale" className="flex-1 space-y-6 overflow-y-auto px-4 py-5">
-          <div className="space-y-1">
-            <p className="px-3 pb-1 font-display text-[10px] font-bold uppercase tracking-widest text-gray-400">
+        <nav aria-label="Navigation principale" className="flex-1 space-y-5 overflow-y-auto px-3 py-4">
+          <div className="space-y-0.5">
+            <p className="px-2 pb-1 text-[10px] font-medium uppercase tracking-wider text-[var(--nfc-muted)]">
               Opérations
             </p>
             {PRIMARY_TABS.map((item) => {
@@ -203,21 +203,21 @@ export function AppShell({
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center gap-3 px-3 py-2 font-display text-xs font-semibold uppercase tracking-wider transition ${
+                  className={`flex items-center gap-2.5 px-2.5 py-1.5 text-xs font-medium rounded-md transition ${
                     active
-                      ? 'bg-[var(--nfc-green)] text-white shadow-md'
-                      : 'text-gray-300 hover:bg-white/5 hover:text-white'
+                      ? 'bg-[var(--nfc-green)] text-white shadow-xs'
+                      : 'text-[var(--nfc-muted)] hover:bg-[var(--nfc-surface-subtle)] hover:text-[var(--nfc-text)]'
                   }`}
                 >
-                  <Icon className="h-4 w-4 shrink-0 text-[var(--nfc-yellow)]" />
+                  <Icon className="h-4 w-4 shrink-0" />
                   <span>{item.label}</span>
                 </Link>
               );
             })}
           </div>
 
-          <div className="space-y-1">
-            <p className="px-3 pb-1 font-display text-[10px] font-bold uppercase tracking-widest text-gray-400">
+          <div className="space-y-0.5">
+            <p className="px-2 pb-1 text-[10px] font-medium uppercase tracking-wider text-[var(--nfc-muted)]">
               Gestion du club
             </p>
             {CLUB_LINKS.map((item) => {
@@ -227,21 +227,21 @@ export function AppShell({
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center gap-3 px-3 py-2 font-display text-xs font-semibold uppercase tracking-wider transition ${
+                  className={`flex items-center gap-2.5 px-2.5 py-1.5 text-xs font-medium rounded-md transition ${
                     active
-                      ? 'bg-[var(--nfc-green)] text-white shadow-md'
-                      : 'text-gray-300 hover:bg-white/5 hover:text-white'
+                      ? 'bg-[var(--nfc-green)] text-white shadow-xs'
+                      : 'text-[var(--nfc-muted)] hover:bg-[var(--nfc-surface-subtle)] hover:text-[var(--nfc-text)]'
                   }`}
                 >
-                  <Icon className="h-4 w-4 shrink-0 text-[var(--nfc-yellow)]" />
+                  <Icon className="h-4 w-4 shrink-0" />
                   <span>{item.label}</span>
                 </Link>
               );
             })}
           </div>
 
-          <div className="space-y-1">
-            <p className="px-3 pb-1 font-display text-[10px] font-bold uppercase tracking-widest text-gray-400">
+          <div className="space-y-0.5">
+            <p className="px-2 pb-1 text-[10px] font-medium uppercase tracking-wider text-[var(--nfc-muted)]">
               Configuration
             </p>
             {SYSTEM_LINKS.map((item) => {
@@ -252,13 +252,13 @@ export function AppShell({
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`flex items-center gap-3 px-3 py-2 font-display text-xs font-semibold uppercase tracking-wider transition ${
+                  className={`flex items-center gap-2.5 px-2.5 py-1.5 text-xs font-medium rounded-md transition ${
                     active
-                      ? 'bg-[var(--nfc-green)] text-white shadow-md'
-                      : 'text-gray-300 hover:bg-white/5 hover:text-white'
+                      ? 'bg-[var(--nfc-green)] text-white shadow-xs'
+                      : 'text-[var(--nfc-muted)] hover:bg-[var(--nfc-surface-subtle)] hover:text-[var(--nfc-text)]'
                   }`}
                 >
-                  <Icon className="h-4 w-4 shrink-0 text-[var(--nfc-yellow)]" />
+                  <Icon className="h-4 w-4 shrink-0" />
                   <span>{item.label}</span>
                 </Link>
               );
@@ -266,22 +266,22 @@ export function AppShell({
           </div>
         </nav>
 
-        <div className="bg-[var(--nfc-surface)] p-3">
-          <div className="flex items-center justify-between gap-2 px-2 py-1.5">
+        <div className="p-3 border-t border-[var(--nfc-divider)]">
+          <div className="flex items-center justify-between gap-2 px-1 py-1">
             <div className="min-w-0">
-              <p className="truncate font-display text-xs font-bold uppercase tracking-wide text-white">
+              <p className="truncate text-xs font-medium text-[var(--nfc-text)]">
                 {user.name || user.email}
               </p>
-              <p className="truncate font-display text-[10px] uppercase tracking-wider text-[var(--nfc-yellow)]">{user.role}</p>
+              <p className="truncate text-[10px] text-[var(--nfc-muted)]">{user.role}</p>
             </div>
             <button
               type="button"
               onClick={handleSignOut}
               title="Se déconnecter"
               aria-label="Se déconnecter"
-              className="flex h-8 w-8 items-center justify-center text-gray-400 hover:bg-white/10 hover:text-red-400 transition"
+              className="flex h-7 w-7 items-center justify-center rounded text-[var(--nfc-muted)] hover:bg-[var(--nfc-surface-subtle)] hover:text-red-500 transition"
             >
-              <LogOut className="h-4 w-4" />
+              <LogOut className="h-3.5 w-3.5" />
             </button>
           </div>
         </div>
@@ -289,38 +289,37 @@ export function AppShell({
 
       {/* Colonne principale */}
       <div className="flex min-w-0 flex-1 flex-col">
-        {/* Barre supérieure style site (fond blanc, sans bordure encombrante, ombre nette) */}
-        <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md shadow-[0_2px_12px_rgba(0,0,0,0.06)] dark:bg-[var(--nfc-surface)]/95">
-          <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6">
-            <div className="flex min-w-0 items-center gap-3">
+        {/* Barre supérieure — Hauteur contenue, contrastes doux */}
+        <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md shadow-xs border-b border-[var(--nfc-divider)] dark:bg-[var(--nfc-card)]/95">
+          <div className="mx-auto flex h-14 max-w-6xl items-center justify-between gap-3 px-4 sm:px-6">
+            <div className="flex min-w-0 items-center gap-2.5">
               <Link href="/dashboard" className="flex items-center gap-2 lg:hidden">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   src="/logo.png"
                   alt="Ngaoundéré FC"
-                  className="h-8 w-8 object-contain"
+                  className="h-7 w-7 object-contain"
                 />
-                <span className="font-display font-extrabold uppercase tracking-wider text-[var(--nfc-dark)] dark:text-white">NFC Manager</span>
+                <span className="text-xs font-semibold text-[var(--nfc-text)]">NFC Manager</span>
               </Link>
               {title && (
-                <span className="hidden truncate font-display text-xs font-bold uppercase tracking-wider text-[var(--nfc-green)] lg:inline">
+                <span className="hidden truncate text-xs font-medium text-[var(--nfc-muted)] lg:inline">
                   {title}
                 </span>
               )}
             </div>
 
-            <div className="flex items-center gap-2 sm:gap-3">
-              {/* Indicateur de synchro style badge club */}
+            <div className="flex items-center gap-2">
               <button
                 type="button"
                 onClick={() => (pendingMutations.length > 0 ? setQueueOpen(true) : void triggerSync())}
                 aria-live="polite"
-                className="inline-flex h-8 items-center gap-1.5 px-3 font-display text-[11px] font-bold uppercase tracking-wider bg-[var(--nfc-surface-subtle)] text-[var(--nfc-text)] hover:bg-[var(--nfc-green)] hover:text-white transition"
+                className="inline-flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-[11px] font-medium bg-[var(--nfc-surface-subtle)] text-[var(--nfc-text)] hover:bg-[var(--nfc-divider)] transition"
               >
                 <span
                   className={`h-2 w-2 rounded-full ${
                     syncStatus === 'online'
-                      ? 'bg-[var(--nfc-green)]'
+                      ? 'bg-emerald-500'
                       : syncStatus === 'syncing'
                         ? 'animate-ping bg-sky-500'
                         : syncStatus === 'error'
@@ -344,7 +343,7 @@ export function AppShell({
                 <Button
                   type="button"
                   size="sm"
-                  variant="primary"
+                  variant="secondary"
                   onClick={handleInstallClick}
                   className="hidden sm:inline-flex"
                 >
@@ -357,14 +356,14 @@ export function AppShell({
                 type="button"
                 onClick={toggleTheme}
                 aria-label={theme === 'dark' ? 'Passer en thème clair' : 'Passer en thème sombre'}
-                className="inline-flex h-8 w-8 items-center justify-center bg-[var(--nfc-surface-subtle)] text-[var(--nfc-muted)] hover:text-[var(--nfc-green)] transition"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--nfc-surface-subtle)] text-[var(--nfc-muted)] hover:text-[var(--nfc-text)] transition"
               >
                 {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
               </button>
 
               <Link
                 href="/compte"
-                className="inline-flex h-8 items-center gap-1.5 px-2.5 font-display text-xs font-bold uppercase tracking-wider bg-[var(--nfc-surface-subtle)] text-[var(--nfc-text)] hover:text-[var(--nfc-green)] transition"
+                className="inline-flex h-8 items-center gap-1.5 rounded-lg px-2.5 text-xs font-medium bg-[var(--nfc-surface-subtle)] text-[var(--nfc-text)] hover:text-[var(--nfc-green)] transition"
               >
                 <UserCircle className="h-4 w-4 text-[var(--nfc-green)]" />
                 <span className="hidden sm:inline">{user.name || user.email}</span>
@@ -375,16 +374,16 @@ export function AppShell({
           {showExpiryWarning && (
             <div
               role="alert"
-              className="flex flex-wrap items-center justify-between gap-2 bg-amber-400 px-4 py-2 font-display text-xs font-bold uppercase tracking-wider text-[var(--nfc-dark)]"
+              className="flex flex-wrap items-center justify-between gap-2 bg-amber-500/10 px-4 py-1.5 text-xs font-medium text-amber-900 dark:text-amber-200 border-b border-amber-500/20"
             >
-              <span className="flex items-center gap-2">
-                <AlertTriangle className="h-4 w-4" />
-                Session bientôt expirée ({secondsLeft} s). Vos saisies locales sont préservées.
+              <span className="flex items-center gap-1.5">
+                <AlertTriangle className="h-3.5 w-3.5 text-amber-600" />
+                Session bientôt expirée ({secondsLeft} s). Saisies locales préservées.
               </span>
               <Button
                 type="button"
                 size="sm"
-                variant="dark"
+                variant="primary"
                 onClick={async () => {
                   const res = await fetch('/api/auth/refresh', { method: 'POST' });
                   if (res.ok) {
@@ -394,32 +393,31 @@ export function AppShell({
                   }
                 }}
               >
-                Prolonger la session
+                Prolonger
               </Button>
             </div>
           )}
         </header>
 
-        {/* Contenu principal sans bordures superflues, style cartes et sections site NFC */}
-        <main className="mx-auto w-full max-w-7xl flex-1 px-3 py-6 sm:px-6 sm:py-8">
+        {/* Contenu principal bien centré et respirant */}
+        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-5 sm:px-6 sm:py-6">
           {apiUnavailable && (
             <div
               role="status"
-              className="mb-5 bg-amber-100 p-3 font-display text-xs font-bold uppercase tracking-wider text-amber-900 border-l-4 border-amber-500"
+              className="mb-4 rounded-lg bg-amber-500/10 p-3 text-xs font-medium text-amber-900 dark:text-amber-200 border-l-2 border-amber-500"
             >
               L’API nfcwebsite n’a pas répondu lors du chargement serveur : affichage des données en cache local.
             </div>
           )}
           {(title || actions) && (
-            <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+            <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
               <div>
-                {subtitle && <span className="section-tag mb-1">{subtitle}</span>}
+                {subtitle && <p className="text-xs text-[var(--nfc-muted)]">{subtitle}</p>}
                 {title && (
-                  <h1 className="font-display text-2xl font-extrabold uppercase tracking-tight text-[var(--nfc-text)] sm:text-3xl">
+                  <h1 className="text-lg font-semibold tracking-tight text-[var(--nfc-text)] sm:text-xl">
                     {title}
                   </h1>
                 )}
-                <div className="mt-2 h-1 w-12 bg-[var(--nfc-green)]" />
               </div>
               {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
             </div>
@@ -428,11 +426,11 @@ export function AppShell({
         </main>
       </div>
 
-      {/* Barre de navigation inférieure mobile (style site) */}
+      {/* Barre de navigation inférieure mobile */}
       <nav
         aria-label="Navigation mobile"
         style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
-        className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-5 bg-white/98 shadow-[0_-4px_16px_rgba(0,0,0,0.08)] dark:bg-[var(--nfc-dark)]/98 backdrop-blur-md lg:hidden"
+        className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-5 bg-white/98 shadow-md border-t border-[var(--nfc-divider)] dark:bg-[var(--nfc-card)]/98 backdrop-blur-md lg:hidden"
       >
         {PRIMARY_TABS.map((tab) => {
           const Icon = tab.icon;
@@ -441,10 +439,10 @@ export function AppShell({
             <Link
               key={tab.href}
               href={tab.href}
-              className={`flex min-h-14 flex-col items-center justify-center gap-1 font-display text-[10px] font-bold uppercase tracking-wider transition ${
+              className={`flex min-h-12 flex-col items-center justify-center gap-0.5 text-[10px] font-medium transition ${
                 active
-                  ? 'text-[var(--nfc-green)] border-t-2 border-[var(--nfc-green)] bg-[var(--nfc-green)]/5 dark:text-[var(--nfc-yellow)]'
-                  : 'text-gray-500 hover:text-[var(--nfc-text)]'
+                  ? 'text-[var(--nfc-green)]'
+                  : 'text-[var(--nfc-muted)] hover:text-[var(--nfc-text)]'
               }`}
             >
               <Icon className="h-4 w-4" />
@@ -456,10 +454,10 @@ export function AppShell({
           type="button"
           onClick={() => setMoreOpen(true)}
           aria-expanded={moreOpen}
-          className={`flex min-h-14 flex-col items-center justify-center gap-1 font-display text-[10px] font-bold uppercase tracking-wider transition ${
+          className={`flex min-h-12 flex-col items-center justify-center gap-0.5 text-[10px] font-medium transition ${
             moreOpen
-              ? 'text-[var(--nfc-green)] border-t-2 border-[var(--nfc-green)] bg-[var(--nfc-green)]/5 dark:text-[var(--nfc-yellow)]'
-              : 'text-gray-500 hover:text-[var(--nfc-text)]'
+              ? 'text-[var(--nfc-green)]'
+              : 'text-[var(--nfc-muted)] hover:text-[var(--nfc-text)]'
           }`}
         >
           <Menu className="h-4 w-4" />
@@ -474,7 +472,7 @@ export function AppShell({
         title="Navigation & Compte"
         subtitle={`${user.name || user.email} · ${user.role}`}
       >
-        <div className="grid gap-2">
+        <div className="grid gap-1.5">
           {[...CLUB_LINKS, ...SYSTEM_LINKS].map((item) => {
             if (item.adminOnly && user.role !== 'ADMIN') return null;
             const Icon = item.icon;
@@ -483,9 +481,9 @@ export function AppShell({
                 key={item.href}
                 href={item.href}
                 onClick={() => setMoreOpen(false)}
-                className="flex items-center gap-3 bg-[var(--nfc-surface-subtle)] p-3 font-display text-xs font-bold uppercase tracking-wider hover:bg-[var(--nfc-green)] hover:text-white transition"
+                className="flex items-center gap-2.5 rounded-lg bg-[var(--nfc-surface-subtle)] p-2.5 text-xs font-medium text-[var(--nfc-text)] hover:bg-[var(--nfc-divider)] transition"
               >
-                <Icon className="h-4 w-4 text-[var(--nfc-yellow)]" />
+                <Icon className="h-4 w-4 text-[var(--nfc-green)]" />
                 <span>{item.label}</span>
               </Link>
             );
@@ -495,19 +493,19 @@ export function AppShell({
             <Button
               type="button"
               variant="secondary"
-              className="mt-2"
+              className="mt-2 w-full justify-start"
               onClick={() => {
                 setMoreOpen(false);
                 void handleInstallClick();
               }}
             >
-              <Download className="h-4 w-4" />
+              <Download className="h-4 w-4 mr-2" />
               Installer l’application
             </Button>
           )}
 
-          <Button type="button" variant="danger" className="mt-2" onClick={handleSignOut}>
-            <LogOut className="h-4 w-4" />
+          <Button type="button" variant="danger" className="mt-2 w-full justify-start" onClick={handleSignOut}>
+            <LogOut className="h-4 w-4 mr-2" />
             Se déconnecter
           </Button>
         </div>
@@ -531,20 +529,20 @@ export function AppShell({
           </>
         }
       >
-        <div className="space-y-3">
+        <div className="space-y-2.5">
           {pendingMutations.map((item) => (
             <div
               key={item.id}
-              className="nfc-card p-4 text-[13px]"
+              className="rounded-lg bg-[var(--nfc-surface-subtle)] p-3 text-xs"
             >
               <div className="flex items-center justify-between gap-2">
-                <span className="font-semibold">{item.label}</span>
-                <span className="font-display text-[10px] font-bold uppercase tracking-wider text-[var(--nfc-muted)]">{item.status}</span>
+                <span className="font-medium text-[var(--nfc-text)]">{item.label}</span>
+                <span className="text-[10px] text-[var(--nfc-muted)]">{item.status}</span>
               </div>
               {item.status === 'conflict' && (
-                <div className="mt-3 space-y-2 border-t border-[var(--nfc-divider)] pt-3 text-xs">
-                  <p className="font-semibold text-amber-700 dark:text-amber-300">
-                    Conflit : le serveur possède une version plus récente ({item.conflictServerUpdatedAt}).
+                <div className="mt-2 space-y-1.5 border-t border-[var(--nfc-divider)] pt-2 text-[11px]">
+                  <p className="font-medium text-amber-700 dark:text-amber-300">
+                    Conflit : le serveur a une version plus récente ({item.conflictServerUpdatedAt}).
                   </p>
                   <div className="flex flex-wrap gap-2">
                     <Button
@@ -561,12 +559,12 @@ export function AppShell({
                       variant="ghost"
                       onClick={() => void removeOfflineMutation(item.id)}
                     >
-                      Garder la version serveur
+                      Garder serveur
                     </Button>
                   </div>
                 </div>
               )}
-              {item.errorMessage && <p className="mt-2 text-xs font-semibold text-red-600">{item.errorMessage}</p>}
+              {item.errorMessage && <p className="mt-1.5 text-[11px] font-medium text-red-600">{item.errorMessage}</p>}
             </div>
           ))}
         </div>
@@ -577,10 +575,10 @@ export function AppShell({
         onClose={() => setIosHelpOpen(false)}
         title="Installer sur iPhone / iPad"
       >
-        <ol className="list-decimal space-y-2 pl-5 text-[13px] text-[var(--nfc-muted)]">
-          <li>Appuyez sur le bouton <strong>Partager</strong> dans la barre de Safari.</li>
-          <li>Choisissez <strong>Sur l’écran d’accueil</strong>.</li>
-          <li>Validez avec <strong>Ajouter</strong> en haut à droite.</li>
+        <ol className="list-decimal space-y-2 pl-4 text-xs text-[var(--nfc-muted)]">
+          <li>Appuyez sur le bouton <strong>Partager</strong> dans Safari.</li>
+          <li>Faites défiler et choisissez <strong>Sur l’écran d’accueil</strong>.</li>
+          <li>Appuyez sur <strong>Ajouter</strong> en haut à droite.</li>
         </ol>
       </SheetDialog>
     </div>

@@ -1,20 +1,13 @@
 import type { Metadata, Viewport } from "next";
-import { Oswald, Source_Sans_3 } from "next/font/google";
+import { Inter } from "next/font/google";
 import { ServiceWorkerRegistration } from "@/components/ServiceWorkerRegistration";
 import { AppProviders } from "@/components/providers/AppProviders";
+import { PwaInstallModal } from "@/components/PwaInstallModal";
 import "./globals.css";
 
-const oswald = Oswald({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["600", "700"],
-  variable: "--font-oswald",
-  display: "swap",
-});
-
-const sourceSans = Source_Sans_3({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-source-sans",
+  variable: "--font-inter",
   display: "swap",
 });
 
@@ -58,11 +51,12 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="fr" className={`${oswald.variable} ${sourceSans.variable}`}>
+    <html lang="fr" className={inter.variable}>
       <body className="antialiased">
         <AppProviders>
           {children}
           <ServiceWorkerRegistration />
+          <PwaInstallModal />
         </AppProviders>
       </body>
     </html>
