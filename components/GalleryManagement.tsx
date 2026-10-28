@@ -195,7 +195,7 @@ export function GalleryManagement({ canWrite }: { canWrite: boolean }) {
           {filteredItems.map((media) => (
             <article
               key={media.id}
-              className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] shadow-2xs"
+              className="group flex flex-col justify-between overflow-hidden nfc-card shadow-2xs"
             >
               <div className="relative aspect-square overflow-hidden bg-[var(--nfc-input-bg)]">
                 {media.type === 'VIDEO' ? (
@@ -239,7 +239,7 @@ export function GalleryManagement({ canWrite }: { canWrite: boolean }) {
                 </div>
 
                 {canWrite && (
-                  <div className="mt-3 flex items-center justify-between border-t border-[var(--nfc-border)] pt-2.5">
+                  <div className="mt-3 flex items-center justify-between border-t border-[var(--nfc-divider)] pt-2.5">
                     <Button
                       type="button"
                       size="sm"
@@ -327,7 +327,7 @@ export function GalleryManagement({ canWrite }: { canWrite: boolean }) {
               </Select>
             </Field>
 
-            <div className="flex justify-end gap-2 border-t border-[var(--nfc-border)] pt-4">
+            <div className="flex justify-end gap-2 border-t border-[var(--nfc-divider)] pt-4">
               <Button type="button" variant="ghost" onClick={() => setEditingMedia(null)}>
                 Annuler
               </Button>

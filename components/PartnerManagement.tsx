@@ -211,10 +211,10 @@ export function PartnerManagement({ canWrite }: { canWrite: boolean }) {
           {partners.map((partner) => (
             <article
               key={partner.id}
-              className="flex flex-col justify-between rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-4 shadow-2xs"
+              className="flex flex-col justify-between nfc-card p-4 shadow-2xs"
             >
               <div className="flex items-center gap-3.5">
-                <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-[var(--nfc-border)] bg-white p-2">
+                <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-[var(--nfc-divider)] bg-white p-2">
                   {partner.logoUrl ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
@@ -229,7 +229,7 @@ export function PartnerManagement({ canWrite }: { canWrite: boolean }) {
 
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center justify-between gap-2">
-                    <h3 className="truncate font-heading text-lg font-bold">{partner.name}</h3>
+                    <h3 className="truncate font-display text-lg font-bold">{partner.name}</h3>
                     <StatusBadge tone={partner.active !== false ? 'success' : 'neutral'}>
                       {partner.active !== false ? 'Actif' : 'Inactif'}
                     </StatusBadge>
@@ -252,7 +252,7 @@ export function PartnerManagement({ canWrite }: { canWrite: boolean }) {
               </div>
 
               {canWrite && (
-                <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-[var(--nfc-border)] pt-3">
+                <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-[var(--nfc-divider)] pt-3">
                   <div className="flex items-center gap-1">
                     <Button
                       type="button"
@@ -315,7 +315,7 @@ export function PartnerManagement({ canWrite }: { canWrite: boolean }) {
         title={editingPartner ? 'Modifier le partenaire' : 'Ajouter un partenaire'}
       >
         <form onSubmit={handleSavePartner} className="space-y-4">
-          <div className="flex items-center gap-4 rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-input-bg)] p-3.5">
+          <div className="flex items-center gap-4 rounded-2xl border border-[var(--nfc-divider)] bg-[var(--nfc-input-bg)] p-3.5">
             <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-white p-2">
               {logoUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -373,7 +373,7 @@ export function PartnerManagement({ canWrite }: { canWrite: boolean }) {
             label="Afficher ce partenaire sur le site public"
           />
 
-          <div className="flex justify-end gap-2 border-t border-[var(--nfc-border)] pt-4">
+          <div className="flex justify-end gap-2 border-t border-[var(--nfc-divider)] pt-4">
             <Button type="button" variant="ghost" onClick={() => setSheetOpen(false)}>
               Annuler
             </Button>

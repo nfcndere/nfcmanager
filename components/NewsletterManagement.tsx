@@ -165,7 +165,7 @@ export function NewsletterManagement({ canWrite }: { canWrite: boolean }) {
             {filteredSubscribers.map((sub) => (
               <div
                 key={sub.id}
-                className="flex items-center justify-between gap-3 rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-4"
+                className="flex items-center justify-between gap-3 nfc-card p-4"
               >
                 <div className="min-w-0">
                   <p className="truncate font-mono text-sm font-semibold">{sub.email}</p>
@@ -210,7 +210,7 @@ export function NewsletterManagement({ canWrite }: { canWrite: boolean }) {
             {filteredLogs.map((log) => (
               <article
                 key={log.id}
-                className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-4"
+                className="flex flex-wrap items-center justify-between gap-3 nfc-card p-4"
               >
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
@@ -289,7 +289,7 @@ export function NewsletterManagement({ canWrite }: { canWrite: boolean }) {
             />
           </Field>
 
-          <div className="flex justify-end gap-2 border-t border-[var(--nfc-border)] pt-4">
+          <div className="flex justify-end gap-2 border-t border-[var(--nfc-divider)] pt-4">
             <Button type="button" variant="ghost" onClick={() => setSendSheetOpen(false)}>
               Annuler
             </Button>

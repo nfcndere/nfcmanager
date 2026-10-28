@@ -126,7 +126,7 @@ export function DashboardView() {
         <section className="grid grid-cols-2 gap-2.5 sm:grid-cols-4">
           <Link
             href="/matchs?nouveau=1"
-            className="flex items-center gap-2.5 rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-3.5 font-semibold shadow-2xs transition hover:border-[var(--nfc-green)]"
+            className="flex items-center gap-2.5 nfc-card p-3.5 font-semibold shadow-2xs transition hover:border-[var(--nfc-green)]"
           >
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--nfc-green)] text-white">
               <Plus className="h-5 w-5" />
@@ -135,7 +135,7 @@ export function DashboardView() {
           </Link>
           <Link
             href="/actualites?nouveau=1"
-            className="flex items-center gap-2.5 rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-3.5 font-semibold shadow-2xs transition hover:border-[var(--nfc-green)]"
+            className="flex items-center gap-2.5 nfc-card p-3.5 font-semibold shadow-2xs transition hover:border-[var(--nfc-green)]"
           >
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--nfc-green)] text-white">
               <Newspaper className="h-5 w-5" />
@@ -144,7 +144,7 @@ export function DashboardView() {
           </Link>
           <Link
             href="/medias"
-            className="flex items-center gap-2.5 rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-3.5 font-semibold shadow-2xs transition hover:border-[var(--nfc-green)]"
+            className="flex items-center gap-2.5 nfc-card p-3.5 font-semibold shadow-2xs transition hover:border-[var(--nfc-green)]"
           >
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--nfc-green)]/15 text-[var(--nfc-green)] dark:text-[var(--nfc-yellow)]">
               <ImageIcon className="h-5 w-5" />
@@ -153,7 +153,7 @@ export function DashboardView() {
           </Link>
           <Link
             href="/classement"
-            className="flex items-center gap-2.5 rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-3.5 font-semibold shadow-2xs transition hover:border-[var(--nfc-green)]"
+            className="flex items-center gap-2.5 nfc-card p-3.5 font-semibold shadow-2xs transition hover:border-[var(--nfc-green)]"
           >
             <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--nfc-green)]/15 text-[var(--nfc-green)] dark:text-[var(--nfc-yellow)]">
               <Trophy className="h-5 w-5" />
@@ -167,7 +167,7 @@ export function DashboardView() {
           <section className="rounded-2xl border border-amber-500/30 bg-amber-500/10 p-4">
             <div className="flex items-center gap-2 text-amber-900 dark:text-amber-200">
               <AlertTriangle className="h-4 w-4 shrink-0" />
-              <h2 className="font-heading text-sm font-bold uppercase tracking-wide">
+              <h2 className="font-display text-sm font-bold uppercase tracking-wide">
                 Points d’attention ({alerts.length})
               </h2>
             </div>
@@ -227,7 +227,7 @@ export function DashboardView() {
 
         {/* Match en direct / Prochain match + Classement */}
         <div className="grid gap-6 lg:grid-cols-2">
-          <section className="rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-5 shadow-2xs">
+          <section className="nfc-card p-5 shadow-2xs">
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">
                 {nextMatch?.status === 'EN_COURS' ? (
@@ -235,7 +235,7 @@ export function DashboardView() {
                 ) : (
                   <Calendar className="h-5 w-5 text-[var(--nfc-green)]" />
                 )}
-                <h2 className="font-heading text-lg font-bold uppercase tracking-wide">
+                <h2 className="font-display text-lg font-bold uppercase tracking-wide">
                   {nextMatch?.status === 'EN_COURS' ? 'Match en direct' : 'Prochain match'}
                 </h2>
               </div>
@@ -252,11 +252,11 @@ export function DashboardView() {
                   {nextMatch.competition || 'Championnat'} · {nextMatch.stadium || 'Stade non précisé'}
                 </p>
                 <div className="mt-3 flex items-center justify-between gap-3">
-                  <span className="font-heading text-lg font-bold">{nextMatch.homeTeam}</span>
-                  <span className="rounded-xl bg-[var(--nfc-card)] px-3 py-1.5 font-heading text-xl font-bold">
+                  <span className="font-display text-lg font-bold">{nextMatch.homeTeam}</span>
+                  <span className="rounded-xl bg-[var(--nfc-card)] px-3 py-1.5 font-display text-xl font-bold">
                     {nextMatch.homeScore ?? 0} - {nextMatch.awayScore ?? 0}
                   </span>
-                  <span className="font-heading text-lg font-bold text-right">{nextMatch.awayTeam}</span>
+                  <span className="font-display text-lg font-bold text-right">{nextMatch.awayTeam}</span>
                 </div>
                 <p className="mt-2 text-xs text-[var(--nfc-muted)]">{formatDoualaDate(nextMatch.date)}</p>
 
@@ -276,9 +276,9 @@ export function DashboardView() {
             )}
           </section>
 
-          <section className="rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-5 shadow-2xs">
+          <section className="nfc-card p-5 shadow-2xs">
             <div className="flex items-center justify-between gap-2">
-              <h2 className="font-heading text-lg font-bold uppercase tracking-wide">
+              <h2 className="font-display text-lg font-bold uppercase tracking-wide">
                 Position au classement {season ? `(${season.label})` : ''}
               </h2>
               <Link
@@ -294,22 +294,22 @@ export function DashboardView() {
                 <div className="grid grid-cols-4 gap-2 text-center">
                   <div className="rounded-xl bg-[var(--nfc-input-bg)] p-3">
                     <span className="text-xs text-[var(--nfc-muted)]">Rang</span>
-                    <p className="mt-0.5 font-heading text-2xl font-bold text-[var(--nfc-green)] dark:text-[var(--nfc-yellow)]">
+                    <p className="mt-0.5 font-display text-2xl font-bold text-[var(--nfc-green)] dark:text-[var(--nfc-yellow)]">
                       {standing.rank}
                       {standing.rank === 1 ? 'er' : 'e'}
                     </p>
                   </div>
                   <div className="rounded-xl bg-[var(--nfc-input-bg)] p-3">
                     <span className="text-xs text-[var(--nfc-muted)]">Points</span>
-                    <p className="mt-0.5 font-heading text-2xl font-bold">{standing.points}</p>
+                    <p className="mt-0.5 font-display text-2xl font-bold">{standing.points}</p>
                   </div>
                   <div className="rounded-xl bg-[var(--nfc-input-bg)] p-3">
                     <span className="text-xs text-[var(--nfc-muted)]">Joués</span>
-                    <p className="mt-0.5 font-heading text-2xl font-bold">{standing.played}</p>
+                    <p className="mt-0.5 font-display text-2xl font-bold">{standing.played}</p>
                   </div>
                   <div className="rounded-xl bg-[var(--nfc-input-bg)] p-3">
                     <span className="text-xs text-[var(--nfc-muted)]">Diff.</span>
-                    <p className="mt-0.5 font-heading text-2xl font-bold">
+                    <p className="mt-0.5 font-display text-2xl font-bold">
                       {standing.goalDifference > 0 ? `+${standing.goalDifference}` : standing.goalDifference}
                     </p>
                   </div>
@@ -326,7 +326,7 @@ export function DashboardView() {
             )}
 
             {recentCompleted.length > 0 && (
-              <div className="mt-5 border-t border-[var(--nfc-border)] pt-4">
+              <div className="mt-5 border-t border-[var(--nfc-divider)] pt-4">
                 <h3 className="text-xs font-bold uppercase tracking-wider text-[var(--nfc-muted)]">
                   Derniers scores enregistrés
                 </h3>
@@ -336,7 +336,7 @@ export function DashboardView() {
                       <span className="truncate">
                         {m.homeTeam} – {m.awayTeam}
                       </span>
-                      <span className="font-heading font-bold">
+                      <span className="font-display font-bold">
                         {m.homeScore ?? 0} : {m.awayScore ?? 0}
                       </span>
                     </li>
@@ -372,14 +372,14 @@ function KpiCard({
       className={`rounded-2xl border p-4 transition hover:border-[var(--nfc-green)] ${
         highlight
           ? 'border-amber-500/40 bg-amber-500/5'
-          : 'border-[var(--nfc-border)] bg-[var(--nfc-card)]'
+          : 'border-[var(--nfc-divider)] bg-[var(--nfc-card)]'
       }`}
     >
       <div className="flex items-center justify-between">
         <span className="text-xs font-medium text-[var(--nfc-muted)]">{label}</span>
         <Icon className="h-4 w-4 text-[var(--nfc-muted)]" />
       </div>
-      <p className="mt-2 font-heading text-3xl font-bold text-[var(--nfc-text)]">{value}</p>
+      <p className="mt-2 font-display text-3xl font-bold text-[var(--nfc-text)]">{value}</p>
       <p className="mt-0.5 text-xs text-[var(--nfc-muted)]">{sub}</p>
     </Link>
   );

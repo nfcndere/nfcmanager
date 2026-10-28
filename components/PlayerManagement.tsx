@@ -306,7 +306,7 @@ export function PlayerManagement({ canWrite }: { canWrite: boolean }) {
             return (
               <article
                 key={player.id}
-                className="flex flex-col justify-between rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-4 shadow-2xs"
+                className="flex flex-col justify-between nfc-card p-4 shadow-2xs"
               >
                 <div className="flex items-start gap-3.5">
                   <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-2xl bg-[var(--nfc-input-bg)]">
@@ -323,7 +323,7 @@ export function PlayerManagement({ canWrite }: { canWrite: boolean }) {
                       </div>
                     )}
                     {player.number !== null && player.number !== undefined && (
-                      <span className="absolute bottom-1 right-1 rounded-md bg-[var(--nfc-green)] px-1.5 py-0.5 font-heading text-xs font-bold text-[var(--nfc-yellow)]">
+                      <span className="absolute bottom-1 right-1 rounded-md bg-[var(--nfc-green)] px-1.5 py-0.5 font-display text-xs font-bold text-[var(--nfc-yellow)]">
                         #{player.number}
                       </span>
                     )}
@@ -331,7 +331,7 @@ export function PlayerManagement({ canWrite }: { canWrite: boolean }) {
 
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-center gap-1.5">
-                      <h3 className="truncate font-heading text-lg font-bold">
+                      <h3 className="truncate font-display text-lg font-bold">
                         {player.firstName} {player.lastName}
                       </h3>
                       {player.isCaptain && (
@@ -358,7 +358,7 @@ export function PlayerManagement({ canWrite }: { canWrite: boolean }) {
                 )}
 
                 {canWrite && (
-                  <div className="mt-4 flex items-center justify-between gap-2 border-t border-[var(--nfc-border)] pt-3">
+                  <div className="mt-4 flex items-center justify-between gap-2 border-t border-[var(--nfc-divider)] pt-3">
                     <Button
                       type="button"
                       size="sm"
@@ -393,7 +393,7 @@ export function PlayerManagement({ canWrite }: { canWrite: boolean }) {
       >
         <form onSubmit={handleSavePlayer} className="space-y-4">
           {/* Photo du joueur */}
-          <div className="flex items-center gap-4 rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-input-bg)] p-3.5">
+          <div className="flex items-center gap-4 rounded-2xl border border-[var(--nfc-divider)] bg-[var(--nfc-input-bg)] p-3.5">
             <div className="h-16 w-16 shrink-0 overflow-hidden rounded-2xl bg-[var(--nfc-card)]">
               {photoPreviewUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
@@ -517,8 +517,8 @@ export function PlayerManagement({ canWrite }: { canWrite: boolean }) {
             description="Affiche le brassard de capitaine sur la fiche publique du joueur."
           />
 
-          <div className="rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-input-bg)] p-4">
-            <h4 className="mb-3 flex items-center gap-1.5 font-heading text-sm font-bold uppercase tracking-wide">
+          <div className="rounded-2xl border border-[var(--nfc-divider)] bg-[var(--nfc-input-bg)] p-4">
+            <h4 className="mb-3 flex items-center gap-1.5 font-display text-sm font-bold uppercase tracking-wide">
               <Shield className="h-4 w-4 text-[var(--nfc-green)]" />
               Statistiques de la saison
             </h4>
@@ -575,7 +575,7 @@ export function PlayerManagement({ canWrite }: { canWrite: boolean }) {
             />
           </Field>
 
-          <div className="flex justify-end gap-2 border-t border-[var(--nfc-border)] pt-4">
+          <div className="flex justify-end gap-2 border-t border-[var(--nfc-divider)] pt-4">
             <Button type="button" variant="ghost" onClick={() => setSheetOpen(false)}>
               Annuler
             </Button>

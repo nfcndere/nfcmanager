@@ -315,7 +315,7 @@ function ArticleManagementInner({ canWrite }: { canWrite: boolean }) {
           {filteredArticles.map((article) => (
             <article
               key={article.id}
-              className="flex flex-col justify-between overflow-hidden rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] shadow-2xs"
+              className="flex flex-col justify-between overflow-hidden nfc-card shadow-2xs"
             >
               <div>
                 {article.cover?.url && (
@@ -338,7 +338,7 @@ function ArticleManagementInner({ canWrite }: { canWrite: boolean }) {
                     </StatusBadge>
                   </div>
 
-                  <h3 className="mt-2 font-heading text-lg font-bold leading-snug">
+                  <h3 className="mt-2 font-display text-lg font-bold leading-snug">
                     {article.title}
                   </h3>
                   <p className="mt-1 font-mono text-xs text-[var(--nfc-muted)]">/{article.slug}</p>
@@ -351,7 +351,7 @@ function ArticleManagementInner({ canWrite }: { canWrite: boolean }) {
                 </div>
               </div>
 
-              <div className="border-t border-[var(--nfc-border)] px-4 py-3">
+              <div className="border-t border-[var(--nfc-divider)] px-4 py-3">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="text-xs text-[var(--nfc-muted)]">
                     {article.publishedAt
@@ -409,7 +409,7 @@ function ArticleManagementInner({ canWrite }: { canWrite: boolean }) {
         </div>
 
         {editorTab === 'PREVIEW' ? (
-          <div className="space-y-4 rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-input-bg)] p-5">
+          <div className="space-y-4 rounded-2xl border border-[var(--nfc-divider)] bg-[var(--nfc-input-bg)] p-5">
             {coverPreviewUrl && (
               <div className="aspect-video overflow-hidden rounded-xl">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -421,7 +421,7 @@ function ArticleManagementInner({ canWrite }: { canWrite: boolean }) {
               <span>·</span>
               <span>{formatDoualaDate(new Date().toISOString())}</span>
             </div>
-            <h2 className="font-heading text-2xl font-bold">{title || 'Titre de l’article'}</h2>
+            <h2 className="font-display text-2xl font-bold">{title || 'Titre de l’article'}</h2>
             {summary && (
               <p className="border-l-4 border-[var(--nfc-green)] pl-3 text-sm font-semibold text-[var(--nfc-muted)]">
                 {summary}
@@ -439,7 +439,7 @@ function ArticleManagementInner({ canWrite }: { canWrite: boolean }) {
         ) : (
           <form onSubmit={handleSaveArticle} className="space-y-4">
             {/* Image de couverture */}
-            <div className="flex items-center gap-4 rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-input-bg)] p-3.5">
+            <div className="flex items-center gap-4 rounded-2xl border border-[var(--nfc-divider)] bg-[var(--nfc-input-bg)] p-3.5">
               <div className="h-16 w-24 shrink-0 overflow-hidden rounded-xl bg-[var(--nfc-card)]">
                 {coverPreviewUrl ? (
                   // eslint-disable-next-line @next/next/no-img-element
@@ -551,7 +551,7 @@ function ArticleManagementInner({ canWrite }: { canWrite: boolean }) {
               description="Désactivez pour conserver cet article en brouillon privé."
             />
 
-            <div className="flex flex-wrap justify-between gap-2 border-t border-[var(--nfc-border)] pt-4">
+            <div className="flex flex-wrap justify-between gap-2 border-t border-[var(--nfc-divider)] pt-4">
               <Button
                 type="button"
                 variant="secondary"

@@ -45,27 +45,27 @@ export function AccountView({ user }: { user: SessionUser }) {
 
   return (
     <div className="grid gap-6 lg:grid-cols-2">
-      <section className="rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-5 shadow-xs">
+      <section className="nfc-card p-5 shadow-xs">
         <div className="flex items-center gap-3">
           <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--nfc-green)]/15 text-[var(--nfc-green)] dark:text-[var(--nfc-yellow)]">
             <UserCheck className="h-5 w-5" />
           </span>
           <div>
-            <h2 className="font-heading text-lg font-bold uppercase tracking-wide">Profil connecté</h2>
+            <h2 className="font-display text-lg font-bold uppercase tracking-wide">Profil connecté</h2>
             <p className="text-xs text-[var(--nfc-muted)]">Informations du compte sur nfcwebsite</p>
           </div>
         </div>
 
         <dl className="mt-5 space-y-3 text-sm">
-          <div className="flex items-center justify-between border-b border-[var(--nfc-border)] pb-2.5">
+          <div className="flex items-center justify-between border-b border-[var(--nfc-divider)] pb-2.5">
             <dt className="text-[var(--nfc-muted)]">Nom</dt>
             <dd className="font-semibold">{user.name || 'Non renseigné'}</dd>
           </div>
-          <div className="flex items-center justify-between border-b border-[var(--nfc-border)] pb-2.5">
+          <div className="flex items-center justify-between border-b border-[var(--nfc-divider)] pb-2.5">
             <dt className="text-[var(--nfc-muted)]">E-mail</dt>
             <dd className="font-mono text-xs font-semibold">{user.email}</dd>
           </div>
-          <div className="flex items-center justify-between border-b border-[var(--nfc-border)] pb-2.5">
+          <div className="flex items-center justify-between border-b border-[var(--nfc-divider)] pb-2.5">
             <dt className="text-[var(--nfc-muted)]">Rôle</dt>
             <dd>
               <StatusBadge tone="brand">{user.role}</StatusBadge>
@@ -82,13 +82,13 @@ export function AccountView({ user }: { user: SessionUser }) {
         </div>
       </section>
 
-      <section className="rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-5 shadow-xs">
+      <section className="nfc-card p-5 shadow-xs">
         <div className="flex items-center gap-3">
           <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--nfc-green)]/15 text-[var(--nfc-green)] dark:text-[var(--nfc-yellow)]">
             <KeyRound className="h-5 w-5" />
           </span>
           <div>
-            <h2 className="font-heading text-lg font-bold uppercase tracking-wide">
+            <h2 className="font-display text-lg font-bold uppercase tracking-wide">
               Changer mon mot de passe
             </h2>
             <p className="text-xs text-[var(--nfc-muted)]">Minimum 8 caractères</p>

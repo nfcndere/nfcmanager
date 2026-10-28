@@ -50,11 +50,11 @@ export function AuthDiagPanel({ autoRun = true }: { autoRun?: boolean }) {
   }, [autoRun, runDiag]);
 
   return (
-    <div className="rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-4 text-sm">
+    <div className="nfc-card p-4 text-sm">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <Activity className="h-4 w-4 text-[var(--nfc-green)]" />
-          <h3 className="font-heading text-base font-bold uppercase tracking-wide">
+          <h3 className="font-display text-base font-bold uppercase tracking-wide">
             Diagnostic de connexion API
           </h3>
         </div>
@@ -132,7 +132,7 @@ function DiagRow({
   detail: string;
 }) {
   return (
-    <div className="flex items-start justify-between gap-3 rounded-xl border border-[var(--nfc-border)] p-3">
+    <div className="flex items-start justify-between gap-3 rounded-xl border border-[var(--nfc-divider)] p-3">
       <div className="flex items-start gap-2.5">
         {ok ? (
           <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" />

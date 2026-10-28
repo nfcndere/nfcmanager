@@ -31,26 +31,30 @@ export default async function LoginPage({
   const showDiag = params.diag === '1' || apiUnavailable;
 
   return (
-    <main className="flex min-h-dvh items-center justify-center bg-[var(--nfc-bg)] px-4 py-10">
-      <section className="w-full max-w-md rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-6 shadow-sm sm:p-8">
+    <main className="relative flex min-h-dvh items-center justify-center bg-[var(--nfc-dark)] px-4 py-12">
+      {/* Fond sombre texturé comme les en-têtes du site nfcwebsite */}
+      <div className="absolute inset-0 z-0 bg-radial from-[var(--nfc-surface-2)] via-[var(--nfc-dark)] to-black opacity-80" />
+
+      <section className="relative z-10 w-full max-w-md nfc-card border-t-4 border-[var(--nfc-green)] p-6 sm:p-8">
         <div className="mb-6 flex flex-col items-center text-center">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src="/logo.png"
             alt="Logo officiel Ngaoundéré FC"
-            className="h-16 w-16 rounded-full object-contain shadow-xs"
+            className="h-16 w-16 object-contain"
           />
-          <h1 className="mt-3 text-lg font-semibold tracking-tight text-[var(--nfc-text)]">
-            Administration Ngaoundéré FC
+          <span className="section-tag mt-3">Espace d'administration</span>
+          <h1 className="mt-1 font-display text-2xl font-extrabold uppercase tracking-tight text-[var(--nfc-text)]">
+            NGAOUNDÉRÉ FC
           </h1>
-          <p className="mt-1 text-[13px] text-[var(--nfc-muted)]">
-            Connectez-vous pour gérer le site officiel du club
+          <p className="mt-1 text-xs text-[var(--nfc-muted)]">
+            Connectez-vous pour administrer le site officiel
           </p>
         </div>
 
         {sessionExpired && (
           <div
-            className="mb-5 flex items-start gap-2.5 rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-xs text-amber-900 dark:text-amber-200"
+            className="mb-5 flex items-start gap-2.5 bg-amber-400 p-3 text-xs font-bold uppercase text-[var(--nfc-dark)] font-display tracking-wider"
             role="status"
           >
             <Clock className="mt-0.5 h-4 w-4 shrink-0" />
@@ -60,7 +64,7 @@ export default async function LoginPage({
 
         {apiUnavailable && (
           <div
-            className="mb-5 flex items-start gap-2.5 rounded-xl border border-amber-500/30 bg-amber-500/10 p-3 text-xs text-amber-900 dark:text-amber-200"
+            className="mb-5 flex items-start gap-2.5 bg-amber-400 p-3 text-xs font-bold uppercase text-[var(--nfc-dark)] font-display tracking-wider"
             role="status"
           >
             <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />

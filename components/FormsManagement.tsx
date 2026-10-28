@@ -360,7 +360,7 @@ function FormsManagementInner({ canWrite }: { canWrite: boolean }) {
             return (
               <article
                 key={item.id}
-                className="flex flex-col justify-between rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-4 shadow-2xs"
+                className="flex flex-col justify-between nfc-card p-4 shadow-2xs"
               >
                 <div>
                   <div className="flex flex-wrap items-center justify-between gap-2">
@@ -375,7 +375,7 @@ function FormsManagementInner({ canWrite }: { canWrite: boolean }) {
                     </StatusBadge>
                   </div>
 
-                  <h3 className="mt-2.5 font-heading text-lg font-bold">{name}</h3>
+                  <h3 className="mt-2.5 font-display text-lg font-bold">{name}</h3>
                   <p className="text-xs text-[var(--nfc-muted)]">
                     Reçu le {formatDoualaDate(item.createdAt)}
                   </p>
@@ -395,18 +395,18 @@ function FormsManagementInner({ canWrite }: { canWrite: boolean }) {
                   </dl>
 
                   {item.adminNotes && (
-                    <p className="mt-2.5 rounded-xl border border-[var(--nfc-border)] px-3 py-2 text-xs text-[var(--nfc-muted)]">
+                    <p className="mt-2.5 rounded-xl border border-[var(--nfc-divider)] px-3 py-2 text-xs text-[var(--nfc-muted)]">
                       <strong>Note :</strong> {item.adminNotes}
                     </p>
                   )}
                 </div>
 
-                <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-[var(--nfc-border)] pt-3">
+                <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-[var(--nfc-divider)] pt-3">
                   <div className="flex flex-wrap items-center gap-1.5">
                     {phone && (
                       <a
                         href={`tel:${phone}`}
-                        className="inline-flex min-h-9 items-center gap-1.5 rounded-xl border border-[var(--nfc-border)] px-3 text-xs font-semibold hover:bg-black/5 dark:hover:bg-white/10"
+                        className="inline-flex min-h-9 items-center gap-1.5 rounded-xl border border-[var(--nfc-divider)] px-3 text-xs font-semibold hover:bg-black/5 dark:hover:bg-white/10"
                       >
                         <Phone className="h-3.5 w-3.5 text-[var(--nfc-green)]" />
                         Appeler
@@ -426,7 +426,7 @@ function FormsManagementInner({ canWrite }: { canWrite: boolean }) {
                     {email && (
                       <a
                         href={`mailto:${email}`}
-                        className="inline-flex min-h-9 items-center gap-1.5 rounded-xl border border-[var(--nfc-border)] px-3 text-xs font-semibold hover:bg-black/5 dark:hover:bg-white/10"
+                        className="inline-flex min-h-9 items-center gap-1.5 rounded-xl border border-[var(--nfc-divider)] px-3 text-xs font-semibold hover:bg-black/5 dark:hover:bg-white/10"
                       >
                         <Mail className="h-3.5 w-3.5" />
                         E-mail
@@ -518,7 +518,7 @@ function FormsManagementInner({ canWrite }: { canWrite: boolean }) {
             />
 
             {canWrite && (
-              <div className="flex justify-end gap-2 border-t border-[var(--nfc-border)] pt-4">
+              <div className="flex justify-end gap-2 border-t border-[var(--nfc-divider)] pt-4">
                 <Button type="button" variant="ghost" onClick={() => setSelectedForm(null)}>
                   Fermer
                 </Button>

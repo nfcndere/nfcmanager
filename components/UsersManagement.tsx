@@ -194,7 +194,7 @@ export function UsersManagement({
         <div className="rounded-2xl border border-emerald-500/40 bg-emerald-500/10 p-4 text-sm">
           <div className="flex items-start justify-between gap-3">
             <div className="space-y-1">
-              <p className="font-heading text-base font-bold uppercase text-emerald-950 dark:text-emerald-200">
+              <p className="font-display text-base font-bold uppercase text-emerald-950 dark:text-emerald-200">
                 Mot de passe temporaire généré (affiché une seule fois)
               </p>
               <p className="text-xs text-emerald-900 dark:text-emerald-300">
@@ -244,12 +244,12 @@ export function UsersManagement({
               return (
                 <article
                   key={u.id}
-                  className="flex flex-col justify-between rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-4 shadow-2xs"
+                  className="flex flex-col justify-between nfc-card p-4 shadow-2xs"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
-                        <h3 className="truncate font-heading text-lg font-bold">
+                        <h3 className="truncate font-display text-lg font-bold">
                           {u.name || u.email}
                         </h3>
                         {isSelf && <StatusBadge tone="info">Vous</StatusBadge>}
@@ -267,7 +267,7 @@ export function UsersManagement({
                     </StatusBadge>
                   </div>
 
-                  <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-[var(--nfc-border)] pt-3">
+                  <div className="mt-4 flex flex-wrap items-center justify-between gap-2 border-t border-[var(--nfc-divider)] pt-3">
                     <div className="flex items-center gap-2">
                       <Shield className="h-4 w-4 text-[var(--nfc-muted)]" />
                       <Select
@@ -322,7 +322,7 @@ export function UsersManagement({
             {(auditQuery.data?.items ?? []).map((log) => (
               <div
                 key={log.id}
-                className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] px-4 py-3 text-xs sm:text-sm"
+                className="flex flex-wrap items-center justify-between gap-3 nfc-card px-4 py-3 text-xs sm:text-sm"
               >
                 <div className="flex items-center gap-2.5">
                   <History className="h-4 w-4 shrink-0 text-[var(--nfc-green)]" />
@@ -384,7 +384,7 @@ export function UsersManagement({
             </Select>
           </Field>
 
-          <div className="flex justify-end gap-2 border-t border-[var(--nfc-border)] pt-4">
+          <div className="flex justify-end gap-2 border-t border-[var(--nfc-divider)] pt-4">
             <Button type="button" variant="ghost" onClick={() => setCreateOpen(false)}>
               Annuler
             </Button>

@@ -179,12 +179,12 @@ export function SettingsManagement({ isAdmin }: { isAdmin: boolean }) {
       onRetry={() => void settingsQuery.refetch()}
     >
       <div className="grid gap-6 lg:grid-cols-3">
-        <section className="rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-5 shadow-2xs lg:col-span-2">
+        <section className="nfc-card p-5 shadow-2xs lg:col-span-2">
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2.5">
               <Settings className="h-5 w-5 text-[var(--nfc-green)]" />
               <div>
-                <h2 className="font-heading text-lg font-bold uppercase tracking-wide">
+                <h2 className="font-display text-lg font-bold uppercase tracking-wide">
                   Réglages publics du site (ClubSetting)
                 </h2>
                 <p className="text-xs text-[var(--nfc-muted)]">
@@ -234,8 +234,8 @@ export function SettingsManagement({ isAdmin }: { isAdmin: boolean }) {
               </Field>
             </div>
 
-            <div className="rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-input-bg)] p-4">
-              <h3 className="mb-3 flex items-center gap-2 font-heading text-sm font-bold uppercase tracking-wide">
+            <div className="rounded-2xl border border-[var(--nfc-divider)] bg-[var(--nfc-input-bg)] p-4">
+              <h3 className="mb-3 flex items-center gap-2 font-display text-sm font-bold uppercase tracking-wide">
                 <Globe className="h-4 w-4 text-[var(--nfc-green)]" />
                 Indicateurs publics de l’Académie
               </h3>
@@ -273,7 +273,7 @@ export function SettingsManagement({ isAdmin }: { isAdmin: boolean }) {
             </div>
 
             {isAdmin && (
-              <div className="flex justify-end border-t border-[var(--nfc-border)] pt-4">
+              <div className="flex justify-end border-t border-[var(--nfc-divider)] pt-4">
                 <Button type="submit" loading={saving}>
                   <Save className="h-4 w-4" />
                   Enregistrer les réglages
@@ -284,11 +284,11 @@ export function SettingsManagement({ isAdmin }: { isAdmin: boolean }) {
         </section>
 
         <div className="space-y-6">
-          <section className="rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-5 shadow-2xs">
+          <section className="nfc-card p-5 shadow-2xs">
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">
                 <Bell className="h-5 w-5 text-[var(--nfc-green)]" />
-                <h2 className="font-heading text-lg font-bold uppercase tracking-wide">
+                <h2 className="font-display text-lg font-bold uppercase tracking-wide">
                   Notifications Push
                 </h2>
               </div>

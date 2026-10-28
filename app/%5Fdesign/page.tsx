@@ -25,11 +25,11 @@ export default function DesignSystemPage() {
 
   return (
     <main className="mx-auto max-w-5xl space-y-10 px-4 py-10">
-      <header className="border-b border-[var(--nfc-border)] pb-6">
+      <header className="border-b border-[var(--nfc-divider)] pb-6">
         <p className="text-xs font-bold uppercase tracking-widest text-[var(--nfc-green)]">
           Charte Graphique Ngaoundéré FC
         </p>
-        <h1 className="mt-1 font-heading text-3xl font-bold uppercase tracking-wide">
+        <h1 className="mt-1 font-display text-3xl font-bold uppercase tracking-wide">
           Système de Design — NFC Manager (`/_design`)
         </h1>
         <p className="mt-2 text-sm text-[var(--nfc-muted)]">
@@ -39,7 +39,7 @@ export default function DesignSystemPage() {
 
       {/* Palette de couleurs */}
       <section className="space-y-3">
-        <h2 className="font-heading text-xl font-bold uppercase">1. Jetons de couleur</h2>
+        <h2 className="font-display text-xl font-bold uppercase">1. Jetons de couleur</h2>
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-5">
           {[
             ['--nfc-green', '#1f5f3d', 'bg-[#1f5f3d] text-white'],
@@ -57,8 +57,8 @@ export default function DesignSystemPage() {
       </section>
 
       {/* Boutons & Badges */}
-      <section className="space-y-4 rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-5">
-        <h2 className="font-heading text-xl font-bold uppercase">2. Boutons & Badges</h2>
+      <section className="space-y-4 nfc-card p-5">
+        <h2 className="font-display text-xl font-bold uppercase">2. Boutons & Badges</h2>
         <div className="flex flex-wrap gap-3">
           <Button variant="primary">Primaire</Button>
           <Button variant="secondary">Secondaire</Button>
@@ -80,8 +80,8 @@ export default function DesignSystemPage() {
       </section>
 
       {/* Contrôles de formulaire & Steppers */}
-      <section className="space-y-4 rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-5">
-        <h2 className="font-heading text-xl font-bold uppercase">
+      <section className="space-y-4 nfc-card p-5">
+        <h2 className="font-display text-xl font-bold uppercase">
           3. Contrôles tactiles (Mobile-first)
         </h2>
         <div className="grid gap-4 sm:grid-cols-2">
@@ -126,8 +126,8 @@ export default function DesignSystemPage() {
       </section>
 
       {/* États de données DataState */}
-      <section className="space-y-4 rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-5">
-        <h2 className="font-heading text-xl font-bold uppercase">
+      <section className="space-y-4 nfc-card p-5">
+        <h2 className="font-display text-xl font-bold uppercase">
           4. États de données (`DataState`)
         </h2>
         <div className="flex flex-wrap gap-2">

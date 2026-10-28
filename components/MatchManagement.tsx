@@ -404,7 +404,7 @@ function MatchManagementInner({ canWrite }: { canWrite: boolean }) {
                     ? 'border-red-500/50 ring-2 ring-red-500/15'
                     : isOverdue
                       ? 'border-amber-500/50'
-                      : 'border-[var(--nfc-border)]'
+                      : 'border-[var(--nfc-divider)]'
                 }`}
               >
                 <div className="flex items-center justify-between gap-2">
@@ -422,17 +422,17 @@ function MatchManagementInner({ canWrite }: { canWrite: boolean }) {
 
                 <div className="mt-3.5 flex items-center justify-between gap-3 rounded-xl bg-[var(--nfc-input-bg)] px-4 py-3">
                   <div className="min-w-0 flex-1">
-                    <p className="truncate font-heading text-base font-bold sm:text-lg">
+                    <p className="truncate font-display text-base font-bold sm:text-lg">
                       {match.homeTeam}
                     </p>
                   </div>
-                  <div className="shrink-0 rounded-xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] px-3.5 py-1.5 font-heading text-xl font-bold tracking-wider">
+                  <div className="shrink-0 nfc-card px-3.5 py-1.5 font-display text-xl font-bold tracking-wider">
                     {match.homeScore !== null && match.homeScore !== undefined ? match.homeScore : '–'}
                     {' : '}
                     {match.awayScore !== null && match.awayScore !== undefined ? match.awayScore : '–'}
                   </div>
                   <div className="min-w-0 flex-1 text-right">
-                    <p className="truncate font-heading text-base font-bold sm:text-lg">
+                    <p className="truncate font-display text-base font-bold sm:text-lg">
                       {match.awayTeam}
                     </p>
                   </div>
@@ -456,7 +456,7 @@ function MatchManagementInner({ canWrite }: { canWrite: boolean }) {
                 )}
 
                 {canWrite && (
-                  <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-[var(--nfc-border)] pt-3">
+                  <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-[var(--nfc-divider)] pt-3">
                     <Button
                       type="button"
                       size="sm"
@@ -504,7 +504,7 @@ function MatchManagementInner({ canWrite }: { canWrite: boolean }) {
           <div className="mx-auto flex w-full max-w-xl items-center justify-between">
             <div className="flex items-center gap-2">
               <span className="inline-flex h-3 w-3 animate-ping rounded-full bg-red-500" />
-              <span className="font-heading text-sm font-bold uppercase tracking-widest text-[var(--nfc-yellow)]">
+              <span className="font-display text-sm font-bold uppercase tracking-widest text-[var(--nfc-yellow)]">
                 Mode Bord de Terrain · Direct
               </span>
             </div>
@@ -530,7 +530,7 @@ function MatchManagementInner({ canWrite }: { canWrite: boolean }) {
 
             <div className="grid gap-4 rounded-3xl border border-white/15 bg-[var(--nfc-surface)] p-5 sm:grid-cols-2">
               <div className="flex flex-col items-center rounded-2xl bg-black/25 p-4">
-                <p className="text-center font-heading text-xl font-bold uppercase tracking-wide">
+                <p className="text-center font-display text-xl font-bold uppercase tracking-wide">
                   {activeLiveMatch.homeTeam}
                 </p>
                 <span className="mb-3 text-xs text-white/60">Domicile</span>
@@ -544,7 +544,7 @@ function MatchManagementInner({ canWrite }: { canWrite: boolean }) {
               </div>
 
               <div className="flex flex-col items-center rounded-2xl bg-black/25 p-4">
-                <p className="text-center font-heading text-xl font-bold uppercase tracking-wide">
+                <p className="text-center font-display text-xl font-bold uppercase tracking-wide">
                   {activeLiveMatch.awayTeam}
                 </p>
                 <span className="mb-3 text-xs text-white/60">Extérieur</span>
@@ -702,7 +702,7 @@ function MatchManagementInner({ canWrite }: { canWrite: boolean }) {
             />
           </Field>
 
-          <div className="flex justify-end gap-2 border-t border-[var(--nfc-border)] pt-4">
+          <div className="flex justify-end gap-2 border-t border-[var(--nfc-divider)] pt-4">
             <Button type="button" variant="ghost" onClick={() => setSheetOpen(false)}>
               Annuler
             </Button>

@@ -1,47 +1,74 @@
 @import "tailwindcss";
 
+/* ========================================
+   NFC Design System — aligné sur nfcwebsite
+   (src/app/globals.css du site public : mêmes couleurs, polices, angles droits)
+   ======================================== */
 @theme {
   --color-nfc-green: #1f5f3d;
   --color-nfc-green-dark: #173f2d;
+  --color-nfc-green-light: #7ccf97;
   --color-nfc-yellow: #8cea5a;
-  --color-nfc-dark: #0b0d0e;
-  --color-nfc-surface: #131618;
-  --color-nfc-ink: #111827;
-  --color-nfc-mist: #f8f9fa;
+  --color-nfc-dark: #0c130e;
+  --color-nfc-surface: #141f17;
+  --color-nfc-surface-2: #1c2b20;
+  --font-display: var(--font-oswald), "Oswald", system-ui, sans-serif;
+  --font-sans: var(--font-source-sans), "Source Sans 3", system-ui, sans-serif;
 }
 
 :root {
   color-scheme: light;
   --nfc-green: #1f5f3d;
-  --nfc-green-dark: #184c30;
+  --nfc-green-dark: #173f2d;
+  --nfc-green-light: #7ccf97;
   --nfc-yellow: #8cea5a;
-  --nfc-dark: #0b0d0e;
-  --nfc-surface: #131618;
+  --nfc-yellow-hover: #78d04a;
+  --nfc-dark: #0c130e;
+  --nfc-surface: #141f17;
+  --nfc-surface-2: #1c2b20;
 
-  /* Palette inspirée de Medusa UI (surfaces neutres, bordures fines, contrastes posés) */
-  --nfc-bg: #f8f9fa;
+  --nfc-bg: #f7f8f7;
   --nfc-card: #ffffff;
-  --nfc-surface-subtle: #f3f4f6;
-  --nfc-text: #111827;
+  --nfc-surface-subtle: #f1f3f1;
+  --nfc-text: #1f2937;
   --nfc-muted: #6b7280;
-  --nfc-border: #e5e7eb;
-  --nfc-input-bg: #ffffff;
+  /* Les bordures décoratives sont supprimées : séparateur discret réservé aux lignes de liste */
+  --nfc-border: #eef0ee;
+  --nfc-divider: #eef0ee;
+  --nfc-input-bg: #f3f5f3;
+  --nfc-shadow: 0 1px 2px rgba(12, 19, 14, 0.04), 0 4px 14px rgba(12, 19, 14, 0.05);
+  --nfc-shadow-hover: 0 6px 18px rgba(0, 0, 0, 0.12);
+  --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 [data-theme="dark"] {
   color-scheme: dark;
-  --nfc-bg: #0b0d0e;
-  --nfc-card: #131618;
-  --nfc-surface-subtle: #1b1f22;
+  --nfc-bg: #0c130e;
+  --nfc-card: #141f17;
+  --nfc-surface-subtle: #1c2b20;
   --nfc-text: #f3f4f6;
   --nfc-muted: #9ca3af;
-  --nfc-border: #262b2f;
-  --nfc-input-bg: #161a1d;
+  --nfc-border: #1f2e23;
+  --nfc-divider: #1f2e23;
+  --nfc-input-bg: #1c2b20;
+  --nfc-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --nfc-shadow-hover: 0 6px 18px rgba(0, 0, 0, 0.4);
 }
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+@media (min-width: 1024px) {
+  html { font-size: 16px; }
 }
 
 html,
@@ -50,16 +77,41 @@ body {
   min-height: 100dvh;
   background-color: var(--nfc-bg);
   color: var(--nfc-text);
-  font-family: var(--font-source-sans), -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, sans-serif;
-  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  font-family: var(--font-source-sans), "Source Sans 3", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.55;
 }
 
-/* Typographie posée type Medusa UI : sans-serif lisible, pas de majuscules agressives */
-.font-heading,
-.font-display {
-  font-family: var(--font-source-sans), -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
-  letter-spacing: -0.015em;
-  text-transform: none;
+/* Titres : Oswald, majuscules, comme le site */
+h1, h2, h3, h4,
+.font-display,
+.font-heading {
+  font-family: var(--font-oswald), "Oswald", system-ui, sans-serif;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 1.15;
+}
+
+/* Angles droits partout (normalisation identique au site) — sauf pastilles rondes */
+.rounded,
+.rounded-sm,
+.rounded-md,
+.rounded-lg,
+.rounded-xl,
+.rounded-2xl,
+.rounded-3xl,
+.rounded-none {
+  border-radius: 0 !important;
+}
+button,
+input,
+textarea,
+select,
+img:not(.rounded-full),
+[role="button"],
+section,
+article,
+form {
+  border-radius: 0;
 }
 
 button,
@@ -72,7 +124,49 @@ textarea {
 a {
   color: inherit;
   text-decoration: none;
+  transition: color 0.2s ease, opacity 0.2s ease;
 }
+
+/* Barre de défilement aux couleurs du club */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--nfc-bg); }
+::-webkit-scrollbar-thumb { background: var(--nfc-green); }
+::-webkit-scrollbar-thumb:hover { background: var(--nfc-green-light); }
+
+/* Carte standard du site : fond blanc, pas de bordure, ombre au survol */
+.nfc-card {
+  background: var(--nfc-card);
+  box-shadow: var(--nfc-shadow);
+  transition: var(--transition-smooth);
+}
+.nfc-card-hover:hover {
+  box-shadow: var(--nfc-shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* Étiquette de section (petit libellé vert au-dessus d'un titre) */
+.section-tag {
+  display: inline-block;
+  font-family: var(--font-oswald), "Oswald", sans-serif;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--nfc-green);
+}
+[data-theme="dark"] .section-tag { color: var(--nfc-yellow); }
+
+/* Animations du site */
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.animate-page-enter { animation: pageEnter 0.4s cubic-bezier(0.4, 0, 0.2, 1) both; }
+.animate-slide-up { animation: slideUp 0.28s cubic-bezier(0.32, 0.72, 0, 1) both; }
 
 /* Zone de sécurité PWA (encoches iOS / barre gestuelle Android) */
 .safe-top {

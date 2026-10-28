@@ -211,12 +211,12 @@ export function StandingManagement({ canWrite }: { canWrite: boolean }) {
 
         <div className="grid gap-6 lg:grid-cols-3">
           {/* Formulaire d'édition du classement NFC */}
-          <section className="rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-5 shadow-2xs lg:col-span-2">
+          <section className="nfc-card p-5 shadow-2xs lg:col-span-2">
             <div className="flex flex-wrap items-center justify-between gap-2">
               <div className="flex items-center gap-2.5">
                 <Trophy className="h-5 w-5 text-[var(--nfc-green)]" />
                 <div>
-                  <h2 className="font-heading text-lg font-bold uppercase tracking-wide">
+                  <h2 className="font-display text-lg font-bold uppercase tracking-wide">
                     Statistiques & Position du Ngaoundéré FC
                   </h2>
                   <p className="text-xs text-[var(--nfc-muted)]">
@@ -236,17 +236,17 @@ export function StandingManagement({ canWrite }: { canWrite: boolean }) {
               <div className="grid grid-cols-3 gap-3 rounded-2xl bg-[var(--nfc-input-bg)] p-4 text-center">
                 <div>
                   <span className="text-xs text-[var(--nfc-muted)]">Matchs joués (V+N+D)</span>
-                  <p className="mt-1 font-heading text-2xl font-bold">{computed.played}</p>
+                  <p className="mt-1 font-display text-2xl font-bold">{computed.played}</p>
                 </div>
                 <div>
                   <span className="text-xs text-[var(--nfc-muted)]">Points (3V + 1N)</span>
-                  <p className="mt-1 font-heading text-2xl font-bold text-[var(--nfc-green)] dark:text-[var(--nfc-yellow)]">
+                  <p className="mt-1 font-display text-2xl font-bold text-[var(--nfc-green)] dark:text-[var(--nfc-yellow)]">
                     {computed.points} pts
                   </p>
                 </div>
                 <div>
                   <span className="text-xs text-[var(--nfc-muted)]">Différence de buts</span>
-                  <p className="mt-1 font-heading text-2xl font-bold">
+                  <p className="mt-1 font-display text-2xl font-bold">
                     {computed.goalDifference > 0
                       ? `+${computed.goalDifference}`
                       : computed.goalDifference}
@@ -378,7 +378,7 @@ export function StandingManagement({ canWrite }: { canWrite: boolean }) {
               </div>
 
               {canWrite && (
-                <div className="flex justify-end border-t border-[var(--nfc-border)] pt-4">
+                <div className="flex justify-end border-t border-[var(--nfc-divider)] pt-4">
                   <Button type="submit" loading={savingStanding}>
                     <Save className="h-4 w-4" />
                     Enregistrer le classement
@@ -389,11 +389,11 @@ export function StandingManagement({ canWrite }: { canWrite: boolean }) {
           </section>
 
           {/* Gestion des saisons */}
-          <section className="rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-5 shadow-2xs">
+          <section className="nfc-card p-5 shadow-2xs">
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">
                 <Calendar className="h-5 w-5 text-[var(--nfc-green)]" />
-                <h2 className="font-heading text-lg font-bold uppercase tracking-wide">
+                <h2 className="font-display text-lg font-bold uppercase tracking-wide">
                   Saisons
                 </h2>
               </div>
@@ -414,7 +414,7 @@ export function StandingManagement({ canWrite }: { canWrite: boolean }) {
               {(seasonsQuery.data ?? []).map((item) => (
                 <div
                   key={item.id}
-                  className="flex items-center justify-between rounded-xl border border-[var(--nfc-border)] p-3 text-sm"
+                  className="flex items-center justify-between rounded-xl border border-[var(--nfc-divider)] p-3 text-sm"
                 >
                   <div>
                     <p className="font-semibold">{item.label}</p>
@@ -447,10 +447,10 @@ export function StandingManagement({ canWrite }: { canWrite: boolean }) {
             </div>
 
             {/* Historique des mises à jour */}
-            <div className="mt-6 border-t border-[var(--nfc-border)] pt-5">
+            <div className="mt-6 border-t border-[var(--nfc-divider)] pt-5">
               <div className="flex items-center gap-2">
                 <History className="h-4 w-4 text-[var(--nfc-muted)]" />
-                <h3 className="font-heading text-sm font-bold uppercase tracking-wide">
+                <h3 className="font-display text-sm font-bold uppercase tracking-wide">
                   Historique des modifications
                 </h3>
               </div>
@@ -520,7 +520,7 @@ export function StandingManagement({ canWrite }: { canWrite: boolean }) {
               onChange={setSeasonIsCurrent}
               label="Définir comme saison courante du club"
             />
-            <div className="flex justify-end gap-2 border-t border-[var(--nfc-border)] pt-4">
+            <div className="flex justify-end gap-2 border-t border-[var(--nfc-divider)] pt-4">
               <Button type="button" variant="ghost" onClick={() => setSeasonSheetOpen(false)}>
                 Annuler
               </Button>

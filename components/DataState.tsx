@@ -74,7 +74,7 @@ export function DataState({
         {Array.from({ length: skeletonCount }).map((_, idx) => (
           <div
             key={idx}
-            className="h-24 animate-pulse rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-4"
+            className="h-24 animate-pulse nfc-card p-4"
           >
             <div className="h-4 w-2/5 rounded bg-gray-200 dark:bg-emerald-950" />
             <div className="mt-3 h-3 w-4/5 rounded bg-gray-100 dark:bg-emerald-950/60" />
@@ -186,13 +186,13 @@ export function DataState({
 
   return (
     <section
-      className="rounded-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-6 text-center"
+      className="nfc-card p-6 text-center"
       role={effectiveKind === 'error' || effectiveKind === 'forbidden' ? 'alert' : 'status'}
     >
       <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--nfc-bg)]">
         {current.icon}
       </div>
-      <h2 className="mt-3 font-heading text-lg font-bold uppercase tracking-wide">
+      <h2 className="mt-3 font-display text-lg font-bold uppercase tracking-wide">
         {title || current.defaultTitle}
       </h2>
       <p className="mx-auto mt-1 max-w-md text-sm text-[var(--nfc-muted)]">
@@ -208,7 +208,7 @@ export function DataState({
           <button
             type="button"
             onClick={onRetry}
-            className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[var(--nfc-green)] px-4 py-2.5 font-heading text-xs font-bold uppercase tracking-wider text-white hover:bg-[var(--nfc-green-dark)]"
+            className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[var(--nfc-green)] px-4 py-2.5 font-display text-xs font-bold uppercase tracking-wider text-white hover:bg-[var(--nfc-green-dark)]"
           >
             <RefreshCw className="h-4 w-4" />
             Réessayer
@@ -218,7 +218,7 @@ export function DataState({
           <button
             type="button"
             onClick={onResolveKeepLocal}
-            className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[var(--nfc-green)] px-4 py-2.5 font-heading text-xs font-bold uppercase tracking-wider text-white"
+            className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[var(--nfc-green)] px-4 py-2.5 font-display text-xs font-bold uppercase tracking-wider text-white"
           >
             Conserver ma version
           </button>
@@ -227,7 +227,7 @@ export function DataState({
           <button
             type="button"
             onClick={onResolveUseServer}
-            className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[var(--nfc-border)] px-4 py-2.5 font-heading text-xs font-bold uppercase tracking-wider"
+            className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[var(--nfc-divider)] px-4 py-2.5 font-display text-xs font-bold uppercase tracking-wider"
           >
             Utiliser la version serveur
           </button>
@@ -237,7 +237,7 @@ export function DataState({
           <button
             type="button"
             onClick={onAction}
-            className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[var(--nfc-yellow)] px-4 py-2.5 font-heading text-xs font-bold uppercase tracking-wider text-[#0c130e]"
+            className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[var(--nfc-yellow)] px-4 py-2.5 font-display text-xs font-bold uppercase tracking-wider text-[#0c130e]"
           >
             {actionLabel}
           </button>

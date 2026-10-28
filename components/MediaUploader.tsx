@@ -280,7 +280,7 @@ export function MediaUploader({
       <div
         onDragOver={(e) => e.preventDefault()}
         onDrop={handleDrop}
-        className="flex flex-col items-center justify-center border-2 border-dashed border-[var(--nfc-border)] bg-[var(--nfc-bg)] p-6 text-center"
+        className="flex flex-col items-center justify-center border-2 border-dashed border-[var(--nfc-divider)] bg-[var(--nfc-bg)] p-6 text-center"
       >
         <UploadCloud className="h-9 w-9 text-[var(--nfc-green)]" />
         <p className="mt-2 font-display text-sm font-bold uppercase">
@@ -310,7 +310,7 @@ export function MediaUploader({
           {items.map((item) => (
             <div
               key={item.id}
-              className="grid gap-3 border border-[var(--nfc-border)] bg-[var(--nfc-card)] p-3 sm:grid-cols-[96px_1fr_auto]"
+              className="grid gap-3 nfc-card p-3 sm:grid-cols-[96px_1fr_auto]"
             >
               <div className="relative flex h-24 w-24 items-center justify-center overflow-hidden bg-black/10">
                 {item.file.type.startsWith('video/') ? (
@@ -465,7 +465,7 @@ export function MediaPicker({
   if (onSelect && !label) {
     return (
       <div>
-        <div className="mb-4 flex gap-2 border-b border-[var(--nfc-border)] pb-3">
+        <div className="mb-4 flex gap-2 border-b border-[var(--nfc-divider)] pb-3">
           <Button
             type="button"
             variant={tab === 'gallery' ? 'primary' : 'outline'}
@@ -533,7 +533,7 @@ export function MediaPicker({
   return (
     <div className="space-y-2">
       <span className="block text-sm font-semibold text-[var(--nfc-text)]">{label}</span>
-      <div className="flex flex-wrap items-center gap-3 border border-[var(--nfc-border)] bg-[var(--nfc-bg)] p-3">
+      <div className="flex flex-wrap items-center gap-3 border border-[var(--nfc-divider)] bg-[var(--nfc-bg)] p-3">
         {selectedMedia || (value && value.startsWith('http')) ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -573,7 +573,7 @@ export function MediaPicker({
         subtitle="Sélectionnez un visuel existant ou téléversez une nouvelle image"
         wide
       >
-        <div className="mb-4 flex gap-2 border-b border-[var(--nfc-border)] pb-3">
+        <div className="mb-4 flex gap-2 border-b border-[var(--nfc-divider)] pb-3">
           <Button
             type="button"
             variant={tab === 'gallery' ? 'primary' : 'outline'}

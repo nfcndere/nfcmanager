@@ -119,7 +119,7 @@ export function LoginForm({
         </Button>
       </form>
 
-      <div className="border-t border-[var(--nfc-border)] pt-4">
+      <div className="border-t border-[var(--nfc-divider)] pt-4">
         <button
           type="button"
           onClick={() => setShowDiag((prev) => !prev)}

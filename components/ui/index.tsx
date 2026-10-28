@@ -11,8 +11,9 @@ import {
 import { Loader2, Minus, Plus, X } from 'lucide-react';
 
 // ===================================
-// Composants inspirés de Medusa UI (@medusajs/ui) :
-// lignes épurées, bordures 1px subtiles, ombres douces, typographie posée.
+// Composants alignés sur la charte du site nfcwebsite :
+// angles droits, Oswald en majuscules pour les actions et titres,
+// vert du club, surfaces blanches sans bordure, ombres douces.
 // ===================================
 
 export function Button({
@@ -24,33 +25,29 @@ export function Button({
   className = '',
   ...props
 }: ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: 'primary' | 'secondary' | 'accent' | 'outline' | 'ghost' | 'danger';
+  variant?: 'primary' | 'secondary' | 'accent' | 'outline' | 'ghost' | 'danger' | 'dark';
   size?: 'sm' | 'md' | 'lg';
   loading?: boolean;
 }) {
   const variants = {
-    primary:
-      'border border-[#184c30] bg-[var(--nfc-green)] text-white shadow-2xs hover:bg-[var(--nfc-green-dark)]',
-    secondary:
-      'border border-[var(--nfc-border)] bg-[var(--nfc-card)] text-[var(--nfc-text)] shadow-2xs hover:bg-[var(--nfc-surface-subtle)]',
-    outline:
-      'border border-[var(--nfc-border)] bg-[var(--nfc-card)] text-[var(--nfc-text)] shadow-2xs hover:bg-[var(--nfc-surface-subtle)]',
-    accent:
-      'border border-[#72c943] bg-[var(--nfc-yellow)] text-[#0b0d0e] shadow-2xs hover:bg-[#78d04a]',
-    ghost:
-      'border border-transparent bg-transparent text-[var(--nfc-muted)] hover:bg-[var(--nfc-surface-subtle)] hover:text-[var(--nfc-text)]',
-    danger: 'border border-red-700 bg-red-600 text-white shadow-2xs hover:bg-red-700',
+    primary: 'bg-[var(--nfc-green)] text-white hover:bg-[var(--nfc-green-dark)] hover:shadow-[var(--nfc-shadow-hover)]',
+    accent: 'bg-[var(--nfc-yellow)] text-[var(--nfc-dark)] hover:bg-[var(--nfc-yellow-hover)] hover:shadow-[var(--nfc-shadow-hover)]',
+    dark: 'bg-[var(--nfc-dark)] text-white hover:bg-[var(--nfc-surface-2)]',
+    secondary: 'bg-[var(--nfc-surface-subtle)] text-[var(--nfc-text)] hover:bg-[var(--nfc-green)]/10 hover:text-[var(--nfc-green)]',
+    outline: 'bg-[var(--nfc-surface-subtle)] text-[var(--nfc-text)] hover:bg-[var(--nfc-green)]/10 hover:text-[var(--nfc-green)]',
+    ghost: 'bg-transparent text-[var(--nfc-muted)] hover:bg-[var(--nfc-surface-subtle)] hover:text-[var(--nfc-text)]',
+    danger: 'bg-red-600 text-white hover:bg-red-700',
   };
   const sizes = {
-    sm: 'min-h-8 px-2.5 py-1 text-xs',
-    md: 'min-h-9 px-3.5 py-1.5 text-[13px]',
-    lg: 'min-h-11 px-4 py-2.5 text-sm',
+    sm: 'min-h-8 px-3 py-1 text-[11px]',
+    md: 'min-h-10 px-5 py-2 text-xs',
+    lg: 'min-h-12 px-6 py-3 text-sm',
   };
   return (
     <button
       {...props}
       disabled={disabled || loading}
-      className={`inline-flex items-center justify-center gap-1.5 rounded-lg font-medium transition disabled:cursor-not-allowed disabled:opacity-50 ${variants[variant]} ${sizes[size]} ${className}`}
+      className={`inline-flex items-center justify-center gap-1.5 whitespace-nowrap font-display font-bold uppercase tracking-[0.06em] transition-all duration-200 hover:-translate-y-px active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0 ${variants[variant]} ${sizes[size]} ${className}`}
     >
       {loading && <Loader2 className="h-3.5 w-3.5 animate-spin" />}
       {children}
@@ -70,10 +67,53 @@ export function IconButton({
       aria-label={label}
       title={label}
       {...props}
-      className={`inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[var(--nfc-border)] bg-[var(--nfc-card)] text-[var(--nfc-muted)] shadow-2xs transition hover:bg-[var(--nfc-surface-subtle)] hover:text-[var(--nfc-text)] disabled:opacity-50 ${className}`}
+      className={`inline-flex h-9 w-9 items-center justify-center bg-transparent text-[var(--nfc-muted)] transition hover:bg-[var(--nfc-surface-subtle)] hover:text-[var(--nfc-green)] disabled:opacity-50 ${className}`}
     >
       {children}
     </button>
+  );
+}
+
+/** Titre de section du site : libellé Oswald + barre verte */
+export function SectionTitle({
+  children,
+  tag,
+  action,
+}: {
+  children: ReactNode;
+  tag?: string;
+  action?: ReactNode;
+}) {
+  return (
+    <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+      <div>
+        {tag && <span className="section-tag mb-1">{tag}</span>}
+        <h2 className="text-lg font-bold text-[var(--nfc-text)] sm:text-xl">{children}</h2>
+        <div className="mt-2 h-1 w-12 bg-[var(--nfc-green)]" />
+      </div>
+      {action}
+    </div>
+  );
+}
+
+/** Carte du site : fond blanc, sans bordure, ombre douce */
+export function Card({
+  children,
+  className = '',
+  accent = false,
+  hover = false,
+}: {
+  children: ReactNode;
+  className?: string;
+  accent?: boolean;
+  hover?: boolean;
+}) {
+  return (
+    <div
+      className={`nfc-card ${hover ? 'nfc-card-hover' : ''} ${accent ? 'border-t-4 border-[var(--nfc-green)]' : ''} ${className}`}
+    >
+      {children}
+    </div>
   );
 }
 
@@ -92,7 +132,7 @@ export function Field({
 }) {
   return (
     <label className="block space-y-1.5 text-[13px]">
-      <span className="flex items-center gap-1 font-medium text-[var(--nfc-text)]">
+      <span className="flex items-center gap-1 font-display text-[11px] font-bold uppercase tracking-wider text-[var(--nfc-muted)]">
         {label}
         {required && (
           <span className="text-red-500" aria-hidden="true">
@@ -103,7 +143,7 @@ export function Field({
       {children}
       {hint && !error && <span className="block text-xs text-[var(--nfc-muted)]">{hint}</span>}
       {error && (
-        <span role="alert" className="block text-xs font-medium text-red-600 dark:text-red-400">
+        <span role="alert" className="block text-xs font-semibold text-red-600 dark:text-red-400">
           {error}
         </span>
       )}
@@ -111,25 +151,18 @@ export function Field({
   );
 }
 
+const inputBase =
+  'w-full bg-[var(--nfc-input-bg)] px-3.5 text-sm text-[var(--nfc-text)] outline-none transition placeholder:text-[var(--nfc-muted)]/70 focus:bg-[var(--nfc-card)] focus:shadow-[inset_0_-2px_0_var(--nfc-green),var(--nfc-shadow)] disabled:opacity-60';
+
 export function Input({ className = '', ...props }: InputHTMLAttributes<HTMLInputElement>) {
-  return (
-    <input
-      {...props}
-      className={`min-h-9 w-full rounded-lg border border-[var(--nfc-border)] bg-[var(--nfc-input-bg)] px-3 py-1.5 text-[13px] text-[var(--nfc-text)] shadow-2xs transition placeholder:text-[var(--nfc-muted)]/70 focus:border-[var(--nfc-green)] focus:outline-none focus:ring-2 focus:ring-[var(--nfc-green)]/15 ${className}`}
-    />
-  );
+  return <input {...props} className={`min-h-10 py-2 ${inputBase} ${className}`} />;
 }
 
 export function Textarea({
   className = '',
   ...props
 }: TextareaHTMLAttributes<HTMLTextAreaElement>) {
-  return (
-    <textarea
-      {...props}
-      className={`w-full rounded-lg border border-[var(--nfc-border)] bg-[var(--nfc-input-bg)] px-3 py-2 text-[13px] text-[var(--nfc-text)] shadow-2xs transition placeholder:text-[var(--nfc-muted)]/70 focus:border-[var(--nfc-green)] focus:outline-none focus:ring-2 focus:ring-[var(--nfc-green)]/15 ${className}`}
-    />
-  );
+  return <textarea {...props} className={`py-2.5 ${inputBase} ${className}`} />;
 }
 
 export function Select({
@@ -138,10 +171,7 @@ export function Select({
   ...props
 }: SelectHTMLAttributes<HTMLSelectElement>) {
   return (
-    <select
-      {...props}
-      className={`min-h-9 w-full rounded-lg border border-[var(--nfc-border)] bg-[var(--nfc-input-bg)] px-3 py-1.5 text-[13px] text-[var(--nfc-text)] shadow-2xs transition focus:border-[var(--nfc-green)] focus:outline-none focus:ring-2 focus:ring-[var(--nfc-green)]/15 ${className}`}
-    >
+    <select {...props} className={`min-h-10 py-2 ${inputBase} ${className}`}>
       {children}
     </select>
   );
@@ -167,19 +197,19 @@ export function Switch({
       aria-checked={checked}
       disabled={disabled}
       onClick={() => onChange(!checked)}
-      className="flex w-full items-center justify-between gap-3 rounded-xl border border-[var(--nfc-border)] bg-[var(--nfc-surface-subtle)]/50 px-3.5 py-2.5 text-left text-[13px] transition hover:bg-[var(--nfc-surface-subtle)] disabled:opacity-50"
+      className="flex w-full items-center justify-between gap-3 bg-[var(--nfc-surface-subtle)] px-4 py-3 text-left text-[13px] transition hover:bg-[var(--nfc-green)]/5 disabled:opacity-50"
     >
       <div>
-        <p className="font-medium text-[var(--nfc-text)]">{label}</p>
+        <p className="font-semibold text-[var(--nfc-text)]">{label}</p>
         {description && <p className="mt-0.5 text-xs text-[var(--nfc-muted)]">{description}</p>}
       </div>
       <span
         className={`relative inline-flex h-5 w-9 shrink-0 items-center rounded-full transition ${
-          checked ? 'bg-[var(--nfc-green)]' : 'bg-zinc-300 dark:bg-zinc-700'
+          checked ? 'bg-[var(--nfc-green)]' : 'bg-gray-300 dark:bg-gray-700'
         }`}
       >
         <span
-          className={`inline-block h-3.5 w-3.5 rounded-full bg-white shadow-xs transition-transform ${
+          className={`inline-block h-3.5 w-3.5 rounded-full bg-white shadow transition-transform ${
             checked ? 'translate-x-4.5' : 'translate-x-0.5'
           }`}
         />
@@ -206,11 +236,11 @@ export function NumberStepper({
   const btnClass = size === 'xl' ? 'min-h-14 min-w-14 text-xl' : 'min-h-11 min-w-11 text-sm';
   const valClass =
     size === 'xl'
-      ? 'min-w-16 text-3xl font-semibold tabular-nums'
-      : 'min-w-12 text-xl font-semibold tabular-nums';
+      ? 'min-w-16 font-display text-4xl font-bold tabular-nums'
+      : 'min-w-12 font-display text-2xl font-bold tabular-nums';
   return (
     <div
-      className="inline-flex items-center overflow-hidden rounded-xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] text-[var(--nfc-text)] shadow-2xs"
+      className="inline-flex items-center bg-[var(--nfc-surface-subtle)] text-[var(--nfc-text)]"
       aria-label={label}
     >
       <button
@@ -218,7 +248,7 @@ export function NumberStepper({
         aria-label={label ? `Diminuer ${label}` : 'Diminuer'}
         disabled={value <= min}
         onClick={() => onChange(Math.max(min, value - 1))}
-        className={`inline-flex items-center justify-center border-r border-[var(--nfc-border)] hover:bg-[var(--nfc-surface-subtle)] disabled:opacity-40 ${btnClass}`}
+        className={`inline-flex items-center justify-center bg-[var(--nfc-dark)] text-white transition hover:bg-[var(--nfc-green)] disabled:opacity-30 ${btnClass}`}
       >
         <Minus className="h-4 w-4" />
       </button>
@@ -228,7 +258,7 @@ export function NumberStepper({
         aria-label={label ? `Augmenter ${label}` : 'Augmenter'}
         disabled={value >= max}
         onClick={() => onChange(Math.min(max, value + 1))}
-        className={`inline-flex items-center justify-center border-l border-[var(--nfc-border)] hover:bg-[var(--nfc-surface-subtle)] disabled:opacity-40 ${btnClass}`}
+        className={`inline-flex items-center justify-center bg-[var(--nfc-green)] text-white transition hover:bg-[var(--nfc-green-dark)] disabled:opacity-30 ${btnClass}`}
       >
         <Plus className="h-4 w-4" />
       </button>
@@ -246,9 +276,10 @@ export type BadgeTone =
   | 'warning'
   | 'danger'
   | 'info'
-  | 'brand';
+  | 'brand'
+  | 'dark';
 
-/** StatusBadge style Medusa UI : pastille colorée + bordure fine + texte posé */
+/** Badge du site : pavé plein, Oswald, majuscules, sans bordure */
 export function StatusBadge({
   tone = 'neutral',
   children,
@@ -256,59 +287,29 @@ export function StatusBadge({
   tone?: BadgeTone;
   children: ReactNode;
 }) {
-  const styles: Record<BadgeTone, { pill: string; dot: string }> = {
-    green: {
-      pill: 'border-emerald-500/25 bg-emerald-500/10 text-emerald-800 dark:text-emerald-300',
-      dot: 'bg-emerald-500',
-    },
-    success: {
-      pill: 'border-emerald-500/25 bg-emerald-500/10 text-emerald-800 dark:text-emerald-300',
-      dot: 'bg-emerald-500',
-    },
-    yellow: {
-      pill: 'border-lime-500/30 bg-lime-500/15 text-lime-900 dark:text-lime-200',
-      dot: 'bg-lime-500',
-    },
-    brand: {
-      pill: 'border-[#1f5f3d]/25 bg-[#1f5f3d]/10 text-[#1f5f3d] dark:border-[#8cea5a]/30 dark:bg-[#8cea5a]/10 dark:text-[#8cea5a]',
-      dot: 'bg-[#1f5f3d] dark:bg-[#8cea5a]',
-    },
-    red: {
-      pill: 'border-red-500/30 bg-red-500/10 text-red-700 dark:text-red-300',
-      dot: 'bg-red-500',
-    },
-    danger: {
-      pill: 'border-red-500/30 bg-red-500/10 text-red-700 dark:text-red-300',
-      dot: 'bg-red-500',
-    },
-    amber: {
-      pill: 'border-amber-500/30 bg-amber-500/10 text-amber-800 dark:text-amber-300',
-      dot: 'bg-amber-500',
-    },
-    warning: {
-      pill: 'border-amber-500/30 bg-amber-500/10 text-amber-800 dark:text-amber-300',
-      dot: 'bg-amber-500',
-    },
-    info: {
-      pill: 'border-sky-500/25 bg-sky-500/10 text-sky-800 dark:text-sky-300',
-      dot: 'bg-sky-500',
-    },
-    neutral: {
-      pill: 'border-[var(--nfc-border)] bg-[var(--nfc-surface-subtle)] text-[var(--nfc-muted)]',
-      dot: 'bg-zinc-400',
-    },
+  const styles: Record<BadgeTone, string> = {
+    green: 'bg-[var(--nfc-green)] text-white',
+    success: 'bg-[var(--nfc-green)] text-white',
+    brand: 'bg-[var(--nfc-green)] text-white',
+    yellow: 'bg-[var(--nfc-yellow)] text-[var(--nfc-dark)]',
+    red: 'bg-red-600 text-white',
+    danger: 'bg-red-600 text-white',
+    amber: 'bg-amber-400 text-[var(--nfc-dark)]',
+    warning: 'bg-amber-400 text-[var(--nfc-dark)]',
+    info: 'bg-sky-600 text-white',
+    dark: 'bg-[var(--nfc-dark)] text-gray-200',
+    neutral: 'bg-[var(--nfc-surface-subtle)] text-[var(--nfc-muted)]',
   };
-  const current = styles[tone];
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 text-xs font-medium ${current.pill}`}
+      className={`inline-flex items-center gap-1.5 whitespace-nowrap px-2.5 py-0.5 font-display text-[10px] font-bold uppercase tracking-[0.06em] ${styles[tone]}`}
     >
-      <span className={`h-1.5 w-1.5 shrink-0 rounded-full ${current.dot}`} />
       {children}
     </span>
   );
 }
 
+/** Onglets façon navigation du site : libellés Oswald, soulignement vert sur l'onglet actif */
 export function SegmentedControl<T extends string>({
   options,
   value,
@@ -321,11 +322,7 @@ export function SegmentedControl<T extends string>({
   ariaLabel?: string;
 }) {
   return (
-    <div
-      role="tablist"
-      aria-label={ariaLabel}
-      className="inline-flex flex-wrap gap-0.5 rounded-lg border border-[var(--nfc-border)] bg-[var(--nfc-surface-subtle)] p-1"
-    >
+    <div role="tablist" aria-label={ariaLabel} className="flex flex-wrap gap-1">
       {options.map((opt) => {
         const active = opt.value === value;
         return (
@@ -335,15 +332,17 @@ export function SegmentedControl<T extends string>({
             role="tab"
             aria-selected={active}
             onClick={() => onChange(opt.value)}
-            className={`min-h-7 rounded-md px-2.5 py-1 text-xs font-medium transition ${
+            className={`min-h-9 px-3.5 py-1.5 font-display text-xs font-semibold uppercase tracking-wide transition ${
               active
-                ? 'bg-[var(--nfc-card)] text-[var(--nfc-text)] shadow-2xs'
-                : 'text-[var(--nfc-muted)] hover:text-[var(--nfc-text)]'
+                ? 'bg-[var(--nfc-green)] text-white'
+                : 'bg-[var(--nfc-card)] text-[var(--nfc-muted)] shadow-[var(--nfc-shadow)] hover:text-[var(--nfc-green)]'
             }`}
           >
             {opt.label}
             {typeof opt.count === 'number' && (
-              <span className="ml-1.5 text-[11px] text-[var(--nfc-muted)]">{opt.count}</span>
+              <span className={`ml-1.5 text-[11px] ${active ? 'text-white/70' : 'text-[var(--nfc-muted)]'}`}>
+                {opt.count}
+              </span>
             )}
           </button>
         );
@@ -389,25 +388,34 @@ export function SheetDialog({
       role="dialog"
       aria-modal="true"
       aria-label={title}
-      className="fixed inset-0 z-50 flex items-end justify-center bg-black/45 backdrop-blur-[1px] sm:items-center sm:p-4"
+      className="fixed inset-0 z-50 flex items-end justify-center bg-black/55 sm:items-center sm:p-4"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
     >
       <div
-        className={`flex max-h-[92dvh] w-full flex-col rounded-t-2xl border border-[var(--nfc-border)] bg-[var(--nfc-card)] shadow-2xl sm:max-h-[86vh] sm:rounded-2xl ${
+        className={`animate-slide-up flex max-h-[92dvh] w-full flex-col bg-[var(--nfc-card)] shadow-2xl sm:max-h-[86vh] ${
           wide ? 'sm:max-w-3xl' : 'sm:max-w-xl'
         }`}
       >
-        <header className="flex items-center justify-between gap-3 border-b border-[var(--nfc-border)] px-5 py-4">
-          <div>
-            <h2 className="text-base font-semibold text-[var(--nfc-text)]">{title}</h2>
-            {sub && <p className="mt-0.5 text-xs text-[var(--nfc-muted)]">{sub}</p>}
+        <header className="flex items-center justify-between gap-3 bg-[var(--nfc-dark)] px-5 py-4 text-white">
+          <div className="min-w-0">
+            <h2 className="truncate text-base font-bold text-white">{title}</h2>
+            {sub && <p className="mt-0.5 truncate text-xs text-gray-400">{sub}</p>}
           </div>
-          <IconButton label="Fermer" onClick={onClose}>
+          <button
+            type="button"
+            aria-label="Fermer"
+            onClick={onClose}
+            className="inline-flex h-9 w-9 shrink-0 items-center justify-center text-gray-400 transition hover:bg-white/10 hover:text-white"
+          >
             <X className="h-4 w-4" />
-          </IconButton>
+          </button>
         </header>
-        <div className="flex-1 overflow-y-auto px-5 py-4">{children}</div>
+        <div className="h-1 bg-[var(--nfc-green)]" />
+        <div className="flex-1 overflow-y-auto px-5 py-5">{children}</div>
         {footer && (
-          <footer className="flex flex-wrap items-center justify-end gap-2 border-t border-[var(--nfc-border)] bg-[var(--nfc-surface-subtle)]/50 px-5 py-3">
+          <footer className="safe-bottom flex flex-wrap items-center justify-end gap-2 bg-[var(--nfc-surface-subtle)] px-5 py-3">
             {footer}
           </footer>
         )}
@@ -451,7 +459,7 @@ export function ConfirmDialog({
       title={title}
       footer={
         <>
-          <Button type="button" variant="outline" onClick={handleClose} disabled={isBusy}>
+          <Button type="button" variant="ghost" onClick={handleClose} disabled={isBusy}>
             Annuler
           </Button>
           <Button
@@ -465,7 +473,7 @@ export function ConfirmDialog({
         </>
       }
     >
-      <p className="text-[13px] leading-relaxed text-[var(--nfc-muted)]">{description}</p>
+      <p className="text-sm leading-relaxed text-[var(--nfc-muted)]">{description}</p>
     </SheetDialog>
   );
 }
