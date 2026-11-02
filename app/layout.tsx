@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Oswald } from "next/font/google";
 import { ServiceWorkerRegistration } from "@/components/ServiceWorkerRegistration";
 import { AppProviders } from "@/components/providers/AppProviders";
 import { PwaInstallModal } from "@/components/PwaInstallModal";
@@ -8,6 +8,13 @@ import "./globals.css";
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+  display: "swap",
+});
+
+const oswald = Oswald({
+  subsets: ["latin"],
+  weight: ["600", "700"],
+  variable: "--font-oswald",
   display: "swap",
 });
 
@@ -43,7 +50,7 @@ export const viewport: Viewport = {
   colorScheme: "light dark",
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#131618" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f1110" },
   ],
 };
 
@@ -51,7 +58,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="fr" className={inter.variable}>
+    <html lang="fr" className={`${inter.variable} ${oswald.variable}`}>
       <body className="antialiased">
         <AppProviders>
           {children}

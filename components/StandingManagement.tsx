@@ -20,7 +20,7 @@ import type {
   StandingResponse,
 } from '@/lib/api/schemas';
 import { DataState } from '@/components/DataState';
-import { Button, Field, Input, SheetDialog, StatusBadge, Switch } from '@/components/ui';
+import { Button, Card, Field, Input, SheetDialog, StatusBadge, Switch } from '@/components/ui';
 import { useAppContext } from '@/components/providers/AppProviders';
 import { calculateStandingStats, formatDoualaDate } from '@/lib/format';
 
@@ -211,15 +211,15 @@ export function StandingManagement({ canWrite }: { canWrite: boolean }) {
 
         <div className="grid gap-6 lg:grid-cols-3">
           {/* Formulaire d'édition du classement NFC */}
-          <section className="nfc-card p-5 shadow-2xs lg:col-span-2">
-            <div className="flex flex-wrap items-center justify-between gap-2">
+          <Card className="p-6 lg:col-span-2">
+            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border)] pb-4">
               <div className="flex items-center gap-2.5">
-                <Trophy className="h-5 w-5 text-[var(--nfc-green)]" />
+                <Trophy className="h-5 w-5 text-[var(--accent)]" />
                 <div>
-                  <h2 className="font-display text-lg font-bold uppercase tracking-wide">
-                    Statistiques & Position du Ngaoundéré FC
+                  <h2 className="text-base font-semibold text-[var(--text)]">
+                    Position et statistiques du Ngaoundéré FC
                   </h2>
-                  <p className="text-xs text-[var(--nfc-muted)]">
+                  <p className="text-xs text-[var(--text-muted)]">
                     Saison active : <strong>{season?.label ?? 'Saison courante'}</strong>
                   </p>
                 </div>
@@ -233,20 +233,20 @@ export function StandingManagement({ canWrite }: { canWrite: boolean }) {
 
             <form onSubmit={handleSaveStanding} className="mt-5 space-y-5">
               {/* Résumé calculé en temps réel */}
-              <div className="grid grid-cols-3 gap-3 rounded-2xl bg-[var(--nfc-input-bg)] p-4 text-center">
+              <div className="grid grid-cols-3 gap-3 rounded-[12px] bg-[var(--bg-subtle)] p-4 text-center">
                 <div>
-                  <span className="text-xs text-[var(--nfc-muted)]">Matchs joués (V+N+D)</span>
-                  <p className="mt-1 font-display text-2xl font-bold">{computed.played}</p>
+                  <span className="text-[11px] text-[var(--text-soft)]">Matchs joués (V+N+D)</span>
+                  <p className="mt-1 text-2xl font-semibold tabular-nums text-[var(--text)]">{computed.played}</p>
                 </div>
                 <div>
-                  <span className="text-xs text-[var(--nfc-muted)]">Points (3V + 1N)</span>
-                  <p className="mt-1 font-display text-2xl font-bold text-[var(--nfc-green)] dark:text-[var(--nfc-yellow)]">
+                  <span className="text-[11px] text-[var(--text-soft)]">Points (3V + 1N)</span>
+                  <p className="mt-1 text-2xl font-semibold tabular-nums text-[var(--accent)]">
                     {computed.points} pts
                   </p>
                 </div>
                 <div>
-                  <span className="text-xs text-[var(--nfc-muted)]">Différence de buts</span>
-                  <p className="mt-1 font-display text-2xl font-bold">
+                  <span className="text-[11px] text-[var(--text-soft)]">Différence de buts</span>
+                  <p className="mt-1 text-2xl font-semibold tabular-nums text-[var(--text)]">
                     {computed.goalDifference > 0
                       ? `+${computed.goalDifference}`
                       : computed.goalDifference}
@@ -378,7 +378,7 @@ export function StandingManagement({ canWrite }: { canWrite: boolean }) {
               </div>
 
               {canWrite && (
-                <div className="flex justify-end border-t border-[var(--nfc-divider)] pt-4">
+                <div className="flex justify-end border-t border-[var(--border)] pt-4">
                   <Button type="submit" loading={savingStanding}>
                     <Save className="h-4 w-4" />
                     Enregistrer le classement
@@ -386,15 +386,15 @@ export function StandingManagement({ canWrite }: { canWrite: boolean }) {
                 </div>
               )}
             </form>
-          </section>
+          </Card>
 
           {/* Gestion des saisons */}
-          <section className="nfc-card p-5 shadow-2xs">
-            <div className="flex items-center justify-between gap-2">
+          <Card className="p-6">
+            <div className="flex items-center justify-between gap-2 border-b border-[var(--border)] pb-3">
               <div className="flex items-center gap-2">
-                <Calendar className="h-5 w-5 text-[var(--nfc-green)]" />
-                <h2 className="font-display text-lg font-bold uppercase tracking-wide">
-                  Saisons
+                <Calendar className="h-4 w-4 text-[var(--accent)]" />
+                <h2 className="text-sm font-semibold text-[var(--text)]">
+                  Saisons sportives
                 </h2>
               </div>
               {canWrite && (
@@ -404,7 +404,7 @@ export function StandingManagement({ canWrite }: { canWrite: boolean }) {
                   variant="secondary"
                   onClick={() => setSeasonSheetOpen(true)}
                 >
-                  <Plus className="h-3.5 w-3.5" />
+                  <Plus className="h-3 w-3" />
                   Nouvelle saison
                 </Button>
               )}
@@ -414,11 +414,11 @@ export function StandingManagement({ canWrite }: { canWrite: boolean }) {
               {(seasonsQuery.data ?? []).map((item) => (
                 <div
                   key={item.id}
-                  className="flex items-center justify-between rounded-xl border border-[var(--nfc-divider)] p-3 text-sm"
+                  className="flex items-center justify-between rounded-[10px] border border-[var(--border)] p-3 text-xs"
                 >
                   <div>
-                    <p className="font-semibold">{item.label}</p>
-                    <p className="text-xs text-[var(--nfc-muted)]">
+                    <p className="font-medium text-[var(--text)]">{item.label}</p>
+                    <p className="text-[11px] text-[var(--text-soft)]">
                       {item.startYear} – {item.endYear}
                     </p>
                   </div>
@@ -442,15 +442,15 @@ export function StandingManagement({ canWrite }: { canWrite: boolean }) {
                 </div>
               ))}
               {seasonsQuery.data?.length === 0 && (
-                <p className="text-xs text-[var(--nfc-muted)]">Aucune saison enregistrée.</p>
+                <p className="text-xs text-[var(--text-muted)]">Aucune saison enregistrée.</p>
               )}
             </div>
 
             {/* Historique des mises à jour */}
-            <div className="mt-6 border-t border-[var(--nfc-divider)] pt-5">
+            <div className="mt-6 border-t border-[var(--border)] pt-4">
               <div className="flex items-center gap-2">
-                <History className="h-4 w-4 text-[var(--nfc-muted)]" />
-                <h3 className="font-display text-sm font-bold uppercase tracking-wide">
+                <History className="h-3.5 w-3.5 text-[var(--text-soft)]" />
+                <h3 className="text-xs font-semibold text-[var(--text)]">
                   Historique des modifications
                 </h3>
               </div>
@@ -472,11 +472,11 @@ export function StandingManagement({ canWrite }: { canWrite: boolean }) {
                   </li>
                 ))}
                 {(historyQuery.data ?? []).length === 0 && (
-                  <li className="text-[var(--nfc-muted)]">Aucun historique pour le moment.</li>
+                  <li className="text-[var(--text-muted)]">Aucun historique pour le moment.</li>
                 )}
               </ul>
             </div>
-          </section>
+          </Card>
         </div>
 
         <SheetDialog

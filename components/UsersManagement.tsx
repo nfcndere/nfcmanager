@@ -194,14 +194,14 @@ export function UsersManagement({
         <div className="rounded-2xl border border-emerald-500/40 bg-emerald-500/10 p-4 text-sm">
           <div className="flex items-start justify-between gap-3">
             <div className="space-y-1">
-              <p className="font-display text-base font-bold uppercase text-emerald-950 dark:text-emerald-200">
+              <p className="text-sm font-semibold text-emerald-950 dark:text-emerald-200">
                 Mot de passe temporaire généré (affiché une seule fois)
               </p>
               <p className="text-xs text-emerald-900 dark:text-emerald-300">
                 Transmettez ce mot de passe à <strong>{createdTempPassword.email}</strong>. Il pourra le modifier dès sa première connexion dans « Mon compte ».
               </p>
-              <div className="mt-2 inline-flex items-center gap-2 rounded-xl bg-[var(--nfc-card)] px-3.5 py-2 font-mono text-base font-bold">
-                <KeyRound className="h-4 w-4 text-[var(--nfc-green)]" />
+              <div className="mt-2 inline-flex items-center gap-2 rounded-xl bg-[var(--card)] border border-[var(--border)] px-3 py-1.5 font-mono text-sm font-medium">
+                <KeyRound className="h-4 w-4 text-[var(--accent)]" />
                 <span>{createdTempPassword.password}</span>
               </div>
             </div>
@@ -249,7 +249,7 @@ export function UsersManagement({
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
-                        <h3 className="truncate font-display text-lg font-bold">
+                        <h3 className="truncate text-sm font-semibold text-[var(--text)]">
                           {u.name || u.email}
                         </h3>
                         {isSelf && <StatusBadge tone="info">Vous</StatusBadge>}

@@ -22,9 +22,11 @@ import { MATCH_STATUSES, type MatchRecord, type MatchStatus } from '@/lib/api/sc
 import { DataState } from '@/components/DataState';
 import {
   Button,
+  Card,
   ConfirmDialog,
   Field,
   Input,
+  LetterAvatar,
   NumberStepper,
   SegmentedControl,
   Select,
@@ -397,20 +399,20 @@ function MatchManagementInner({ canWrite }: { canWrite: boolean }) {
           {filteredMatches.map((match) => {
             const isOverdue = match.status === 'PROGRAMME' && Date.parse(match.date) < now;
             return (
-              <article
+              <Card
                 key={match.id}
-                className={`rounded-2xl border bg-[var(--nfc-card)] p-4 shadow-2xs transition ${
+                className={`p-5 transition-subtle ${
                   match.status === 'EN_COURS'
-                    ? 'border-red-500/50 ring-2 ring-red-500/15'
+                    ? 'border-[var(--status-danger-border)] ring-1 ring-[var(--status-danger-border)]'
                     : isOverdue
-                      ? 'border-amber-500/50'
-                      : 'border-[var(--nfc-divider)]'
+                      ? 'border-[var(--status-warning-border)]'
+                      : ''
                 }`}
               >
                 <div className="flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-2 text-xs text-[var(--nfc-muted)]">
-                    <Trophy className="h-3.5 w-3.5 text-[var(--nfc-green)]" />
-                    <span className="font-semibold">{match.competition || 'Championnat'}</span>
+                  <div className="flex items-center gap-1.5 text-xs text-[var(--text-muted)]">
+                    <Trophy className="h-3.5 w-3.5 text-[var(--accent)]" />
+                    <span className="font-medium text-[var(--text)]">{match.competition || 'Elite Two'}</span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     {isOverdue && <StatusBadge tone="warning">Date dépassée</StatusBadge>}
@@ -420,43 +422,49 @@ function MatchManagementInner({ canWrite }: { canWrite: boolean }) {
                   </div>
                 </div>
 
-                <div className="mt-3.5 flex items-center justify-between gap-3 rounded-xl bg-[var(--nfc-input-bg)] px-4 py-3">
-                  <div className="min-w-0 flex-1">
-                    <p className="truncate font-display text-base font-bold sm:text-lg">
+                <div className="mt-3.5 flex items-center justify-between gap-3 rounded-[12px] bg-[var(--bg-subtle)] p-3">
+                  <div className="flex items-center gap-2.5 min-w-0 flex-1">
+                    <LetterAvatar name={match.homeTeam} size="sm" />
+                    <p className="truncate text-sm font-semibold text-[var(--text)]">
                       {match.homeTeam}
                     </p>
                   </div>
-                  <div className="shrink-0 nfc-card px-3.5 py-1.5 font-display text-xl font-bold tracking-wider">
+
+                  <div className="shrink-0 rounded-[8px] bg-[var(--card)] border border-[var(--border)] px-3 py-1 font-mono text-sm font-semibold tabular-nums text-[var(--text)]">
                     {match.homeScore !== null && match.homeScore !== undefined ? match.homeScore : '–'}
                     {' : '}
                     {match.awayScore !== null && match.awayScore !== undefined ? match.awayScore : '–'}
                   </div>
-                  <div className="min-w-0 flex-1 text-right">
-                    <p className="truncate font-display text-base font-bold sm:text-lg">
+
+                  <div className="flex items-center justify-end gap-2.5 min-w-0 flex-1 text-right">
+                    <p className="truncate text-sm font-semibold text-[var(--text)]">
                       {match.awayTeam}
                     </p>
+                    <LetterAvatar name={match.awayTeam} size="sm" />
                   </div>
                 </div>
 
-                <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs text-[var(--nfc-muted)]">
+                <div className="mt-3 flex flex-wrap items-center justify-between gap-2 text-xs text-[var(--text-muted)]">
                   <span className="inline-flex items-center gap-1.5">
-                    <Calendar className="h-3.5 w-3.5" />
+                    <Calendar className="h-3.5 w-3.5 text-[var(--text-soft)]" />
                     {formatDoualaDate(match.date)}
                   </span>
                   {match.stadium && (
                     <span className="inline-flex items-center gap-1.5">
-                      <MapPin className="h-3.5 w-3.5" />
+                      <MapPin className="h-3.5 w-3.5 text-[var(--text-soft)]" />
                       {match.stadium}
                     </span>
                   )}
                 </div>
 
                 {match.summary && (
-                  <p className="mt-2 line-clamp-2 text-xs text-[var(--nfc-muted)]">{match.summary}</p>
+                  <p className="mt-2 line-clamp-2 text-xs text-[var(--text-muted)] leading-relaxed">
+                    {match.summary}
+                  </p>
                 )}
 
                 {canWrite && (
-                  <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-[var(--nfc-divider)] pt-3">
+                  <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-[var(--border)] pt-3">
                     <Button
                       type="button"
                       size="sm"
@@ -480,14 +488,14 @@ function MatchManagementInner({ canWrite }: { canWrite: boolean }) {
                       size="sm"
                       variant="ghost"
                       onClick={() => setDeletingMatch(match)}
-                      className="ml-auto text-red-600 hover:bg-red-500/10 dark:text-red-400"
+                      className="ml-auto text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30"
                     >
                       <Trash2 className="h-3.5 w-3.5" />
                       Supprimer
                     </Button>
                   </div>
                 )}
-              </article>
+              </Card>
             );
           })}
         </div>
@@ -496,44 +504,45 @@ function MatchManagementInner({ canWrite }: { canWrite: boolean }) {
       {/* Mode Match en direct (Plein écran mobile pour le bord de terrain) */}
       {activeLiveMatch && (
         <div
-          className="fixed inset-0 z-50 flex flex-col justify-between overflow-y-auto bg-[var(--nfc-dark)] p-5 text-white safe-top safe-bottom"
+          className="fixed inset-0 z-50 flex flex-col justify-between overflow-y-auto bg-[var(--card)] p-5 text-[var(--text)] safe-top safe-bottom"
           role="dialog"
           aria-modal="true"
           aria-label="Mode Match en direct"
         >
-          <div className="mx-auto flex w-full max-w-xl items-center justify-between">
+          <div className="mx-auto flex w-full max-w-xl items-center justify-between border-b border-[var(--border)] pb-4">
             <div className="flex items-center gap-2">
-              <span className="inline-flex h-3 w-3 animate-ping rounded-full bg-red-500" />
-              <span className="font-display text-sm font-bold uppercase tracking-widest text-[var(--nfc-yellow)]">
-                Mode Bord de Terrain · Direct
+              <span className="inline-flex h-2.5 w-2.5 animate-pulse rounded-full bg-red-500" />
+              <span className="text-xs font-semibold text-[var(--text)]">
+                Bord de terrain · Direct
               </span>
             </div>
             <button
               type="button"
               onClick={() => setLiveMatchId(null)}
-              className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 text-white hover:bg-white/20"
+              className="flex h-9 w-9 items-center justify-center rounded-[8px] bg-[var(--bg-subtle)] text-[var(--text-muted)] hover:text-[var(--text)] transition-subtle"
               aria-label="Fermer le mode direct"
             >
-              <X className="h-5 w-5" />
+              <X className="h-4 w-4" />
             </button>
           </div>
 
           <div className="mx-auto my-6 w-full max-w-xl space-y-6">
             <div className="text-center">
-              <p className="text-xs uppercase tracking-widest text-white/60">
-                {activeLiveMatch.competition || 'Championnat'} · {formatDoualaDate(activeLiveMatch.date)}
+              <p className="text-xs text-[var(--text-muted)]">
+                {activeLiveMatch.competition || 'Elite Two'} · {formatDoualaDate(activeLiveMatch.date)}
               </p>
-              <div className="mt-2 inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1 text-xs font-semibold">
-                Statut actuel : {STATUS_LABELS[liveStatus]}
+              <div className="mt-2 inline-flex items-center gap-2 rounded-full border border-[var(--border)] bg-[var(--bg-subtle)] px-3 py-1 text-xs font-medium text-[var(--text)]">
+                Statut : {STATUS_LABELS[liveStatus]}
               </div>
             </div>
 
-            <div className="grid gap-4 rounded-3xl border border-white/15 bg-[var(--nfc-surface)] p-5 sm:grid-cols-2">
-              <div className="flex flex-col items-center rounded-2xl bg-black/25 p-4">
-                <p className="text-center font-display text-xl font-bold uppercase tracking-wide">
+            <div className="grid gap-4 rounded-[16px] border border-[var(--border)] bg-[var(--bg-subtle)] p-5 sm:grid-cols-2">
+              <div className="flex flex-col items-center rounded-[12px] bg-[var(--card)] border border-[var(--border)] p-4">
+                <LetterAvatar name={activeLiveMatch.homeTeam} size="md" />
+                <p className="mt-2 text-center text-sm font-semibold text-[var(--text)]">
                   {activeLiveMatch.homeTeam}
                 </p>
-                <span className="mb-3 text-xs text-white/60">Domicile</span>
+                <span className="mb-3 text-[11px] text-[var(--text-soft)]">Domicile</span>
                 <NumberStepper
                   label="Buts domicile"
                   value={liveHomeScore}
@@ -543,11 +552,12 @@ function MatchManagementInner({ canWrite }: { canWrite: boolean }) {
                 />
               </div>
 
-              <div className="flex flex-col items-center rounded-2xl bg-black/25 p-4">
-                <p className="text-center font-display text-xl font-bold uppercase tracking-wide">
+              <div className="flex flex-col items-center rounded-[12px] bg-[var(--card)] border border-[var(--border)] p-4">
+                <LetterAvatar name={activeLiveMatch.awayTeam} size="md" />
+                <p className="mt-2 text-center text-sm font-semibold text-[var(--text)]">
                   {activeLiveMatch.awayTeam}
                 </p>
-                <span className="mb-3 text-xs text-white/60">Extérieur</span>
+                <span className="mb-3 text-[11px] text-[var(--text-soft)]">Extérieur</span>
                 <NumberStepper
                   label="Buts extérieur"
                   value={liveAwayScore}
@@ -559,15 +569,15 @@ function MatchManagementInner({ canWrite }: { canWrite: boolean }) {
             </div>
 
             <div>
-              <label className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-white/75">
-                Note / Résumé du match (buteurs, temps forts)
+              <label className="mb-1.5 block text-xs font-medium text-[var(--text)]">
+                Commentaire / Faits marquants du match
               </label>
               <textarea
                 rows={2}
                 value={liveSummary}
                 onChange={(e) => setLiveSummary(e.target.value)}
-                placeholder="Ex: 34' But de Mohamadou (1-0)..."
-                className="w-full rounded-xl border border-white/20 bg-black/30 p-3 text-sm text-white placeholder:text-white/40 focus:border-[var(--nfc-yellow)] focus:outline-none"
+                placeholder="Ex: 34' But de Mohamadou sur penalty (1-0)..."
+                className="w-full rounded-[10px] border border-[var(--border)] bg-[var(--bg-subtle)] p-3 text-xs text-[var(--text)] placeholder:text-[var(--text-soft)] focus:border-[var(--accent)] focus:outline-none"
               />
             </div>
 
@@ -578,9 +588,8 @@ function MatchManagementInner({ canWrite }: { canWrite: boolean }) {
                 variant="primary"
                 loading={livePending}
                 onClick={() => void handleSaveLive('EN_COURS')}
-                className="min-h-14 text-base"
               >
-                <Save className="h-5 w-5" />
+                <Save className="h-4 w-4" />
                 Publier le score en direct
               </Button>
 
@@ -590,16 +599,15 @@ function MatchManagementInner({ canWrite }: { canWrite: boolean }) {
                 variant="secondary"
                 loading={livePending}
                 onClick={() => void handleSaveLive('TERMINE')}
-                className="min-h-14 border-white/20 bg-white/10 text-base text-white hover:bg-white/20"
               >
-                <CheckCircle2 className="h-5 w-5 text-[var(--nfc-yellow)]" />
+                <CheckCircle2 className="h-4 w-4 text-[var(--accent)]" />
                 Terminer le match
               </Button>
             </div>
           </div>
 
-          <p className="text-center text-xs text-white/50">
-            Aucun envoi automatique au toucher : cliquez sur « Publier le score en direct » pour envoyer au site officiel (ou mettre en file d’attente hors ligne).
+          <p className="text-center text-xs text-[var(--text-soft)]">
+            Les saisies sont locales : cliquez sur « Publier le score en direct » pour transmettre le score.
           </p>
         </div>
       )}

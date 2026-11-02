@@ -375,7 +375,7 @@ function FormsManagementInner({ canWrite }: { canWrite: boolean }) {
                     </StatusBadge>
                   </div>
 
-                  <h3 className="mt-2.5 font-display text-lg font-bold">{name}</h3>
+                  <h3 className="mt-2.5 text-sm font-semibold text-[var(--text)]">{name}</h3>
                   <p className="text-xs text-[var(--nfc-muted)]">
                     Reçu le {formatDoualaDate(item.createdAt)}
                   </p>

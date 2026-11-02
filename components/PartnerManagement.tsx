@@ -229,7 +229,7 @@ export function PartnerManagement({ canWrite }: { canWrite: boolean }) {
 
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center justify-between gap-2">
-                    <h3 className="truncate font-display text-lg font-bold">{partner.name}</h3>
+                    <h3 className="truncate text-sm font-semibold text-[var(--text)]">{partner.name}</h3>
                     <StatusBadge tone={partner.active !== false ? 'success' : 'neutral'}>
                       {partner.active !== false ? 'Actif' : 'Inactif'}
                     </StatusBadge>

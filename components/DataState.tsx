@@ -10,6 +10,7 @@ import {
   Wrench,
 } from 'lucide-react';
 import { formatDoualaDateTime } from '@/lib/format';
+import { Button, Skeleton } from '@/components/ui';
 
 export type DataStateKind =
   | 'loading'
@@ -74,10 +75,11 @@ export function DataState({
         {Array.from({ length: skeletonCount }).map((_, idx) => (
           <div
             key={idx}
-            className="h-24 animate-pulse nfc-card p-4"
+            className="rounded-[16px] border border-[var(--border)] bg-[var(--card)] p-4 space-y-3"
           >
-            <div className="h-4 w-2/5 rounded bg-gray-200 dark:bg-emerald-950" />
-            <div className="mt-3 h-3 w-4/5 rounded bg-gray-100 dark:bg-emerald-950/60" />
+            <Skeleton className="h-4 w-1/3" />
+            <Skeleton className="h-3 w-4/5" />
+            <Skeleton className="h-3 w-1/2" />
           </div>
         ))}
       </div>
@@ -101,7 +103,7 @@ export function DataState({
       <div className="space-y-4">
         <div
           role="status"
-          className="flex flex-wrap items-center justify-between gap-2 rounded-xl border-l-4 border-amber-500 bg-amber-50 px-4 py-3 text-xs font-medium text-amber-950 dark:bg-amber-950/50 dark:text-amber-100"
+          className="flex flex-wrap items-center justify-between gap-2.5 rounded-[12px] border border-[var(--status-warning-border)] bg-[var(--status-warning-bg)] px-4 py-3 text-xs font-medium text-[var(--status-warning-text)]"
         >
           <span className="flex items-center gap-2">
             {effectiveKind === 'offline' ? (
@@ -109,22 +111,26 @@ export function DataState({
             ) : (
               <Clock className="h-4 w-4 shrink-0" />
             )}
-            {effectiveDesc || bannerText}
-            {effectiveSyncedAt && (
-              <span className="opacity-80">
-                · Dernière synchro : {formatDoualaDateTime(effectiveSyncedAt)}
-              </span>
-            )}
+            <span>
+              {effectiveDesc || bannerText}
+              {effectiveSyncedAt && (
+                <span className="ml-1 opacity-75">
+                  · Synchro : {formatDoualaDateTime(effectiveSyncedAt)}
+                </span>
+              )}
+            </span>
           </span>
           {onRetry && (
-            <button
+            <Button
               type="button"
+              variant="outline"
+              size="sm"
               onClick={onRetry}
-              className="inline-flex min-h-10 items-center gap-1.5 rounded-lg bg-amber-900 px-3 py-1.5 text-xs font-bold uppercase tracking-wider text-white"
+              className="bg-white/80 dark:bg-black/30 border-[var(--status-warning-border)] text-[var(--status-warning-text)]"
             >
-              <RefreshCw className="h-3.5 w-3.5" />
+              <RefreshCw className="h-3 w-3" />
               Actualiser
-            </button>
+            </Button>
           )}
         </div>
         {children}
@@ -134,51 +140,59 @@ export function DataState({
 
   const config: Record<
     Exclude<DataStateKind, 'ready' | 'loading'>,
-    { icon: ReactNode; defaultTitle: string; defaultDesc: string }
+    { icon: ReactNode; defaultTitle: string; defaultDesc: string; iconBg: string }
   > = {
     empty: {
-      icon: <Inbox className="h-7 w-7 text-[var(--nfc-green)]" />,
+      icon: <Inbox className="h-5 w-5 text-[var(--accent)]" />,
       defaultTitle: emptyTitle || 'Aucun élément pour le moment',
       defaultDesc: emptyDescription || 'Aucune donnée enregistrée dans cette section.',
+      iconBg: 'bg-[var(--accent-soft)]',
     },
     error: {
-      icon: <ServerCrash className="h-7 w-7 text-red-600" />,
+      icon: <ServerCrash className="h-5 w-5 text-[var(--status-danger-text)]" />,
       defaultTitle: 'Service du site indisponible',
       defaultDesc:
-        'Impossible de charger les données depuis nfcwebsite. Vérifiez la connexion ou réessayez.',
+        'Impossible de charger les données depuis le site. Vérifiez votre connexion ou réessayez.',
+      iconBg: 'bg-[var(--status-danger-bg)]',
     },
     offline: {
-      icon: <WifiOff className="h-7 w-7 text-amber-600" />,
+      icon: <WifiOff className="h-5 w-5 text-[var(--status-warning-text)]" />,
       defaultTitle: 'Vous êtes hors connexion',
       defaultDesc:
         'Aucune copie locale disponible pour cet écran. Reconnectez-vous pour synchroniser.',
+      iconBg: 'bg-[var(--status-warning-bg)]',
     },
     stale: {
-      icon: <Clock className="h-7 w-7 text-amber-600" />,
+      icon: <Clock className="h-5 w-5 text-[var(--status-warning-text)]" />,
       defaultTitle: 'Données périmées',
       defaultDesc: 'Ces données dépassent le seuil de fraîcheur attendu.',
+      iconBg: 'bg-[var(--status-warning-bg)]',
     },
     partial: {
-      icon: <AlertTriangle className="h-7 w-7 text-amber-600" />,
+      icon: <AlertTriangle className="h-5 w-5 text-[var(--status-warning-text)]" />,
       defaultTitle: 'Données incomplètes',
       defaultDesc: 'Certaines valeurs retournées par le site nécessitent une vérification.',
+      iconBg: 'bg-[var(--status-warning-bg)]',
     },
     forbidden: {
-      icon: <Lock className="h-7 w-7 text-red-600" />,
+      icon: <Lock className="h-5 w-5 text-[var(--status-danger-text)]" />,
       defaultTitle: 'Droits insuffisants (403)',
-      defaultDesc: 'Cette section est réservée aux comptes Administrateur (ADMIN).',
+      defaultDesc: 'Cette section est réservée aux comptes Administrateur.',
+      iconBg: 'bg-[var(--status-danger-bg)]',
     },
     conflict: {
-      icon: <AlertTriangle className="h-7 w-7 text-amber-600" />,
+      icon: <AlertTriangle className="h-5 w-5 text-[var(--status-warning-text)]" />,
       defaultTitle: 'Conflit de modification détecté',
       defaultDesc:
         'Cette donnée a été modifiée plus récemment sur le serveur. Choisissez la version à conserver.',
+      iconBg: 'bg-[var(--status-warning-bg)]',
     },
     unavailable_feature: {
-      icon: <Wrench className="h-7 w-7 text-[var(--nfc-green)]" />,
-      defaultTitle: 'Fonction pas encore disponible côté site',
+      icon: <Wrench className="h-5 w-5 text-[var(--accent)]" />,
+      defaultTitle: 'Module bientôt disponible',
       defaultDesc:
-        'L’endpoint correspondant n’est pas encore actif sur le déploiement actuel de nfcwebsite.',
+        'Cette fonctionnalité est en cours d’intégration et sera activée lors d’une prochaine mise à jour.',
+      iconBg: 'bg-[var(--accent-soft)]',
     },
   };
 
@@ -186,61 +200,45 @@ export function DataState({
 
   return (
     <section
-      className="nfc-card p-6 text-center"
+      className="rounded-[16px] border border-[var(--border)] bg-[var(--card)] p-8 text-center"
       role={effectiveKind === 'error' || effectiveKind === 'forbidden' ? 'alert' : 'status'}
     >
-      <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-xl bg-[var(--nfc-bg)]">
+      <div className={`mx-auto flex h-12 w-12 items-center justify-center rounded-[12px] ${current.iconBg}`}>
         {current.icon}
       </div>
-      <h2 className="mt-3 font-display text-lg font-bold uppercase tracking-wide">
+      <h2 className="mt-3 text-base font-semibold text-[var(--text)]">
         {title || current.defaultTitle}
       </h2>
-      <p className="mx-auto mt-1 max-w-md text-sm text-[var(--nfc-muted)]">
+      <p className="mx-auto mt-1.5 max-w-md text-xs sm:text-sm text-[var(--text-muted)] leading-relaxed">
         {effectiveDesc || current.defaultDesc}
       </p>
       {effectiveSyncedAt && (
-        <p className="mt-2 text-xs text-[var(--nfc-muted)]">
+        <p className="mt-2 text-[11px] text-[var(--text-soft)]">
           Dernière synchronisation : {formatDoualaDateTime(effectiveSyncedAt)}
         </p>
       )}
-      <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
+      <div className="mt-5 flex flex-wrap items-center justify-center gap-2.5">
         {onRetry && (
-          <button
-            type="button"
-            onClick={onRetry}
-            className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[var(--nfc-green)] px-4 py-2.5 font-display text-xs font-bold uppercase tracking-wider text-white hover:bg-[var(--nfc-green-dark)]"
-          >
-            <RefreshCw className="h-4 w-4" />
+          <Button type="button" variant="primary" size="sm" onClick={onRetry}>
+            <RefreshCw className="h-3.5 w-3.5" />
             Réessayer
-          </button>
+          </Button>
         )}
         {effectiveKind === 'conflict' && onResolveKeepLocal && (
-          <button
-            type="button"
-            onClick={onResolveKeepLocal}
-            className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[var(--nfc-green)] px-4 py-2.5 font-display text-xs font-bold uppercase tracking-wider text-white"
-          >
+          <Button type="button" variant="primary" size="sm" onClick={onResolveKeepLocal}>
             Conserver ma version
-          </button>
+          </Button>
         )}
         {effectiveKind === 'conflict' && onResolveUseServer && (
-          <button
-            type="button"
-            onClick={onResolveUseServer}
-            className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[var(--nfc-divider)] px-4 py-2.5 font-display text-xs font-bold uppercase tracking-wider"
-          >
+          <Button type="button" variant="secondary" size="sm" onClick={onResolveUseServer}>
             Utiliser la version serveur
-          </button>
+          </Button>
         )}
         {emptyAction}
         {onAction && actionLabel && (
-          <button
-            type="button"
-            onClick={onAction}
-            className="inline-flex min-h-11 items-center gap-2 rounded-xl bg-[var(--nfc-yellow)] px-4 py-2.5 font-display text-xs font-bold uppercase tracking-wider text-[#0c130e]"
-          >
+          <Button type="button" variant="secondary" size="sm" onClick={onAction}>
             {actionLabel}
-          </button>
+          </Button>
         )}
       </div>
     </section>

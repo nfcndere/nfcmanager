@@ -18,7 +18,8 @@ export default async function LoginPage({
   const params = await searchParams;
   const session = await getSessionState();
 
-  const nextPath = typeof params.next === 'string' && params.next.startsWith('/') ? params.next : '/dashboard';
+  const nextPath =
+    typeof params.next === 'string' && params.next.startsWith('/') ? params.next : '/dashboard';
   if (session.status === 'ok' || session.status === 'authenticated') {
     redirect(nextPath);
   }
@@ -31,41 +32,38 @@ export default async function LoginPage({
   const showDiag = params.diag === '1' || apiUnavailable;
 
   return (
-    <main className="flex min-h-dvh items-center justify-center bg-[var(--nfc-bg)] px-4 py-8">
-      <section className="w-full max-w-sm nfc-card p-6 sm:p-7 shadow-sm">
-        <div className="mb-5 flex flex-col items-center text-center">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/logo.png"
-            alt="Logo officiel Ngaoundéré FC"
-            className="h-12 w-12 object-contain"
-          />
-          <h1 className="mt-3 text-base font-semibold text-[var(--nfc-text)]">
+    <main className="flex min-h-dvh items-center justify-center bg-[var(--bg)] px-4 py-10 antialiased">
+      <section className="w-full max-w-sm rounded-[16px] border border-[var(--border)] bg-[var(--card)] p-6 sm:p-8 shadow-none">
+        <div className="mb-6 flex flex-col items-center text-center">
+          <div className="flex h-12 w-12 items-center justify-center rounded-[12px] bg-[var(--accent)] text-white shadow-xs">
+            <span className="text-base font-semibold tracking-wide">NFC</span>
+          </div>
+          <h1 className="mt-3.5 text-base font-semibold tracking-tight text-[var(--text)]">
             Administration Ngaoundéré FC
           </h1>
-          <p className="mt-0.5 text-xs text-[var(--nfc-muted)]">
-            Connectez-vous pour gérer le club
+          <p className="mt-1 text-xs text-[var(--text-muted)]">
+            Connectez-vous pour piloter le club
           </p>
         </div>
 
         {sessionExpired && (
           <div
-            className="mb-4 flex items-start gap-2 rounded-lg bg-amber-500/10 p-2.5 text-xs text-amber-900 dark:text-amber-200 border-l-2 border-amber-500"
+            className="mb-4 flex items-start gap-2.5 rounded-[10px] border border-[var(--status-warning-border)] bg-[var(--status-warning-bg)] p-3 text-xs text-[var(--status-warning-text)]"
             role="status"
           >
-            <Clock className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-600" />
-            <span>Votre session a expiré. Reconnectez-vous.</span>
+            <Clock className="mt-0.5 h-3.5 w-3.5 shrink-0" />
+            <span>Votre session a expiré. Veuillez vous reconnecter.</span>
           </div>
         )}
 
         {apiUnavailable && (
           <div
-            className="mb-4 flex items-start gap-2 rounded-lg bg-amber-500/10 p-2.5 text-xs text-amber-900 dark:text-amber-200 border-l-2 border-amber-500"
+            className="mb-4 flex items-start gap-2.5 rounded-[10px] border border-[var(--status-warning-border)] bg-[var(--status-warning-bg)] p-3 text-xs text-[var(--status-warning-text)]"
             role="status"
           >
-            <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-600" />
+            <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
             <span>
-              Le serveur ne répond pas ou attend une migration de base de données.
+              Le serveur ne répond pas ou est en attente d’une synchronisation de base de données.
             </span>
           </div>
         )}

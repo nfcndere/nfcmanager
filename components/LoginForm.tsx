@@ -36,22 +36,23 @@ export function LoginForm({
       });
       const result = (await response.json().catch(() => ({}))) as { message?: string };
       if (!response.ok) {
-        setMessage(result.message ?? 'Connexion impossible.');
+        setMessage(result.message ?? 'Identifiants incorrects.');
         return;
       }
-      const safeTarget = nextPath.startsWith('/') && !nextPath.startsWith('//') ? nextPath : '/dashboard';
+      const safeTarget =
+        nextPath.startsWith('/') && !nextPath.startsWith('//') ? nextPath : '/dashboard';
       router.replace(safeTarget);
       router.refresh();
     } catch {
-      setMessage('Connexion impossible. Vérifiez votre connexion Internet puis réessayez.');
+      setMessage('Connexion impossible. Vérifiez votre accès Internet puis réessayez.');
     } finally {
       setPending(false);
     }
   }
 
   return (
-    <div className="space-y-6">
-      <form className="space-y-5" onSubmit={submit}>
+    <div className="space-y-5">
+      <form className="space-y-4" onSubmit={submit}>
         <Field label="Adresse e-mail professionnelle" required>
           <Input
             type="email"
@@ -64,12 +65,15 @@ export function LoginForm({
 
         <div className="space-y-1.5">
           <div className="flex items-center justify-between">
-            <label htmlFor="login-password" className="text-sm font-semibold text-[var(--nfc-text)]">
+            <label
+              htmlFor="login-password"
+              className="text-xs font-medium text-[var(--text)]"
+            >
               Mot de passe <span className="text-red-500">*</span>
             </label>
             <Link
               href="/mot-de-passe/oublie"
-              className="text-xs font-semibold text-[var(--nfc-green)] hover:underline dark:text-[var(--nfc-yellow)]"
+              className="text-[11px] font-medium text-[var(--accent)] hover:underline"
             >
               Mot de passe oublié ?
             </Link>
@@ -80,14 +84,14 @@ export function LoginForm({
               type={showPassword ? 'text' : 'password'}
               name="password"
               autoComplete="current-password"
-              className="pr-12"
+              className="pr-10"
               required
             />
             <button
               type="button"
               onClick={() => setShowPassword((prev) => !prev)}
               aria-label={showPassword ? 'Masquer le mot de passe' : 'Afficher le mot de passe'}
-              className="absolute right-1.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-lg text-[var(--nfc-muted)] hover:bg-black/5 dark:hover:bg-white/10"
+              className="absolute right-1.5 top-1/2 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-[6px] text-[var(--text-muted)] hover:bg-[var(--bg-subtle)] transition-subtle"
             >
               {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
             </button>
@@ -96,7 +100,7 @@ export function LoginForm({
 
         {message && (
           <div
-            className="flex items-start gap-2.5 rounded-xl border border-red-500/30 bg-red-500/10 p-3.5 text-sm text-red-800 dark:text-red-200"
+            className="flex items-start gap-2.5 rounded-[10px] border border-[var(--status-danger-border)] bg-[var(--status-danger-bg)] p-3 text-xs text-[var(--status-danger-text)]"
             role="alert"
           >
             <ShieldAlert className="mt-0.5 h-4 w-4 shrink-0" />
@@ -105,32 +109,32 @@ export function LoginForm({
               <button
                 type="button"
                 onClick={() => setShowDiag(true)}
-                className="text-xs font-semibold underline"
+                className="text-[11px] underline"
               >
-                Ouvrir le diagnostic de connexion API
+                Ouvrir le diagnostic de connexion
               </button>
             </div>
           </div>
         )}
 
-        <Button type="submit" className="w-full" size="lg" loading={pending}>
-          <LogIn className="h-4 w-4" />
-          {pending ? 'Vérification en cours…' : 'Se connecter'}
+        <Button type="submit" className="w-full" size="md" loading={pending}>
+          <LogIn className="h-3.5 w-3.5" />
+          {pending ? 'Vérification...' : 'Se connecter'}
         </Button>
       </form>
 
-      <div className="border-t border-[var(--nfc-divider)] pt-4">
+      <div className="border-t border-[var(--border)] pt-3 text-center">
         <button
           type="button"
           onClick={() => setShowDiag((prev) => !prev)}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-[var(--nfc-muted)] hover:text-[var(--nfc-text)]"
+          className="inline-flex items-center gap-1.5 text-[11px] font-medium text-[var(--text-muted)] hover:text-[var(--text)] transition-subtle"
         >
-          <KeyRound className="h-3.5 w-3.5" />
-          {showDiag ? 'Masquer le diagnostic technique' : 'Problème de connexion ? Tester la liaison nfcwebsite'}
+          <KeyRound className="h-3 w-3" />
+          {showDiag ? 'Masquer le diagnostic' : 'Tester la liaison nfcwebsite'}
         </button>
 
         {showDiag && (
-          <div className="mt-3">
+          <div className="mt-3 text-left">
             <AuthDiagPanel />
           </div>
         )}

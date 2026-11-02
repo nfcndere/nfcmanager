@@ -1,61 +1,175 @@
 @import "tailwindcss";
 
 /* ========================================
-   Design System NFC Manager — Calme, Moderne & Lisible
-   Police unique sans-serif propre (Inter / System)
-   Couleurs officielles NFC, contrastes soignés, proportions équilibrées
+   Design System NFC Manager
+   Inspiré du dashboard moderne sobre & aéré
+   - Accent unique : Vert club #1f5f3d
+   - Surfaces neutres, bordures fines 1px, pas d'ombres lourdes
+   - Typographie Inter, tabular-nums
+   - 6 paires d'avatars pastel déterministes
    ======================================== */
 @theme {
-  --color-nfc-green: #1f5f3d;
-  --color-nfc-green-dark: #173f2d;
-  --color-nfc-green-light: #2e8b59;
-  --color-nfc-yellow: #8cea5a;
-  --color-nfc-dark: #0f1412;
-  --color-nfc-surface: #161e1a;
-  --color-nfc-surface-2: #1e2823;
-  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --color-bg: var(--bg);
+  --color-bg-subtle: var(--bg-subtle);
+  --color-bg-hover: var(--bg-hover);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
+  --color-text: var(--text);
+  --color-text-muted: var(--text-muted);
+  --color-text-soft: var(--text-soft);
+
+  --color-accent: var(--accent);
+  --color-accent-soft: var(--accent-soft);
+  --color-accent-contrast: var(--accent-contrast);
+  --color-accent-hover: var(--accent-hover);
+
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-display: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-logo: var(--font-oswald), "Oswald", sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  --shadow-pop: 0 4px 16px -2px rgba(17, 17, 17, 0.08), 0 1px 3px rgba(17, 17, 17, 0.04);
 }
 
 :root {
   color-scheme: light;
-  --nfc-green: #1f5f3d;
-  --nfc-green-dark: #173f2d;
+
+  /* Surfaces & fonds neutres */
+  --bg: #ffffff;
+  --bg-subtle: #f6f6f6;
+  --bg-hover: #efefef;
+  --card: #ffffff;
+  --border: #e8e8e8;
+  --border-subtle: #f0f0f0;
+
+  /* Typographie neutre */
+  --text: #111111;
+  --text-muted: #6e6e6e;
+  --text-soft: #8a8a8a;
+
+  /* Accent officiel Vert club */
+  --accent: #1f5f3d;
+  --accent-soft: #eaf5ee;
+  --accent-contrast: #ffffff;
+  --accent-hover: #17482e;
+
+  /* Statuts pastel avec contraste AA */
+  --status-success-bg: #eaf7ee;
+  --status-success-text: #1b6336;
+  --status-warning-bg: #fef7ea;
+  --status-warning-text: #8a5712;
+  --status-danger-bg: #fdeeee;
+  --status-danger-text: #a82424;
+  --status-info-bg: #eaf2fc;
+  --status-info-text: #18539c;
+
+  /* 6 Avatars pastel déterministes (fond / lettre) */
+  --avatar-violet-bg: #f1edfb;
+  --avatar-violet-text: #5e35b1;
+  --avatar-rose-bg: #fcebf2;
+  --avatar-rose-text: #ad1457;
+  --avatar-green-bg: #eaf5ee;
+  --avatar-green-text: #1f5f3d;
+  --avatar-yellow-bg: #fef7df;
+  --avatar-yellow-text: #8d6b04;
+  --avatar-blue-bg: #eaf2fc;
+  --avatar-blue-text: #1565c0;
+  --avatar-orange-bg: #feefe5;
+  --avatar-orange-text: #d84315;
+
+  /* Rétro-compatibilité */
+  --nfc-bg: var(--bg);
+  --nfc-card: var(--card);
+  --nfc-surface-subtle: var(--bg-subtle);
+  --nfc-text: var(--text);
+  --nfc-muted: var(--text-muted);
+  --nfc-border: var(--border);
+  --nfc-divider: var(--border);
+  --nfc-input-bg: var(--bg-subtle);
+  --nfc-green: var(--accent);
+  --nfc-green-dark: var(--accent-hover);
   --nfc-green-light: #2e8b59;
   --nfc-yellow: #8cea5a;
-  --nfc-yellow-hover: #78d04a;
   --nfc-dark: #0f1412;
   --nfc-surface: #161e1a;
   --nfc-surface-2: #1e2823;
+  --nfc-shadow: none;
+  --nfc-shadow-hover: var(--shadow-pop);
 
-  /* Surfaces & Fonds clairs */
-  --nfc-bg: #f8faf8;
-  --nfc-card: #ffffff;
-  --nfc-surface-subtle: #f0f3f0;
-  --nfc-text: #19211d;
-  --nfc-muted: #5f6b64;
-  --nfc-divider: #e4e8e5;
-  --nfc-input-bg: #f4f6f4;
-
-  /* Ombres douces sans bordures dures */
-  --nfc-shadow-sm: 0 1px 3px rgba(15, 20, 18, 0.05);
-  --nfc-shadow: 0 2px 8px -1px rgba(15, 20, 18, 0.06), 0 1px 3px rgba(15, 20, 18, 0.04);
-  --nfc-shadow-hover: 0 8px 20px -2px rgba(15, 20, 18, 0.1);
-  --transition-smooth: all 0.2s ease-in-out;
+  --shadow-pop: 0 4px 16px -2px rgba(17, 17, 17, 0.08), 0 1px 3px rgba(17, 17, 17, 0.04);
 }
 
 [data-theme="dark"] {
   color-scheme: dark;
-  --nfc-bg: #0d1210;
-  --nfc-card: #141b17;
-  --nfc-surface-subtle: #1a231f;
-  --nfc-text: #f0f4f1;
-  --nfc-muted: #8e9b93;
-  --nfc-divider: #24302a;
-  --nfc-input-bg: #18211c;
-  --nfc-shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.25);
-  --nfc-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.35);
-  --nfc-shadow-hover: 0 8px 24px -2px rgba(0, 0, 0, 0.5);
+
+  /* Surfaces sombres douces */
+  --bg: #0f1110;
+  --bg-subtle: #171918;
+  --bg-hover: #1f2220;
+  --card: #141615;
+  --border: #232725;
+  --border-subtle: #1c201e;
+
+  /* Typographie */
+  --text: #f4f5f4;
+  --text-muted: #9aa19d;
+  --text-soft: #6e7570;
+
+  /* Accent vert doux en sombre */
+  --accent: #2e8b59;
+  --accent-soft: #14281e;
+  --accent-contrast: #ffffff;
+  --accent-hover: #3ca96e;
+
+  /* Statuts sombre */
+  --status-success-bg: #142b1d;
+  --status-success-text: #7ad899;
+  --status-warning-bg: #2d200e;
+  --status-warning-text: #f5b966;
+  --status-danger-bg: #301313;
+  --status-danger-text: #f87d7d;
+  --status-info-bg: #112338;
+  --status-info-text: #78aef5;
+
+  /* 6 Avatars pastel sombre */
+  --avatar-violet-bg: #261b3d;
+  --avatar-violet-text: #b39ddb;
+  --avatar-rose-bg: #381a28;
+  --avatar-rose-text: #f48fb1;
+  --avatar-green-bg: #142b1e;
+  --avatar-green-text: #81c784;
+  --avatar-yellow-bg: #2d2611;
+  --avatar-yellow-text: #ffd54f;
+  --avatar-blue-bg: #12243d;
+  --avatar-blue-text: #90caf9;
+  --avatar-orange-bg: #361c14;
+  --avatar-orange-text: #ffab91;
+
+  /* Rétro-compatibilité */
+  --nfc-bg: var(--bg);
+  --nfc-card: var(--card);
+  --nfc-surface-subtle: var(--bg-subtle);
+  --nfc-text: var(--text);
+  --nfc-muted: var(--text-muted);
+  --nfc-border: var(--border);
+  --nfc-divider: var(--border);
+  --nfc-input-bg: var(--bg-subtle);
+  --nfc-green: var(--accent);
+  --nfc-green-dark: var(--accent-hover);
+  --nfc-green-light: #3ca96e;
+  --nfc-yellow: #8cea5a;
+  --nfc-dark: #0f1110;
+  --nfc-surface: #141615;
+  --nfc-surface-2: #1b1e1d;
+  --nfc-shadow: none;
+  --nfc-shadow-hover: var(--shadow-pop);
+
+  --shadow-pop: 0 4px 20px -2px rgba(0, 0, 0, 0.45);
 }
 
 *,
@@ -78,31 +192,62 @@ html,
 body {
   margin: 0;
   min-height: 100dvh;
-  background-color: var(--nfc-bg);
-  color: var(--nfc-text);
+  background-color: var(--bg);
+  color: var(--text);
   font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   line-height: 1.5;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.011em;
 }
 
-/* Typographie standard : fin des majuscules obligatoires ou polices condensées */
+/* Chiffres tabulaires partout où nécessaire */
+.tabular-nums,
+table,
+[data-tabular] {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Titres sobres sans gras excessif */
 h1, h2, h3, h4, h5, h6 {
   font-family: inherit;
   font-weight: 600;
   letter-spacing: -0.02em;
-  color: var(--nfc-text);
+  color: var(--text);
   line-height: 1.25;
 }
 
-/* Polices adaptables */
-.font-display,
-.font-heading {
-  font-family: inherit;
-  letter-spacing: -0.015em;
-  text-transform: none;
+h1 { font-size: 1.6rem; }
+h2 { font-size: 1.25rem; }
+h3 { font-size: 1.05rem; }
+h4 { font-size: 0.95rem; }
+
+/* Conteneur de page centré ≤ 1200px */
+.page-container {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Formes agréables avec un léger arrondi harmonieux */
+/* Carte sobre référence : fond blanc, bordure 1px claire, grand arrondi 16px, sans ombre */
+.app-card,
+.nfc-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: none;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+/* Pastille blanche entièrement arrondie (élément actif de la barre latérale) */
+.nav-pill-active {
+  background: var(--card) !important;
+  color: var(--text) !important;
+  font-weight: 500;
+  border-radius: 9999px;
+  box-shadow: 0 1px 3px rgba(17, 17, 17, 0.05);
+}
+
+/* Formulaires & éléments interactifs */
 button,
 input,
 select,
@@ -113,48 +258,31 @@ textarea {
 a {
   color: inherit;
   text-decoration: none;
-  transition: color 0.15s ease;
 }
 
-/* Barre de défilement propre */
+/* Respect de prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Transitions discrètes ≤ 150ms */
+.transition-subtle {
+  transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Barre de défilement discrète */
 ::-webkit-scrollbar { width: 5px; height: 5px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(31, 95, 61, 0.25); border-radius: 4px; }
-::-webkit-scrollbar-thumb:hover { background: var(--nfc-green); }
+::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.12); border-radius: 4px; }
+[data-theme="dark"] ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.12); }
 
-/* Cartes sans bordures agressives */
-.nfc-card {
-  background: var(--nfc-card);
-  box-shadow: var(--nfc-shadow);
-  border-radius: 12px;
-  transition: var(--transition-smooth);
-}
-.nfc-card-hover:hover {
-  box-shadow: var(--nfc-shadow-hover);
-  transform: translateY(-1px);
-}
-
-/* Étiquette de section sobre */
-.section-tag {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--nfc-green);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-[data-theme="dark"] .section-tag { color: var(--nfc-yellow); }
-
-/* Animations simples et rapides */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(6px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.animate-fade-in { animation: fadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1) both; }
-.animate-slide-up { animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) both; }
-
-/* Safe area mobiles */
+/* Safe area mobile */
 .safe-top { padding-top: env(safe-area-inset-top, 0px); }
 .safe-bottom { padding-bottom: env(safe-area-inset-bottom, 0px); }

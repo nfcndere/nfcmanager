@@ -47,33 +47,33 @@ export function AccountView({ user }: { user: SessionUser }) {
     <div className="grid gap-6 lg:grid-cols-2">
       <section className="nfc-card p-5 shadow-xs">
         <div className="flex items-center gap-3">
-          <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--nfc-green)]/15 text-[var(--nfc-green)] dark:text-[var(--nfc-yellow)]">
+          <span className="flex h-10 w-10 items-center justify-center rounded-[10px] bg-[var(--accent-soft)] text-[var(--accent)]">
             <UserCheck className="h-5 w-5" />
           </span>
           <div>
-            <h2 className="font-display text-lg font-bold uppercase tracking-wide">Profil connecté</h2>
-            <p className="text-xs text-[var(--nfc-muted)]">Informations du compte sur nfcwebsite</p>
+            <h2 className="text-base font-semibold text-[var(--text)]">Profil utilisateur</h2>
+            <p className="text-xs text-[var(--text-muted)]">Informations de session active</p>
           </div>
         </div>
 
-        <dl className="mt-5 space-y-3 text-sm">
-          <div className="flex items-center justify-between border-b border-[var(--nfc-divider)] pb-2.5">
-            <dt className="text-[var(--nfc-muted)]">Nom</dt>
-            <dd className="font-semibold">{user.name || 'Non renseigné'}</dd>
+        <dl className="mt-5 space-y-3 text-xs">
+          <div className="flex items-center justify-between border-b border-[var(--border)] pb-2.5">
+            <dt className="text-[var(--text-muted)]">Nom</dt>
+            <dd className="font-medium text-[var(--text)]">{user.name || 'Non renseigné'}</dd>
           </div>
-          <div className="flex items-center justify-between border-b border-[var(--nfc-divider)] pb-2.5">
-            <dt className="text-[var(--nfc-muted)]">E-mail</dt>
-            <dd className="font-mono text-xs font-semibold">{user.email}</dd>
+          <div className="flex items-center justify-between border-b border-[var(--border)] pb-2.5">
+            <dt className="text-[var(--text-muted)]">E-mail</dt>
+            <dd className="font-mono text-xs text-[var(--text)]">{user.email}</dd>
           </div>
-          <div className="flex items-center justify-between border-b border-[var(--nfc-divider)] pb-2.5">
-            <dt className="text-[var(--nfc-muted)]">Rôle</dt>
+          <div className="flex items-center justify-between border-b border-[var(--border)] pb-2.5">
+            <dt className="text-[var(--text-muted)]">Rôle</dt>
             <dd>
               <StatusBadge tone="brand">{user.role}</StatusBadge>
             </dd>
           </div>
           <div className="flex items-center justify-between">
-            <dt className="text-[var(--nfc-muted)]">Identifiant</dt>
-            <dd className="font-mono text-xs text-[var(--nfc-muted)]">{user.id}</dd>
+            <dt className="text-[var(--text-muted)]">Identifiant</dt>
+            <dd className="font-mono text-[11px] text-[var(--text-soft)]">{user.id}</dd>
           </div>
         </dl>
 
@@ -84,14 +84,14 @@ export function AccountView({ user }: { user: SessionUser }) {
 
       <section className="nfc-card p-5 shadow-xs">
         <div className="flex items-center gap-3">
-          <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-[var(--nfc-green)]/15 text-[var(--nfc-green)] dark:text-[var(--nfc-yellow)]">
+          <span className="flex h-10 w-10 items-center justify-center rounded-[10px] bg-[var(--accent-soft)] text-[var(--accent)]">
             <KeyRound className="h-5 w-5" />
           </span>
           <div>
-            <h2 className="font-display text-lg font-bold uppercase tracking-wide">
+            <h2 className="text-base font-semibold text-[var(--text)]">
               Changer mon mot de passe
             </h2>
-            <p className="text-xs text-[var(--nfc-muted)]">Minimum 8 caractères</p>
+            <p className="text-xs text-[var(--text-muted)]">Minimum 8 caractères</p>
           </div>
         </div>
 

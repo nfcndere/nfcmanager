@@ -12,7 +12,11 @@ type BeforeInstallPromptEvent = Event & {
 export function PwaInstallModal() {
   const [showModal, setShowModal] = useState(false);
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
-  const [isIos, setIsIos] = useState(false);
+  const [isIos] = useState(() =>
+    typeof window !== 'undefined'
+      ? /iphone|ipad|ipod/i.test(navigator.userAgent.toLowerCase())
+      : false,
+  );
   const [isInstalling, setIsInstalling] = useState(false);
 
   useEffect(() => {
@@ -33,9 +37,6 @@ export function PwaInstallModal() {
       /android|iphone|ipad|ipod|windows phone/i.test(navigator.userAgent.toLowerCase()) ||
       (window.matchMedia('(max-width: 768px)').matches && 'ontouchstart' in window);
 
-    const isIosDevice = /iphone|ipad|ipod/i.test(navigator.userAgent.toLowerCase());
-    setIsIos(isIosDevice);
-
     // Écoute de l'événement natif d'installation Chromium (Android, Chrome, Edge)
     const handleBeforeInstallPrompt = (e: Event) => {
       e.preventDefault();
@@ -48,7 +49,7 @@ export function PwaInstallModal() {
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
 
     // Pour iOS Safari : afficher la modale guidée
-    if (isMobileDevice && isIosDevice) {
+    if (isMobileDevice && isIos) {
       const iosSeen = localStorage.getItem('nfc_pwa_ios_seen');
       if (!iosSeen) {
         const timer = setTimeout(() => setShowModal(true), 600);
@@ -62,7 +63,7 @@ export function PwaInstallModal() {
     return () => {
       window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
     };
-  }, []);
+  }, [isIos]);
 
   const handleInstallClick = async () => {
     if (deferredPrompt) {
@@ -136,7 +137,7 @@ export function PwaInstallModal() {
               </p>
               <ol className="list-decimal pl-4 space-y-0.5 text-[11px] text-[var(--nfc-muted)]">
                 <li>Appuyez sur <strong>Partager</strong> <span className="font-mono">⎋</span>.</li>
-                <li>Sélectionnez <strong>Sur l'écran d'accueil</strong>.</li>
+                <li>Sélectionnez <strong>Sur l’écran d’accueil</strong>.</li>
                 <li>Appuyez sur <strong>Ajouter</strong>.</li>
               </ol>
               <Button
@@ -160,7 +161,7 @@ export function PwaInstallModal() {
               onClick={handleInstallClick}
             >
               <Download className="h-3.5 w-3.5 mr-1" />
-              Installer sur l'écran d'accueil
+              Installer sur l’écran d’accueil
             </Button>
           )}
         </div>

@@ -182,13 +182,13 @@ export function SettingsManagement({ isAdmin }: { isAdmin: boolean }) {
         <section className="nfc-card p-5 shadow-2xs lg:col-span-2">
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2.5">
-              <Settings className="h-5 w-5 text-[var(--nfc-green)]" />
+              <Settings className="h-5 w-5 text-[var(--accent)]" />
               <div>
-                <h2 className="font-display text-lg font-bold uppercase tracking-wide">
-                  Réglages publics du site (ClubSetting)
+                <h2 className="text-base font-semibold text-[var(--text)]">
+                  Réglages publics du club
                 </h2>
-                <p className="text-xs text-[var(--nfc-muted)]">
-                  Ces valeurs alimentent la page d’accueil, la billetterie et la page Académie de nfcwebsite.
+                <p className="text-xs text-[var(--text-muted)]">
+                  Ces valeurs alimentent la page d’accueil, la billetterie et l’Académie de nfcwebsite.
                 </p>
               </div>
             </div>
@@ -234,9 +234,9 @@ export function SettingsManagement({ isAdmin }: { isAdmin: boolean }) {
               </Field>
             </div>
 
-            <div className="rounded-2xl border border-[var(--nfc-divider)] bg-[var(--nfc-input-bg)] p-4">
-              <h3 className="mb-3 flex items-center gap-2 font-display text-sm font-bold uppercase tracking-wide">
-                <Globe className="h-4 w-4 text-[var(--nfc-green)]" />
+            <div className="rounded-[12px] border border-[var(--border)] bg-[var(--bg-subtle)] p-4">
+              <h3 className="mb-3 flex items-center gap-2 text-xs font-semibold text-[var(--text)]">
+                <Globe className="h-4 w-4 text-[var(--accent)]" />
                 Indicateurs publics de l’Académie
               </h3>
               <div className="grid gap-4 sm:grid-cols-3">

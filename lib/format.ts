@@ -25,6 +25,17 @@ export function formatDoualaDate(
   }).format(date);
 }
 
+export function formatDoualaTime(dateInput: string | Date | null | undefined): string {
+  if (!dateInput) return '';
+  const date = typeof dateInput === 'string' ? new Date(dateInput) : dateInput;
+  if (!Number.isFinite(date.getTime())) return '';
+  return new Intl.DateTimeFormat('fr-FR', {
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: DOUALA_TIMEZONE,
+  }).format(date);
+}
+
 /** Convertit une date ISO UTC vers la valeur attendue par `<input type="datetime-local">` en fuseau Africa/Douala (+01:00). */
 export function toDoualaDateTimeLocalInput(iso: string | null | undefined): string {
   if (!iso) return '';

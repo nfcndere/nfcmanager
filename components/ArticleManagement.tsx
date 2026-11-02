@@ -20,6 +20,7 @@ import type { ArticleRecord, MediaRecord } from '@/lib/api/schemas';
 import { DataState } from '@/components/DataState';
 import {
   Button,
+  Card,
   ConfirmDialog,
   Field,
   Input,
@@ -313,13 +314,13 @@ function ArticleManagementInner({ canWrite }: { canWrite: boolean }) {
       >
         <div className="grid gap-4 md:grid-cols-2">
           {filteredArticles.map((article) => (
-            <article
+            <Card
               key={article.id}
-              className="flex flex-col justify-between overflow-hidden nfc-card shadow-2xs"
+              className="flex flex-col justify-between overflow-hidden p-0 transition-subtle"
             >
               <div>
                 {article.cover?.url && (
-                  <div className="relative aspect-video w-full overflow-hidden bg-[var(--nfc-input-bg)]">
+                  <div className="relative aspect-video w-full overflow-hidden bg-[var(--bg-subtle)] border-b border-[var(--border)]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
                       src={article.cover.url}
@@ -328,32 +329,32 @@ function ArticleManagementInner({ canWrite }: { canWrite: boolean }) {
                     />
                   </div>
                 )}
-                <div className="p-4">
+                <div className="p-5">
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[var(--nfc-green)] dark:text-[var(--nfc-yellow)]">
+                    <span className="text-[11px] font-medium text-[var(--accent)]">
                       {article.category || 'Actualité'}
                     </span>
-                    <StatusBadge tone={article.published ? 'success' : 'warning'}>
+                    <StatusBadge tone={article.published ? 'success' : 'neutral'}>
                       {article.published ? 'Publié' : 'Brouillon'}
                     </StatusBadge>
                   </div>
 
-                  <h3 className="mt-2 font-display text-lg font-bold leading-snug">
+                  <h3 className="mt-2 text-sm font-semibold text-[var(--text)] leading-snug">
                     {article.title}
                   </h3>
-                  <p className="mt-1 font-mono text-xs text-[var(--nfc-muted)]">/{article.slug}</p>
+                  <p className="mt-1 font-mono text-[11px] text-[var(--text-soft)]">/{article.slug}</p>
 
                   {article.summary && (
-                    <p className="mt-2 line-clamp-2 text-xs text-[var(--nfc-muted)]">
+                    <p className="mt-2 line-clamp-2 text-xs text-[var(--text-muted)] leading-relaxed">
                       {article.summary}
                     </p>
                   )}
                 </div>
               </div>
 
-              <div className="border-t border-[var(--nfc-divider)] px-4 py-3">
+              <div className="border-t border-[var(--border)] px-5 py-3">
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <span className="text-xs text-[var(--nfc-muted)]">
+                  <span className="text-[11px] text-[var(--text-soft)]">
                     {article.publishedAt
                       ? `Publié le ${formatDoualaDate(article.publishedAt)}`
                       : `Modifié le ${formatDoualaDate(article.updatedAt)}`}
@@ -375,7 +376,7 @@ function ArticleManagementInner({ canWrite }: { canWrite: boolean }) {
                         size="sm"
                         variant="ghost"
                         onClick={() => setDeletingArticle(article)}
-                        className="text-red-600 hover:bg-red-500/10 dark:text-red-400"
+                        className="text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30"
                       >
                         <Trash2 className="h-3.5 w-3.5" />
                       </Button>
@@ -383,7 +384,7 @@ function ArticleManagementInner({ canWrite }: { canWrite: boolean }) {
                   )}
                 </div>
               </div>
-            </article>
+            </Card>
           ))}
         </div>
       </DataState>
